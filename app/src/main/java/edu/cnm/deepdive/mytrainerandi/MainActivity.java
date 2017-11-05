@@ -15,12 +15,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Spinner;
+import java.util.Date;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
-  public static final String DATABASE_NAME = "mydatabase";
+  //Generate unique id and date to be kept in database for traceability.
+  public class ClientSetup {
 
+    private UUID mId;
+    private Date mDate;
+
+    public ClientSetup() {
+      mId = UUID.randomUUID();
+      mDate = new Date();
+    }
+
+    // Getter for Unique ID
+    public UUID getId() {
+      return mId;
+    }
+
+    // Getters and Setters for Date
+    public Date getDate() {
+      return mDate;
+    }
+
+    public void setDate(Date date) {
+      mDate = date;
+    }
+  }
+
+
+  //SQLite setup
+  public static final String DATABASE_NAME = "mydatabase";
   SQLiteDatabase mDatabase;
 
   EditText editTextName;
@@ -28,7 +57,6 @@ public class MainActivity extends AppCompatActivity
 
   /**
    * On Create
-   * @param savedInstanceState
    */
 
   @Override
@@ -57,7 +85,7 @@ public class MainActivity extends AppCompatActivity
 
   private void createTable() {
     String sql = "CREATE TABLE client (\n"
-        + "    id INTEGER NOT NULL CONSTRAINT client_pk PRIMARY KEY AUTOINCREMENT,\n"
+        + "    mId INTEGER NOT NULL CONSTRAINT client_pk PRIMARY KEY AUTOINCREMENT,\n"
         + "    name varchar(200) NOT NULL,\n"
         + "    goal varchar(200) NOT NULL,\n"
         + "    entrydate datetime NOT NULL,\n"
@@ -126,7 +154,6 @@ public class MainActivity extends AppCompatActivity
       ft.replace(R.id.content_main, fragment);
       ft.commit();
     }
-
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
