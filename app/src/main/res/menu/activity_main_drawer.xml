@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_home"
+      android:icon="@drawable/ic_menu_camera"
+      android:title="Home"/>
+    <item
+      android:id="@+id/nav_day"
+      android:icon="@drawable/ic_menu_gallery"
+      android:title="Day Schedule"/>
+    <item
+      android:id="@+id/nav_trainer"
+      android:icon="@drawable/ic_menu_slideshow"
+      android:title="Trainer Plan"/>
+    <item
+      android:id="@+id/nav_client"
+      android:icon="@drawable/ic_menu_manage"
+      android:title="Client Stats"/>
+  </group>
+
+
+</menu>
