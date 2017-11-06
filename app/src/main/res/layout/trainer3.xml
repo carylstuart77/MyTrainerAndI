@@ -7,7 +7,7 @@
   <TextView
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:text="Trainer Plan"
+    android:text="Trainer Plan-Spinners"
     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
     android:id="@+id/textView2"
     android:layout_width="wrap_content"
