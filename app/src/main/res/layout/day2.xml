@@ -1,43 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--android:background="#006699"-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="horizontal"
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  >
-
-  <TextView
-    android:id="@+id/textView2"
-    android:layout_weight="0.15"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="20dp"
-    android:textStyle="bold"
-    android:text="Muscle"/>
-
+  tools:context="com.bignerdranch.android.constraintlayout.MainActivity">
+  <DatePicker
+    android:id="@+id/datePicker3"
+    android:layout_width="348dp"
+    android:layout_height="88dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0"/>
   <TextView
     android:id="@+id/textView3"
-    android:layout_weight="0.15"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="20dp"
-    android:textStyle="bold"
-    android:text="Exercise"/>
+    android:layout_width="0dp"
+    android:layout_height="26dp"
+    android:layout_marginTop="8dp"
+    android:text="Muscle"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    android:textSize="24sp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/datePicker3"
+    android:layout_marginLeft="16dp"
+    android:layout_marginStart="16dp"/>
   <TextView
     android:id="@+id/textView4"
-    android:layout_weight="0.15"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="20dp"
-    android:textStyle="bold"
-    android:text="Sets"/>
+    android:layout_width="89dp"
+    android:layout_height="29dp"
+    android:layout_marginTop="8dp"
+    android:text="Exercise"
+    android:textAlignment="center"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    android:textSize="24sp"
+    app:layout_constraintTop_toBottomOf="@+id/datePicker3"
+    app:layout_constraintRight_toLeftOf="@+id/textView5"
+    android:layout_marginRight="32dp"
+    android:layout_marginEnd="32dp"
+    app:layout_constraintLeft_toRightOf="@+id/textView3"
+    android:layout_marginLeft="8dp"
+    android:layout_marginStart="8dp"/>
   <TextView
     android:id="@+id/textView5"
-    android:layout_weight="0.15"
-    android:layout_width="wrap_content"
+    android:layout_width="47dp"
+    android:layout_height="29dp"
+    android:text="Sets"
+    android:textAlignment="center"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    android:textSize="24sp"
+    android:layout_marginTop="8dp"
+    app:layout_constraintTop_toBottomOf="@+id/datePicker3"
+    app:layout_constraintRight_toLeftOf="@+id/textView6"
+    android:layout_marginRight="16dp"
+    android:layout_marginEnd="16dp"/>
+  <TextView
+    android:id="@+id/textView6"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:textSize="20dp"
-    android:textStyle="bold"
-    android:text="Reps"/>
+    android:layout_marginTop="8dp"
+    android:text="Reps"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    android:textSize="24sp"
+    app:layout_constraintTop_toBottomOf="@+id/datePicker3"
+    android:layout_marginRight="16dp"
+    app:layout_constraintRight_toRightOf="parent"
+    android:layout_marginEnd="16dp"/>
+  <ListView
+    android:id="@+id/listViewDay"
+    android:layout_width="358dp"
+    android:layout_height="353dp"
+    android:layout_marginTop="0dp"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/datePicker3"
+    app:layout_constraintVertical_bias="0.778">
 
-</LinearLayout>
+  </ListView>
+
+</android.support.constraint.ConstraintLayout>

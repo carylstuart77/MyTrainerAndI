@@ -22,7 +22,7 @@
     android:layout_alignParentTop="true"
     android:ems="10"
     android:inputType="textPersonName"
-    android:text="Welcome Caryl"
+    android:text="Welcome Caryl!"
     android:textAlignment="center"
     android:textSize="24sp"/>
 </RelativeLayout>

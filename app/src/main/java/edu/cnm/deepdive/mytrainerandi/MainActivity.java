@@ -13,7 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import java.util.Date;
 import java.util.UUID;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     // Getter for Unique ID
     public UUID getId() {
+      System.out.println(mId);
       return mId;
     }
 
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity
   SQLiteDatabase mDatabase;
 
   EditText editTextName;
+
   Spinner spinnerGoal;
 
   /**
@@ -63,6 +68,8 @@ public class MainActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
@@ -77,13 +84,18 @@ public class MainActivity extends AppCompatActivity
 
     displaySelectedScreen(R.id.nav_home);
 
+;
+
     /**
      * SQLite Database
      */
     mDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
     createTable();
+
     spinnerGoal = (Spinner) findViewById(R.id.spinnerGoal);
   }
+
+  //TODO:Check if db exists.  If so perform insert not create.
 
   private void createTable() {
     String sql = "CREATE TABLE client (\n"
@@ -157,6 +169,8 @@ public class MainActivity extends AppCompatActivity
       ft.commit();
     }
 
+
+
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
   }
@@ -169,6 +183,8 @@ public class MainActivity extends AppCompatActivity
 
     displaySelectedScreen(id);
 
+
     return true;
   }
+
 }
