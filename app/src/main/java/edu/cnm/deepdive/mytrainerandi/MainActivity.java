@@ -84,13 +84,13 @@ public class MainActivity extends AppCompatActivity
 
     displaySelectedScreen(R.id.nav_home);
 
-;
 
     /**
      * SQLite Database
+     * TODO: add back in
      */
-    mDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-    createTable();
+//    mDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+//    createTable();
 
     spinnerGoal = (Spinner) findViewById(R.id.spinnerGoal);
   }
@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity
       ft.replace(R.id.content_main, fragment);
       ft.commit();
     }
-
 
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

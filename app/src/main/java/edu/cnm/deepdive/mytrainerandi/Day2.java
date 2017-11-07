@@ -14,7 +14,17 @@ public class Day2 extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-   return inflater.inflate(R.layout.day2, container, false);
+
+    View inflate = inflater.inflate(R.layout.day2, container, false);
+
+
+    String[] exercises = {"Biceps", "Triceps", "Chest", "Back"};
+    ListAdapter workoutAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
+        exercises);
+    ListView workoutListView = (ListView) inflate.findViewById(R.id.listViewDay);
+    workoutListView.setAdapter(workoutAdapter);
+
+    return inflate;
 
 
   }
@@ -24,7 +34,10 @@ public class Day2 extends Fragment {
     super.onViewCreated(view, savedInstanceState);
 
     getActivity().setTitle("Day's Schedule");
+
+
   }
+
 
 
 }
