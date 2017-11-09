@@ -18,57 +18,32 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
 import java.util.Date;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
-  //Generate unique id and date to be kept in database for traceability.
-  public class ClientSetup {
-
-    private UUID mId;
-    private Date mDate;
-
-    public ClientSetup() {
-      mId = UUID.randomUUID();
-      mDate = new Date();
-    }
-
-    // Getter for Unique ID
-    public UUID getId() {
-      System.out.println(mId);
-      return mId;
-    }
-
-    // Getters and Setters for Date
-    public Date getDate() {
-      return mDate;
-    }
-
-    public void setDate(Date date) {
-      mDate = date;
-    }
-  }
-
-
-  //SQLite setup
-  public static final String DATABASE_NAME = "mydatabase";
-  SQLiteDatabase mDatabase;
+  public DatabaseHelper dbHelper;
+  private ListView databaseListView;
+  private SQLiteDatabase sqLiteDatabase;
+  private OrmHelper helper = null;
 
   EditText editTextName;
-
   Spinner spinnerGoal;
 
   /**
-   * On Create
+   * On Create: Called when the activity is starting.
+   * This is where most initialization should go:
    */
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
 
+    //Inflate the activity UI using findViewById
+    setContentView(R.layout.activity_main);
 
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
@@ -84,32 +59,24 @@ public class MainActivity extends AppCompatActivity
 
     displaySelectedScreen(R.id.nav_home);
 
-
-    /**
-     * SQLite Database
-     * TODO: add back in
-     */
-//    mDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-//    createTable();
-
     spinnerGoal = (Spinner) findViewById(R.id.spinnerGoal);
   }
 
-  //TODO:Check if db exists.  If so perform insert not create.
-
-  private void createTable() {
-    String sql = "CREATE TABLE client (\n"
-        + "    mId INTEGER NOT NULL CONSTRAINT client_pk PRIMARY KEY AUTOINCREMENT,\n"
-        + "    name varchar(200) NOT NULL,\n"
-        + "    goal varchar(200) NOT NULL,\n"
-        + "    entrydate datetime NOT NULL,\n"
-        + "    weight double NOT NULL,\n"
-        + "    height double NOT NULL,\n"
-        + "    bmi double NOT NULL\n"
-        + ");";
-    mDatabase.execSQL(sql);
+  //creates an instance of the ormhelper
+  public synchronized OrmHelper getHelper() {
+    if (helper == null) {
+      helper = OpenHelperManager.getHelper(this, OrmHelper.class);
+    }
+    return helper;
   }
 
+//Try to prevent memory leaks by setting helper to null when not in use.
+  public synchronized void releaseHelper() {
+    if (helper != null) {
+      OpenHelperManager.releaseHelper();
+      helper = null;
+    }
+  }
 
   @Override
   public void onBackPressed() {
@@ -120,6 +87,9 @@ public class MainActivity extends AppCompatActivity
       super.onBackPressed();
     }
   }
+
+  //LayoutInflater is one of the Android System Services that is responsible
+  // for taking your XML files that define a layout, and converting them into View objects.
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,12 +133,13 @@ public class MainActivity extends AppCompatActivity
         fragment = new Client4();
         break;
     }
+
+    //After nav bar selection is picked, replace content_main with choice and run new screen.
     if (fragment != null) {
       android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
       ft.replace(R.id.content_main, fragment);
       ft.commit();
     }
-
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);

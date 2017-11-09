@@ -15,8 +15,10 @@ public class Day2 extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
-    View inflate = inflater.inflate(R.layout.day2, container, false);
+    //LayoutInflater is one of the Android System Services that is responsible
+    // for taking your XML files that define a layout, and converting them into View objects.
 
+    View inflate = inflater.inflate(R.layout.day2, container, false);
 
     String[] exercises = {"Biceps", "Triceps", "Chest", "Back"};
     ListAdapter workoutAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
@@ -25,7 +27,6 @@ public class Day2 extends Fragment {
     workoutListView.setAdapter(workoutAdapter);
 
     return inflate;
-
 
   }
 
