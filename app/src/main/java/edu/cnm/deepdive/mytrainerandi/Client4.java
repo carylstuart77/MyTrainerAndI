@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
@@ -15,13 +16,27 @@ import java.sql.SQLException;
 public class Client4 extends Fragment implements Button.OnClickListener{
 
   private OrmHelper helper;
+  private TextView mClientName;
+  private TextView mClientWeight;
+  private TextView mClientHeight;
+  private TextView mClientBMI;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View inflate = inflater.inflate(R.layout.client4, container, false);
+
+    mClientName = inflate.findViewById(R.id.editClientName);
+    mClientWeight = inflate.findViewById(R.id.editClientWeight);
+    mClientHeight = inflate.findViewById(R.id.editClientHeight);
+    mClientBMI = inflate.findViewById(R.id.editClientBMI);
+
+    //Add Client Data
     Button addbutton = inflate.findViewById(R.id.buttonAddClient);
     addbutton.setOnClickListener(this);
+   //View Button
+    Button viewbutton = inflate.findViewById(R.id.buttonViewClient);
+    viewbutton.setOnClickListener(this);
     return inflate;
   }
 
@@ -45,9 +60,13 @@ public class Client4 extends Fragment implements Button.OnClickListener{
      //helper.onCreate(client.db, "Insert data here" + "VALUES (");
     try {
       Client newclient = new Client();
-      newclient.setName("Caryl Baca");
-      newclient.setGoal("Tone Muscle");
-      newclient.setLevel("L1");
+      newclient.setName(mClientName.getText().toString());
+      newclient.setName(mClientWeight.getText().toString());
+      newclient.setName(mClientHeight.getText().toString());
+      newclient.setName(mClientBMI.getText().toString());
+      //newclient.setName("Caryl Baca");
+      //newclient.setGoal("Tone Muscle");
+      //newclient.setLevel("L1");
       helper.getClientDao().create(newclient);
     } catch (SQLException e) {
       e.printStackTrace();
