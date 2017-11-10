@@ -18,10 +18,10 @@ public class FitnessHistory {
   @DatabaseField(columnName = "BMI", canBeNull = false)
   private double bmi;
 
-  @DatabaseField(columnName = "INJURY", canBeNull = false)
+  @DatabaseField(columnName = "INJURY"/*, canBeNull = false*/)
   private String injury;
 
-  @DatabaseField(columnName = "FAT", canBeNull = false)
+  @DatabaseField(columnName = "FAT"/*, canBeNull = false*/)
   private double fat;
 
   public int getId() {

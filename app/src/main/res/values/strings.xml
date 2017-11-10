@@ -9,6 +9,7 @@
   <string name="trainer_plan">Trainers Plan for you. </string>
 
   <string-array name="goal_arrays">
+    <item>Pick one:</item>
     <item>Muscle Mass</item>
     <item>Weight Loss</item>
     <item>Weight Gain</item>

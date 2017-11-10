@@ -22,10 +22,12 @@ public class Client {
   @DatabaseField(columnName = "NAME", canBeNull = false)
   private String name;
 
-  @DatabaseField(columnName = "GOAL", canBeNull = false)
-  private String goal;
+//  @DatabaseField(columnName = "GOAL", canBeNull = false)
+//  private String goal;
+  @DatabaseField(columnName = "GOAL")
+   private String goal;
 
-  @DatabaseField(columnName = "LEVEL", canBeNull = false)
+  @DatabaseField(columnName = "LEVEL"/*, canBeNull = false*/)
   private String level;
 
   public int getId() {

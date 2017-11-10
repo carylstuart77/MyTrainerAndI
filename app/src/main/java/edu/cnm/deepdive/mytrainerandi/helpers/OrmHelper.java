@@ -7,22 +7,27 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
+import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
+import edu.cnm.deepdive.mytrainerandi.entity.Goal;
+import edu.cnm.deepdive.mytrainerandi.entity.GoalLevel;
 import java.sql.SQLException;
 
 public class OrmHelper extends OrmLiteSqliteOpenHelper{
 
-  private static final String DATABASE_NAME = "client.db";
+  private static final String DATABASE_NAME = "mytrainerandi.db";
   private static final int DATABASE_VERSION = 1;
+
   //params are object type; cannot use primitives
   private Dao<Client, Integer> clientDao = null;
   private Dao<FitnessHistory, Integer> fitnessHistoryDao = null;
-
+  private Dao<Exercise, Integer> exerciseDao = null;
+  private Dao<Goal, Integer> goalDao = null;
+  private Dao<GoalLevel, Integer> goallevelDao = null;
 
   public OrmHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
   }
-
 
 //Client.class is a class object.
   @Override
@@ -30,7 +35,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper{
     try {
       //Creates the tables of class; classes are entities; class fields are attributes.
       TableUtils.createTable(connectionSource, Client.class);
-      populateDatabase();
+      TableUtils.createTable(connectionSource, Exercise.class);
+      TableUtils.createTable(connectionSource, FitnessHistory.class);
+      TableUtils.createTable(connectionSource, Goal.class);
+      TableUtils.createTable(connectionSource, GoalLevel.class);
+//      populateDatabase();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -59,6 +68,13 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper{
   }
 
   //handle Dao; If there are more than one thread it will synchronize
+  public synchronized Dao<Exercise, Integer> getExerciseDao() throws SQLException {
+    if (exerciseDao == null){
+      exerciseDao = getDao(Exercise.class);
+    }
+    return exerciseDao;
+  }
+
   public synchronized Dao<FitnessHistory, Integer> getFitnessHistoryDao() throws SQLException {
     if (fitnessHistoryDao == null){
       fitnessHistoryDao = getDao(FitnessHistory.class);
@@ -68,11 +84,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper{
 
   //one record saved to database.
 
-  private void populateDatabase() throws SQLException {
-    Client client = new Client();
-    client.setName("Caryl Stuart");
-    client.setGoal("Muscle Mass");;
-    client.setLevel("1");
-    getClientDao().create(client);
-  }
+//  private void populateDatabase() throws SQLException {
+//    Client client = new Client();
+//    client.setName("Charlie Smith");
+//    client.setGoal("Muscle Mass");;
+//    client.setLevel("2");
+//    getClientDao().create(client);
+//  }
 }

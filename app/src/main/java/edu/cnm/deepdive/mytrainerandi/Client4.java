@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
+import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
 import java.sql.SQLException;
 
@@ -49,25 +50,22 @@ public class Client4 extends Fragment implements Button.OnClickListener{
 
   @Override
   public void onClick(View view) {
-    //validation
+    //add validation
     //add data
-    //insert instances of my entities
-    //new onclick for view
-    //add switch
-
-    // helper.getFitnessHistoryDao()
-    //client id, date, name, goal, level
-     //helper.onCreate(client.db, "Insert data here" + "VALUES (");
     try {
       Client newclient = new Client();
       newclient.setName(mClientName.getText().toString());
-      newclient.setName(mClientWeight.getText().toString());
-      newclient.setName(mClientHeight.getText().toString());
-      newclient.setName(mClientBMI.getText().toString());
       //newclient.setName("Caryl Baca");
       //newclient.setGoal("Tone Muscle");
       //newclient.setLevel("L1");
       helper.getClientDao().create(newclient);
+
+      FitnessHistory newfitnesshistory = new FitnessHistory();
+      newfitnesshistory.setWeight(Double.parseDouble(mClientWeight.getText().toString()));
+      newfitnesshistory.setHeight(Integer.parseInt(mClientHeight.getText().toString()));
+      newfitnesshistory.setBmi(Double.parseDouble(mClientBMI.getText().toString()));
+      helper.getFitnessHistoryDao().create(newfitnesshistory);
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
