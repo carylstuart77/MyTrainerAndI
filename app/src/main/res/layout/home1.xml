@@ -5,13 +5,13 @@
   android:layout_height="match_parent">
 
   <TextView
-    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
     android:id="@+id/textView2"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/speople_men_women"
+    android:layout_alignParentStart="true"
     android:layout_centerVertical="true"
-    android:layout_alignParentStart="true"/>
+    android:background="@drawable/body_comp"
+    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
   <TextView
     android:id="@+id/editText"
     android:textStyle="bold"
@@ -21,6 +21,7 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentTop="true"
     android:ems="10"
+    android:gravity="center_vertical"
     android:inputType="textPersonName"
     android:text="Welcome Caryl!"
     android:textAlignment="center"

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -21,6 +22,7 @@ public class Client4 extends Fragment implements Button.OnClickListener{
   private TextView mClientWeight;
   private TextView mClientHeight;
   private TextView mClientBMI;
+  private TextView mClientGoal;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,6 +33,15 @@ public class Client4 extends Fragment implements Button.OnClickListener{
     mClientWeight = inflate.findViewById(R.id.editClientWeight);
     mClientHeight = inflate.findViewById(R.id.editClientHeight);
     mClientBMI = inflate.findViewById(R.id.editClientBMI);
+    //mClientGoal = inflate.findViewById(R.id.spinnerGoal);
+
+//    Spinner spinner = (Spinner) inflate.findViewById(R.id.spinnerGoal);
+//    String size = spinner.getSelectedItem().toString(); // Small, Medium, Large
+//
+//    int spinner_pos = spinner.getSelectedItemPosition();
+//    String[] size_values = getResources().getStringArray(R.array.goal_arrays);
+//    String.valueOf(size_values[spinner_pos]); // 12, 16, 20
+
 
     //Add Client Data
     Button addbutton = inflate.findViewById(R.id.buttonAddClient);
@@ -55,6 +66,7 @@ public class Client4 extends Fragment implements Button.OnClickListener{
     try {
       Client newclient = new Client();
       newclient.setName(mClientName.getText().toString());
+      //newclient.setGoal(spinnerGoal);
       //newclient.setName("Caryl Baca");
       //newclient.setGoal("Tone Muscle");
       //newclient.setLevel("L1");

@@ -25,7 +25,7 @@
     android:layout_alignParentEnd="true"
     android:layout_below="@+id/textView3"
     android:layout_toEndOf="@+id/textView4"
-    android:hint="Enter Client Name"
+    android:hint="First and Last"
     android:textAlignment="viewStart"/>
 
   <EditText
@@ -48,7 +48,7 @@
     android:layout_alignStart="@+id/editClientName"
     android:layout_below="@+id/editClientWeight"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:hint="Enter Client Height"
+    android:hint="Inches"
     android:inputType="numberDecimal"
     />
   <EditText
@@ -59,7 +59,7 @@
     android:layout_alignStart="@+id/editClientHeight"
     android:layout_below="@+id/editClientHeight"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:hint="Enter Client BMI"
+    android:hint="BMI"
     android:inputType="numberDecimal"/>
 
   <LinearLayout
@@ -121,6 +121,7 @@
     android:layout_toStartOf="@+id/editClientName"
     android:gravity="left|center"
     android:text="Client Name:"
+    android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
   <TextView
@@ -133,6 +134,7 @@
     android:layout_toStartOf="@+id/editClientWeight"
     android:gravity="left|center"
     android:text="Client Weight:"
+    android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
   <TextView
@@ -145,6 +147,7 @@
     android:layout_toStartOf="@+id/editClientHeight"
     android:gravity="left|center"
     android:text="Client Height:"
+    android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
   <TextView
@@ -157,6 +160,7 @@
     android:layout_toStartOf="@+id/editClientHeight"
     android:gravity="left|center"
     android:text="Client BMI:"
+    android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
 

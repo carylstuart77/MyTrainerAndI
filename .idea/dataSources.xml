@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MyTrainerDB" uuid="cb188202-9177-47dc-b0c8-d0f27860d732">
+    <data-source source="LOCAL" name="Android SQLite" uuid="e25c6628-0e6a-466e-a577-4c572909378d">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Android SQLite" uuid="7e7e5768-9ef4-4083-b0aa-01b2224bf963">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>
@@ -13,11 +18,6 @@
           <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/xerial-sqlite-license.txt</url>
         </library>
       </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="Android SQLite" uuid="66793050-786f-4809-b6e8-932472fb2c86">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>
     </data-source>
   </component>
 </project>
