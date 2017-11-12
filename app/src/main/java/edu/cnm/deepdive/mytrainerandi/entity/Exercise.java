@@ -9,18 +9,44 @@ public class Exercise {
   @DatabaseField(columnName = "EXERCISE_ID", generatedId = true)
   private int id;
 
-  @DatabaseField(columnName = "NAME", canBeNull = false)
-  private String name;
+  @DatabaseField(columnName = "CIRCUIT"/*, canBeNull = false*/)
+  private String circuit;
 
-  public String getName() {
-    return name;
-  }
+  @DatabaseField(columnName = "MUSCLE"/*, canBeNull = false*/)
+  private String muscle;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  @DatabaseField(columnName = "EXERCISENAME"/*, canBeNull = false*/)
+  private String exercisename;
 
   public int getId() {
     return id;
+  }
+
+  public String getName() {
+    return circuit;
+  }
+
+  public String getCircuit() {
+    return circuit;
+  }
+
+  public void setCircuit(String circuit) {
+    this.circuit = circuit;
+  }
+
+  public String getMuscle() {
+    return muscle;
+  }
+
+  public void setMuscle(String muscle) {
+    this.muscle = muscle;
+  }
+
+  public String getExercisename() {
+    return exercisename;
+  }
+
+  public void setExercisename(String exercisename) {
+    this.exercisename = exercisename;
   }
 }

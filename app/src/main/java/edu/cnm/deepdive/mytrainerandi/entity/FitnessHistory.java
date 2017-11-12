@@ -2,6 +2,7 @@ package edu.cnm.deepdive.mytrainerandi.entity;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import java.sql.Timestamp;
 
 @DatabaseTable(tableName = "FITNESS_HISTORY")
 public class FitnessHistory {
@@ -9,8 +10,9 @@ public class FitnessHistory {
   @DatabaseField(columnName = "FITNESS_HISTORY_ID", generatedId = true)
   private int id;
 
-  @DatabaseField(columnName = "HEIGHT", canBeNull = false)
-  private int height;
+  @DatabaseField(columnName = "CREATED", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+      format = "yyy-MM-dd HH:mm:ss", canBeNull = false, readOnly = true)
+  private Timestamp created;
 
   @DatabaseField(columnName = "WEIGHT", canBeNull = false)
   private double weight;
@@ -18,22 +20,18 @@ public class FitnessHistory {
   @DatabaseField(columnName = "BMI", canBeNull = false)
   private double bmi;
 
-  @DatabaseField(columnName = "INJURY"/*, canBeNull = false*/)
-  private String injury;
-
   @DatabaseField(columnName = "FAT"/*, canBeNull = false*/)
   private double fat;
+
+  @DatabaseField(columnName = "GOAL"/*, canBeNull = false*/)
+  private String goal;
 
   public int getId() {
     return id;
   }
 
-  public int getHeight() {
-    return height;
-  }
-
-  public void setHeight(int height) {
-    this.height = height;
+  public Timestamp getCreated() {
+    return created;
   }
 
   public double getWeight() {
@@ -52,12 +50,12 @@ public class FitnessHistory {
     this.bmi = bmi;
   }
 
-  public String getInjury() {
-    return injury;
+  public String getGoal() {
+    return goal;
   }
 
-  public void setInjury(String injury) {
-    this.injury = injury;
+  public void setGoal(String goal) {
+    this.goal = goal;
   }
 
   public double getFat() {

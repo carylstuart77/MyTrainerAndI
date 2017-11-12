@@ -22,13 +22,8 @@ public class Client {
   @DatabaseField(columnName = "NAME", canBeNull = false)
   private String name;
 
-//  @DatabaseField(columnName = "GOAL", canBeNull = false)
-//  private String goal;
-  @DatabaseField(columnName = "GOAL")
-   private String goal;
-
-  @DatabaseField(columnName = "LEVEL"/*, canBeNull = false*/)
-  private String level;
+  @DatabaseField(columnName = "HEIGHT", canBeNull = false)
+  private int height;
 
   public int getId() {
     return id;
@@ -46,22 +41,14 @@ public class Client {
     this.name = name;
   }
 
-  public void setGoal(String goal) {
-    this.goal = goal;
+  public int getHeight() {
+    return height;
   }
 
-  public void getGoal(String goal) {
-    this.goal = goal;
+  public void setHeight(int height) {
+    this.height = height;
   }
 
-
-  public void setLevel(String level ) {
-    this.level = level;
-  }
-
-  public void getLevel(String level ) {
-    this.level = level;
-  }
 
   //returns the information
 //  @Override

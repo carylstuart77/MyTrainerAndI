@@ -91,7 +91,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return fitnessHistoryDao;
   }
 
-  //one record saved to database.
+  //Goals setup in database upon creationJoh\\\\.
 
   private void populateDatabase() throws SQLException {
 
@@ -105,13 +105,25 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     goalWL.setName("Weight Loss");
     goalWG.setName("Weight Gain");
     goalTM.setName("Tone Musle");
-    goalIH.setName("Injury Healing");
+    goalIH.setName("Injury Active Recovery");
 
     getGoalDao().create(goalMM);
     getGoalDao().create(goalWL);
     getGoalDao().create(goalWG);
     getGoalDao().create(goalTM);
     getGoalDao().create(goalIH);
+
+    Exercise exCircuit = new Exercise();
+    Exercise exMuscle = new Exercise();
+    Exercise exExercise_name = new Exercise();
+
+    exCircuit.setCircuit("lower");
+    exMuscle.setMuscle("hamstring");
+    exExercise_name.setExercisename("Clean Deadlift");
+
+    getExerciseDao().create(exCircuit);
+    getExerciseDao().create(exMuscle);
+    getExerciseDao().create(exExercise_name);
 
   }
 }

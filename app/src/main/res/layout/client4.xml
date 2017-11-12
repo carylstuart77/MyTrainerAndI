@@ -7,7 +7,7 @@
   >
 
   <TextView
-    android:id="@+id/textView3"
+    android:id="@+id/textTitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="19dp"
@@ -23,21 +23,9 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="14dp"
     android:layout_alignParentEnd="true"
-    android:layout_below="@+id/textView3"
+    android:layout_below="@+id/textTitle"
     android:layout_toEndOf="@+id/textView4"
     android:hint="First and Last"
-    android:textAlignment="viewStart"/>
-
-  <EditText
-    android:id="@+id/editClientWeight"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_below="@+id/editClientName"
-    android:layout_toEndOf="@+id/textView11"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:hint="Enter Client Weight"
-    android:inputType="numberDecimal"
     android:textAlignment="viewStart"/>
 
   <EditText
@@ -45,30 +33,54 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
-    android:layout_alignStart="@+id/editClientName"
-    android:layout_below="@+id/editClientWeight"
+    android:layout_below="@+id/editClientName"
+    android:layout_toEndOf="@+id/textClientWeight"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:hint="Inches"
+    android:inputType="numberDecimal"
+    android:textAlignment="viewStart"/>
+
+  <EditText
+    android:id="@+id/editClientWeight"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignStart="@+id/editClientName"
+    android:layout_below="@+id/editClientHeight"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:hint="Pounds"
     android:inputType="numberDecimal"
     />
   <EditText
     android:id="@+id/editClientBMI"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignEnd="@+id/editClientHeight"
-    android:layout_alignStart="@+id/editClientHeight"
-    android:layout_below="@+id/editClientHeight"
+    android:layout_alignEnd="@+id/editClientWeight"
+    android:layout_alignStart="@+id/editClientWeight"
+    android:layout_below="@+id/editClientWeight"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:hint="BMI"
+    android:hint="Body Mass Index"
+    android:inputType="numberDecimal"/>
+  <EditText
+    android:id="@+id/editClientFat"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignEnd="@+id/editClientBMI"
+    android:layout_alignStart="@+id/editClientBMI"
+    android:layout_below="@+id/editClientBMI"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:hint="Fat Percentage"
     android:inputType="numberDecimal"/>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
     android:orientation="vertical"
     android:padding="16dp"
-    android:id="@+id/linearLayout">
+    android:id="@+id/linearLayout"
+    android:layout_marginTop="20dp"
+    android:layout_below="@+id/editClientFat"
+    android:layout_alignParentStart="true">
   </LinearLayout>
 
 
@@ -115,35 +127,23 @@
     android:id="@+id/textClientName1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_above="@+id/editClientWeight"
+    android:layout_above="@+id/editClientHeight"
     android:layout_alignParentStart="true"
     android:layout_alignTop="@+id/editClientName"
     android:layout_toStartOf="@+id/editClientName"
     android:gravity="left|center"
     android:text="Client Name:"
+
     android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
   <TextView
-    android:id="@+id/textClientWt"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignBottom="@+id/editClientWeight"
-    android:layout_alignParentStart="true"
-    android:layout_below="@+id/textClientName1"
-    android:layout_toStartOf="@+id/editClientWeight"
-    android:gravity="left|center"
-    android:text="Client Weight:"
-    android:textAlignment="textEnd"
-    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-    android:textSize="18sp"/>
-  <TextView
-    android:id="@+id/textView11"
+    android:id="@+id/textClientHeight"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@+id/editClientHeight"
     android:layout_alignParentStart="true"
-    android:layout_below="@+id/textClientWt"
+    android:layout_below="@+id/textClientName1"
     android:layout_toStartOf="@+id/editClientHeight"
     android:gravity="left|center"
     android:text="Client Height:"
@@ -151,18 +151,44 @@
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
   <TextView
-    android:id="@+id/textClientHt"
+    android:id="@+id/textClientWeight"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/editClientWeight"
+    android:layout_alignParentStart="true"
+    android:layout_toStartOf="@+id/editClientWeight"
+    android:gravity="left|center"
+    android:text="Client Weight"
+    android:textAlignment="textEnd"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+    android:textSize="18sp"
+    android:layout_below="@+id/editClientHeight"/>
+  <TextView
+    android:id="@+id/textClientBMI"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@+id/editClientBMI"
     android:layout_alignParentStart="true"
-    android:layout_below="@+id/textView11"
-    android:layout_toStartOf="@+id/editClientHeight"
+    android:layout_below="@+id/textClientWeight"
+    android:layout_toStartOf="@+id/editClientWeight"
     android:gravity="left|center"
     android:text="Client BMI:"
     android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
+  <TextView
+    android:id="@+id/textClientFat"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/editClientFat"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/editClientBMI"
+    android:gravity="left|center"
+    android:text="Body Fat %:"
+    android:textAlignment="textEnd"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+    android:textSize="18sp"
+    android:layout_toStartOf="@+id/editClientBMI"/>
 
 
 </RelativeLayout>
