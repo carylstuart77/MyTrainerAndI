@@ -7,7 +7,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
-import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
+import edu.cnm.deepdive.mytrainerandi.entity.Exercises;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
 import edu.cnm.deepdive.mytrainerandi.entity.Goal;
 import edu.cnm.deepdive.mytrainerandi.entity.GoalLevel;
@@ -21,7 +21,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   //params are object type; cannot use primitives
   private Dao<Client, Integer> clientDao = null;
   private Dao<FitnessHistory, Integer> fitnessHistoryDao = null;
-  private Dao<Exercise, Integer> exerciseDao = null;
+  private Dao<Exercises, Integer> exerciseDao = null;
   private Dao<Goal, Integer> goalDao = null;
   private Dao<GoalLevel, Integer> goallevelDao = null;
 
@@ -36,7 +36,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     try {
       //Creates the tables of class; classes are entities; class fields are attributes.
       TableUtils.createTable(connectionSource, Client.class);
-      TableUtils.createTable(connectionSource, Exercise.class);
+      TableUtils.createTable(connectionSource, Exercises.class);
       TableUtils.createTable(connectionSource, FitnessHistory.class);
       TableUtils.createTable(connectionSource, Goal.class);
       TableUtils.createTable(connectionSource, GoalLevel.class);
@@ -77,9 +77,9 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   }
 
   //handle Dao; If there are more than one thread it will synchronize
-  public synchronized Dao<Exercise, Integer> getExerciseDao() throws SQLException {
+  public synchronized Dao<Exercises, Integer> getExerciseDao() throws SQLException {
     if (exerciseDao == null) {
-      exerciseDao = getDao(Exercise.class);
+      exerciseDao = getDao(Exercises.class);
     }
     return exerciseDao;
   }
@@ -113,9 +113,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     getGoalDao().create(goalTM);
     getGoalDao().create(goalIH);
 
-    Exercise exCircuit = new Exercise();
-    Exercise exMuscle = new Exercise();
-    Exercise exExercise_name = new Exercise();
+    //? Ask Chris: How to make this one record?
+    // Also how to feed in from a data source like excel or api
+    Exercises exCircuit = new Exercises();
+    Exercises exMuscle = new Exercises();
+    Exercises exExercise_name = new Exercises();
 
     exCircuit.setCircuit("lower");
     exMuscle.setMuscle("hamstring");
