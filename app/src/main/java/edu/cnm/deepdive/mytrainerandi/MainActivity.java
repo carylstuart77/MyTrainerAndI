@@ -13,15 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
-import java.util.Date;
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,6 +58,18 @@ public class MainActivity extends AppCompatActivity
     spinnerGoal = (Spinner) findViewById(R.id.spinnerGoal);
   }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    getHelper();
+  }
+
+  @Override
+  protected void onStop() {
+    releaseHelper();
+    super.onStop();
+  }
+
   //creates an instance of the ormhelper
   public synchronized OrmHelper getHelper() {
     if (helper == null) {
@@ -70,7 +78,7 @@ public class MainActivity extends AppCompatActivity
     return helper;
   }
 
-//Try to prevent memory leaks by setting helper to null when not in use.
+  //Try to prevent memory leaks by setting helper to null when not in use.
   public synchronized void releaseHelper() {
     if (helper != null) {
       OpenHelperManager.releaseHelper();

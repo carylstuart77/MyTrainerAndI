@@ -7,6 +7,10 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "DAYSCHEDULE")
 public class DaySchedule {
 
+  public static final String MUSCLE_CONSTANT = "MUSCLE";
+  public static final String EXERCISE_CONSTANT = "EXERCISE";
+  public static final String SETS_CONSTANT = "SET";
+  public static final String REPS_CONSTANT = "REPS";
   @DatabaseField(columnName = "DAYSCHEDULE_ID", generatedId = true)
   private int id;
 
@@ -17,16 +21,16 @@ public class DaySchedule {
   @DatabaseField(columnName = "NAME", canBeNull = false)
   private String name;
 
-  @DatabaseField(columnName = "MUSCLE", canBeNull = false)
+  @DatabaseField(columnName = MUSCLE_CONSTANT, canBeNull = false)
   private String muscle;
 
-  @DatabaseField(columnName = "EXERCISE", canBeNull = false)
+  @DatabaseField(columnName = EXERCISE_CONSTANT, canBeNull = false)
   private String excercise;
 
-  @DatabaseField(columnName = "SET", canBeNull = false)
+  @DatabaseField(columnName = SETS_CONSTANT, canBeNull = false)
   private String set;
 
-  @DatabaseField(columnName = "REPS", canBeNull = false)
+  @DatabaseField(columnName = REPS_CONSTANT, canBeNull = false)
   private String reps;
 
   public int getId() {

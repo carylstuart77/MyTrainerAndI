@@ -7,6 +7,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
+import edu.cnm.deepdive.mytrainerandi.entity.DaySchedule;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercises;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
 import edu.cnm.deepdive.mytrainerandi.entity.Goal;
@@ -24,6 +25,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   private Dao<Exercises, Integer> exerciseDao = null;
   private Dao<Goal, Integer> goalDao = null;
   private Dao<GoalLevel, Integer> goallevelDao = null;
+  private Dao<DaySchedule, Integer> dayscheduleDao = null;
 
 
   public OrmHelper(Context context) {
@@ -66,6 +68,13 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       clientDao = getDao(Client.class);
     }
     return clientDao;
+  }
+
+  public synchronized Dao<DaySchedule, Integer> getDayscheduleDao() throws SQLException {
+    if (dayscheduleDao == null) {
+      dayscheduleDao = getDao(DaySchedule.class);
+    }
+    return dayscheduleDao;
   }
 
   //handle Dao; If there are more than one thread it will synchronize
@@ -115,17 +124,18 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
     //? Ask Chris: How to make this one record?
     // Also how to feed in from a data source like excel or api
-    Exercises exCircuit = new Exercises();
-    Exercises exMuscle = new Exercises();
-    Exercises exExercise_name = new Exercises();
+    Exercises exRow = new Exercises();
 
-    exCircuit.setCircuit("lower");
-    exMuscle.setMuscle("hamstring");
-    exExercise_name.setExercisename("Clean Deadlift");
+    exRow.setCircuit("lower");
+    exRow.setMuscle("hamstring");
+    exRow.setExercisename("Clean Deadlift");
+    getExerciseDao().create(exRow);
 
-    getExerciseDao().create(exCircuit);
-    getExerciseDao().create(exMuscle);
-    getExerciseDao().create(exExercise_name);
+    exRow.setCircuit("upper");
+    exRow.setMuscle("chest");
+    exRow.setExercisename("Flyes");
+
+    getExerciseDao().create(exRow);
 
   }
 }
