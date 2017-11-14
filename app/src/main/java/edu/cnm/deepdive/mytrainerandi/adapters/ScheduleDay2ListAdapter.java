@@ -1,45 +1,42 @@
 package edu.cnm.deepdive.mytrainerandi.adapters;
 
-import static edu.cnm.deepdive.mytrainerandi.entity.DaySchedule.EXERCISE_CONSTANT;
-import static edu.cnm.deepdive.mytrainerandi.entity.DaySchedule.MUSCLE_CONSTANT;
-import static edu.cnm.deepdive.mytrainerandi.entity.DaySchedule.REPS_CONSTANT;
-import static edu.cnm.deepdive.mytrainerandi.entity.DaySchedule.SETS_CONSTANT;
-
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
-import com.j256.ormlite.android.apptools.OrmLiteCursorAdapter;
 import edu.cnm.deepdive.mytrainerandi.R;
-import edu.cnm.deepdive.mytrainerandi.entity.DaySchedule;
+import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
+import java.util.List;
 
-public class ScheduleDay2ListAdapter extends OrmLiteCursorAdapter<DaySchedule, View > {
+public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
-  public ScheduleDay2ListAdapter(Context context) {
-    super(context);
+
+  public ScheduleDay2ListAdapter(Context context, int resource,
+      List<ExerciseByDay> objects) {
+    super(context, resource, objects);
   }
 
   @Override
-  public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-    LayoutInflater inflater = LayoutInflater.from(context);
+  public View getView(int position, View convertView, ViewGroup parent) {
+    LayoutInflater inflater = LayoutInflater.from(getContext());
 
-    return inflater.inflate(R.layout.schedule_item, viewGroup, false);
-  }
+    View view = inflater.inflate(R.layout.schedule_item, parent, false);
 
-  @Override
-  public void bindView(View view, Context context, DaySchedule item) {
     TextView smuscle = view.findViewById(R.id.schedule_muscle);
     TextView sexercise = view.findViewById(R.id.schedule_exercise);
-    TextView sreps = view.findViewById(R.id.schedule_reps);
-    TextView ssets = view.findViewById(R.id.schedule_sets);
+    TextView sreps = view.findViewById(R.id.edit_reps);
+    TextView ssets = view.findViewById(R.id.edit_sets);
+    TextView lbs = view.findViewById(R.id.edit_lbs);
 
+    ExerciseByDay item = getItem(position);
     smuscle.setText(item.getMuscle());
-    sexercise.setText(item.getExcercise());
+    sexercise.setText(item.getExercise());
     sreps.setText(item.getReps());
     ssets.setText(item.getSet());
+    return view;
   }
 
 }

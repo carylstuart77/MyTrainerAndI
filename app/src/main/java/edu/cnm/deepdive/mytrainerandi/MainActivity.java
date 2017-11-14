@@ -18,9 +18,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
+import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 
 public class MainActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener, OrmInteraction {
 
   public DatabaseHelper dbHelper;
   private ListView databaseListView;

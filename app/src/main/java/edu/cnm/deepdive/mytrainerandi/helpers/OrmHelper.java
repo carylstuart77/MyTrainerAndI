@@ -7,7 +7,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
-import edu.cnm.deepdive.mytrainerandi.entity.DaySchedule;
+import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercises;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
 import edu.cnm.deepdive.mytrainerandi.entity.Goal;
@@ -25,7 +25,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   private Dao<Exercises, Integer> exerciseDao = null;
   private Dao<Goal, Integer> goalDao = null;
   private Dao<GoalLevel, Integer> goallevelDao = null;
-  private Dao<DaySchedule, Integer> dayscheduleDao = null;
+  private Dao<ExerciseByDay, Integer> dayscheduleDao = null;
 
 
   public OrmHelper(Context context) {
@@ -42,6 +42,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       TableUtils.createTable(connectionSource, FitnessHistory.class);
       TableUtils.createTable(connectionSource, Goal.class);
       TableUtils.createTable(connectionSource, GoalLevel.class);
+      TableUtils.createTable(connectionSource, ExerciseByDay.class);
       populateDatabase();
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -70,9 +71,9 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return clientDao;
   }
 
-  public synchronized Dao<DaySchedule, Integer> getDayscheduleDao() throws SQLException {
+  public synchronized Dao<ExerciseByDay, Integer> getDayscheduleDao() throws SQLException {
     if (dayscheduleDao == null) {
-      dayscheduleDao = getDao(DaySchedule.class);
+      dayscheduleDao = getDao(ExerciseByDay.class);
     }
     return dayscheduleDao;
   }
@@ -124,18 +125,73 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
     //? Ask Chris: How to make this one record?
     // Also how to feed in from a data source like excel or api
-    Exercises exRow = new Exercises();
+//    Exercises exRow = new Exercises();
+//
+//    exRow.setCircuit("lower");
+//    exRow.setMuscle("hamstring");
+//    exRow.setExercisename("Clean Deadlift");
+//    getExerciseDao().create(exRow);
+//
+//    exRow.setCircuit("upper");
+//    exRow.setMuscle("chest");
+//    exRow.setExercisename("Flyes");
+//
+//    getExerciseDao().create(exRow);
 
-    exRow.setCircuit("lower");
-    exRow.setMuscle("hamstring");
-    exRow.setExercisename("Clean Deadlift");
-    getExerciseDao().create(exRow);
+    ExerciseByDay dayRow = new ExerciseByDay();
 
-    exRow.setCircuit("upper");
-    exRow.setMuscle("chest");
-    exRow.setExercisename("Flyes");
+    dayRow.setMuscle("Calves");
+    dayRow.setExercise("Lifts");
+    dayRow.setSet("4");
+    dayRow.setReps("12");
+    dayRow.setDayofweek(1);
 
-    getExerciseDao().create(exRow);
+    getDayscheduleDao().create(dayRow);
+
+    dayRow = new ExerciseByDay();
+
+    dayRow.setMuscle("Hamstrings");
+    dayRow.setExercise("Bent Overs");
+    dayRow.setSet("4");
+    dayRow.setReps("12");
+    dayRow.setDayofweek(1);
+
+    getDayscheduleDao().create(dayRow);
+
+    dayRow = new ExerciseByDay();
+
+    dayRow.setMuscle("Quads");
+    dayRow.setExercise("Lunges");
+    dayRow.setSet("4");
+    dayRow.setReps("12");
+    dayRow.setDayofweek(1);
+
+    getDayscheduleDao().create(dayRow);
+
+
+    dayRow = new ExerciseByDay();
+    dayRow.setMuscle("Chest");
+    dayRow.setExercise("Flyes");
+    dayRow.setSet("4");
+    dayRow.setReps("12");
+    dayRow.setDayofweek(2);
+
+    getDayscheduleDao().create(dayRow);
+
+    dayRow = new ExerciseByDay();
+    dayRow.setMuscle("Shoulders");
+    dayRow.setExercise("Shoulder Pushes");
+    dayRow.setSet("4");
+    dayRow.setReps("12");
+    dayRow.setDayofweek(3);
+
+    getDayscheduleDao().create(dayRow);
+
+  }
+
+  public interface OrmInteraction{
+    OrmHelper getHelper();
+
 
   }
 }
