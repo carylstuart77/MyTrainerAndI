@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.mytrainerandi;
 
-import static com.j256.ormlite.android.apptools.OpenHelperManager.helper;
 import static edu.cnm.deepdive.mytrainerandi.entity.Exercise.CIRCUIT_COLNAME;
 
 import android.app.Fragment;
@@ -8,35 +7,50 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 import edu.cnm.deepdive.mytrainerandi.adapters.Trainer3ListAdapter;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
+import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
+import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 import java.sql.SQLException;
 import java.util.List;
 
 public class Trainer3 extends Fragment implements OnCheckedChangeListener {
 
+  private RadioButton radioAbs;
+  private RadioButton radioCardio;
+  private RadioButton radioLower;
+  private RadioButton radioUpper;
+  private OrmHelper helper;
+  private ListView exerciseListView;
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
+//need parans for casting for this ORM interaction. Listen to recording.
+    helper = ((OrmInteraction)getActivity()).getHelper();
+
+
     View trainerView = inflater.inflate(R.layout.trainer3, container, false);
 
     //CheckBox generates an Event Source-state change.
-    CheckBox cbAbs = trainerView.findViewById(R.id.cb_abs);
-    CheckBox cbCardio = trainerView.findViewById(R.id.cb_cardio);
-    CheckBox cbLower = trainerView.findViewById(R.id.cb_lower);
-    CheckBox cbUpper = trainerView.findViewById(R.id.cb_upper);
+    radioAbs = trainerView.findViewById(R.id.radioabs);
+    radioCardio = trainerView.findViewById(R.id.radiocardio);
+    radioLower = trainerView.findViewById(R.id.radiolower);
+    radioUpper = trainerView.findViewById(R.id.radioupper);
 
     //Checkbox Event Listener is notified when an event occurs.
-    cbAbs.setOnCheckedChangeListener(this);
-    cbCardio.setOnCheckedChangeListener(this);
-    cbLower.setOnCheckedChangeListener(this);
-    cbUpper.setOnCheckedChangeListener(this);
+    radioAbs.setOnCheckedChangeListener(this);
+    radioCardio.setOnCheckedChangeListener(this);
+    radioLower.setOnCheckedChangeListener(this);
+    radioUpper.setOnCheckedChangeListener(this);
+
+    exerciseListView = trainerView.findViewById(R.id.listViewTrainer3);
     return trainerView;
   }
 
@@ -56,41 +70,42 @@ public class Trainer3 extends Fragment implements OnCheckedChangeListener {
     //call refresh mehto
 
     if (isChecked) {
-      if (compoundButton == cbAbs) {
+      if (compoundButton == radioAbs) {
         showTextNotification("Abs");
+        refresh("upper");
       }
-      if (compoundButton == cbCardio) {
+      if (compoundButton == radioCardio) {
         showTextNotification("Cardio");
+        refresh("upper");
       }
-      if (compoundButton == cbLower) {
+      if (compoundButton == radioLower) {
         showTextNotification("Lower");
       }
-      if (compoundButton == cbUpper) {
+      if (compoundButton == radioUpper) {
         showTextNotification("Upper");
       }
-      refresh(xx);
+
     }
   }
 
   //Pop up with which check box was picked using Toast.
   public void showTextNotification(String msgToDisplay) {
-    Toast.makeText(this, msgToDisplay, Toast.LENGTH_SHORT).show();
+    Toast.makeText(getActivity(), msgToDisplay, Toast.LENGTH_SHORT).show();
   }
 
-  private void refresh(int trainView) {
+  private void refresh(String circuit) {
     List<Exercise> allexercise = null;
     try {
       allexercise = helper
-          .getExerciseDao().queryForEq(CIRCUIT_COLNAME, circuit);
+          .getExerciseDao().queryForEq(CIRCUIT_COLNAME, circuit);  //change to radio
     } catch (SQLException e) {
       e.printStackTrace();
     }
 
     //Display exercises.
     Trainer3ListAdapter trainer3Adapter = new Trainer3ListAdapter(getActivity(),
-        R.layout.trainer3_listview, dayschedule);
-    ListView trainer3View = (ListView) inflate.findViewById(R.id.listViewTrainer3);
-    trainer3View.setAdapter(trainer3Adapter);
+        R.layout.trainer3_listview, allexercise);
+    exerciseListView.setAdapter(trainer3Adapter);
   }
 }
 
