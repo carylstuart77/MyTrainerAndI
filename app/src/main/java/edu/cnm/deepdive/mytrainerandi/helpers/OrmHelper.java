@@ -8,9 +8,10 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
 import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
-import edu.cnm.deepdive.mytrainerandi.entity.Exercises;
+import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
 import edu.cnm.deepdive.mytrainerandi.entity.Goal;
+import edu.cnm.deepdive.mytrainerandi.entity.GoalHistory;
 import edu.cnm.deepdive.mytrainerandi.entity.GoalLevel;
 import java.sql.SQLException;
 
@@ -22,7 +23,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   //params are object type; cannot use primitives
   private Dao<Client, Integer> clientDao = null;
   private Dao<FitnessHistory, Integer> fitnessHistoryDao = null;
-  private Dao<Exercises, Integer> exerciseDao = null;
+  private Dao<Exercise, Integer> exerciseDao = null;
   private Dao<Goal, Integer> goalDao = null;
   private Dao<GoalLevel, Integer> goallevelDao = null;
   private Dao<ExerciseByDay, Integer> dayscheduleDao = null;
@@ -38,11 +39,12 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     try {
       //Creates the tables of class; classes are entities; class fields are attributes.
       TableUtils.createTable(connectionSource, Client.class);
-      TableUtils.createTable(connectionSource, Exercises.class);
+      TableUtils.createTable(connectionSource, Exercise.class);
       TableUtils.createTable(connectionSource, FitnessHistory.class);
       TableUtils.createTable(connectionSource, Goal.class);
       TableUtils.createTable(connectionSource, GoalLevel.class);
       TableUtils.createTable(connectionSource, ExerciseByDay.class);
+      TableUtils.createTable(connectionSource, GoalHistory.class);
       populateDatabase();
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -87,9 +89,9 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   }
 
   //handle Dao; If there are more than one thread it will synchronize
-  public synchronized Dao<Exercises, Integer> getExerciseDao() throws SQLException {
+  public synchronized Dao<Exercise, Integer> getExerciseDao() throws SQLException {
     if (exerciseDao == null) {
-      exerciseDao = getDao(Exercises.class);
+      exerciseDao = getDao(Exercise.class);
     }
     return exerciseDao;
   }
@@ -101,9 +103,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return fitnessHistoryDao;
   }
 
-  //Goals setup in database upon creationJoh\\\\.
+  //------------------------------------------
+  //Populate tables
 
   private void populateDatabase() throws SQLException {
+
 
     Goal goalMM = new Goal();
     Goal goalWL = new Goal();
@@ -123,20 +127,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     getGoalDao().create(goalTM);
     getGoalDao().create(goalIH);
 
-    //? Ask Chris: How to make this one record?
-    // Also how to feed in from a data source like excel or api
-//    Exercises exRow = new Exercises();
-//
-//    exRow.setCircuit("lower");
-//    exRow.setMuscle("hamstring");
-//    exRow.setExercisename("Clean Deadlift");
-//    getExerciseDao().create(exRow);
-//
-//    exRow.setCircuit("upper");
-//    exRow.setMuscle("chest");
-//    exRow.setExercisename("Flyes");
-//
-//    getExerciseDao().create(exRow);
+    //------------------------------------------
+    //ExerciseByDay Table in entity folder.
 
     ExerciseByDay dayRow = new ExerciseByDay();
 
@@ -146,7 +138,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     dayRow.setReps("12");
     dayRow.setDayofweek(1);
 
-    getDayscheduleDao().create(dayRow);
+    getDayscheduleDao().create(dayRow);  //write row
 
     dayRow = new ExerciseByDay();
 
@@ -156,7 +148,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     dayRow.setReps("12");
     dayRow.setDayofweek(1);
 
-    getDayscheduleDao().create(dayRow);
+    getDayscheduleDao().create(dayRow);  //write row
 
     dayRow = new ExerciseByDay();
 
@@ -166,8 +158,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     dayRow.setReps("12");
     dayRow.setDayofweek(1);
 
-    getDayscheduleDao().create(dayRow);
-
+    getDayscheduleDao().create(dayRow);  //write row
 
     dayRow = new ExerciseByDay();
     dayRow.setMuscle("Chest");
@@ -176,7 +167,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     dayRow.setReps("12");
     dayRow.setDayofweek(2);
 
-    getDayscheduleDao().create(dayRow);
+    getDayscheduleDao().create(dayRow);  //write row
 
     dayRow = new ExerciseByDay();
     dayRow.setMuscle("Shoulders");
@@ -185,13 +176,46 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     dayRow.setReps("12");
     dayRow.setDayofweek(3);
 
-    getDayscheduleDao().create(dayRow);
+    getDayscheduleDao().create(dayRow);  //write row
 
+    //------------------------------------------
+    //Exercise Table in entity folder for ALL exercises.
+//
+    Exercise allExercise = new Exercise();
+
+    allExercise.setExercisename("Clean Deadlift");
+    allExercise.setMuscle("hamstring");
+    allExercise.setCircuit("lower");
+
+    getExerciseDao().create(allExercise);  //write row
+
+    allExercise = new Exercise();
+
+    allExercise.setExercisename("Romanian Deadlift from Deficit");
+    allExercise.setMuscle("hamstring");
+    allExercise.setCircuit("lower");
+
+    getExerciseDao().create(allExercise);  //write row
+
+    allExercise = new Exercise();
+
+    allExercise.setExercisename("Kettlebell One-Legged Deadlift");
+    allExercise.setMuscle("hamstring");
+    allExercise.setCircuit("lower");
+
+    getExerciseDao().create(allExercise);  //write row
+
+    allExercise = new Exercise();
+
+    allExercise.setExercisename("Lying Leg Curls");
+    allExercise.setMuscle("calves");
+    allExercise.setCircuit("lower");
+
+    getExerciseDao().create(allExercise);  //write row
   }
 
-  public interface OrmInteraction{
+  public interface OrmInteraction {
     OrmHelper getHelper();
-
 
   }
 }

@@ -49,14 +49,4 @@ public class Client {
     this.height = height;
   }
 
-
-  //returns the information
-//  @Override
-//  public String toString() {
-//    Map<String, Object> map = new HashMap<>();
-//    map.put("id", id);
-//    map.put("name", name);
-//    map.put("created", created);
-//    return map.toString();
-//  }
 }

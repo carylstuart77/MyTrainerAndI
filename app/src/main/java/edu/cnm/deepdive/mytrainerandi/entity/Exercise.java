@@ -3,12 +3,14 @@ package edu.cnm.deepdive.mytrainerandi.entity;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "EXERCISES")
-public class Exercises {
+@DatabaseTable(tableName = "EXERCISE")
+public class Exercise {
 
+  public static final String CIRCUIT_COLNAME = "CIRCUIT";
   public static final String MUSCLE_COLNAME = "MUSCLE";
   public static final String EXERCISE_COLNAME = "EXERCISENAME";
-  public static final String CIRCUIT_COLNAME = "CIRCUIT";
+
+
   @DatabaseField(columnName = "EXERCISE_ID", generatedId = true)
   private int id;
 
@@ -23,10 +25,6 @@ public class Exercises {
 
   public int getId() {
     return id;
-  }
-
-  public String getName() {
-    return circuit;
   }
 
   public String getCircuit() {
