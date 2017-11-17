@@ -13,12 +13,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import edu.cnm.deepdive.mytrainerandi.adapters.ScheduleDay2ListAdapter;
 import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.List;
 

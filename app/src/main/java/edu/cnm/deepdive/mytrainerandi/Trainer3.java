@@ -3,17 +3,13 @@ package edu.cnm.deepdive.mytrainerandi;
 import static edu.cnm.deepdive.mytrainerandi.entity.Exercise.CIRCUIT_COLNAME;
 
 import android.app.Fragment;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.Toast;
 import edu.cnm.deepdive.mytrainerandi.adapters.Trainer3ListAdapter;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
@@ -51,7 +47,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
     btnCardio.setOnClickListener(this);
     btnLower.setOnClickListener(this);
     btnUpper.setOnClickListener(this);
-    
+
     exerciseListView = trainerView.findViewById(R.id.listViewTrainer3);
     return trainerView;
   }
@@ -62,12 +58,8 @@ public class Trainer3 extends Fragment implements OnClickListener {
     getActivity().setTitle(R.string.trainer_plan);
   }
 
-  //CompoundButton: A button with two states, checked and unchecked. When the button is pressed or clicked,
-  // the state changes automatically.
 
-
-
-  //Pop up with which radio button was picked using Toast.
+  //Pop up with which button was picked using Toast.
   public void showTextNotification(String msgToDisplay) {
     Toast.makeText(getActivity(), msgToDisplay, Toast.LENGTH_SHORT).show();
   }
