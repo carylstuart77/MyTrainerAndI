@@ -3,11 +3,14 @@ package edu.cnm.deepdive.mytrainerandi;
 import static edu.cnm.deepdive.mytrainerandi.entity.Exercise.CIRCUIT_COLNAME;
 
 import android.app.Fragment;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -21,11 +24,15 @@ import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Trainer3 extends Fragment implements OnCheckedChangeListener {
+public class Trainer3 extends Fragment implements OnClickListener {
 
   private RadioGroup radioGroup;
   private OrmHelper helper;
   private ListView exerciseListView;
+  private Button btnAbs;
+  private Button btnCardio;
+  private Button btnLower;
+  private Button btnUpper;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,10 +44,16 @@ public class Trainer3 extends Fragment implements OnCheckedChangeListener {
     View trainerView = inflater.inflate(R.layout.trainer3, container, false);
 
     //Radio Button generates an Event Source-state change.
-    radioGroup = trainerView.findViewById(R.id.radioGroup);
+    btnAbs = trainerView.findViewById(R.id.radioabs);
+    btnCardio = trainerView.findViewById(R.id.radiocardio);
+    btnLower = trainerView.findViewById(R.id.radiolower);
+    btnUpper = trainerView.findViewById(R.id.radioupper);
 
-    //Radio Group Event Listener is notified when an event occurs.
-    radioGroup.setOnCheckedChangeListener(this);
+    btnAbs.setOnClickListener(this);
+    btnCardio.setOnClickListener(this);
+    btnLower.setOnClickListener(this);
+    btnUpper.setOnClickListener(this);
+
 
     exerciseListView = trainerView.findViewById(R.id.listViewTrainer3);
     return trainerView;
@@ -55,29 +68,7 @@ public class Trainer3 extends Fragment implements OnCheckedChangeListener {
   //CompoundButton: A button with two states, checked and unchecked. When the button is pressed or clicked,
   // the state changes automatically.
 
-  @Override
-  public void onCheckedChanged(RadioGroup group, int checkedId) {
-      //used to trouble shoot.
-      Log.v("Trainer 3", "id" + checkedId);
 
-      if (checkedId == R.id.radioabs) {
-        showTextNotification("Abs");
-        refresh("abs");
-      }
-      if (checkedId == R.id.radiocardio) {
-        showTextNotification("Cardio");
-        refresh("cardio");
-      }
-      if (checkedId == R.id.radiolower) {
-        showTextNotification("Lower");
-        refresh("lower");
-      }
-      if (checkedId == R.id.radioupper) {
-        showTextNotification("Upper");
-        refresh("upper");
-      }
-
-    }
 
   //Pop up with which radio button was picked using Toast.
   public void showTextNotification(String msgToDisplay) {
@@ -99,5 +90,24 @@ public class Trainer3 extends Fragment implements OnCheckedChangeListener {
     exerciseListView.setAdapter(trainer3Adapter);
   }
 
+  @Override
+  public void onClick(View view) {
+    if (view.getId() == R.id.radioabs) {
+      showTextNotification("Abs");
+      refresh("abs");
+    }
+    if (view.getId()== R.id.radiocardio) {
+      showTextNotification("Cardio");
+      refresh("cardio");
+    }
+    if (view.getId() == R.id.radiolower) {
+      showTextNotification("Lower");
+      refresh("lower");
+    }
+    if (view.getId() == R.id.radioupper) {
+      showTextNotification("Upper");
+      refresh("upper");
+    }
+  }
 }
 
