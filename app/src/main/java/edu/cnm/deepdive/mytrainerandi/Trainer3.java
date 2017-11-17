@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 import edu.cnm.deepdive.mytrainerandi.adapters.Trainer3ListAdapter;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
@@ -26,13 +24,13 @@ import java.util.List;
 
 public class Trainer3 extends Fragment implements OnClickListener {
 
-  private RadioGroup radioGroup;
   private OrmHelper helper;
   private ListView exerciseListView;
-  private Button btnAbs;
-  private Button btnCardio;
+
   private Button btnLower;
   private Button btnUpper;
+  private Button btnCardio;
+  private Button btnAbs;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,8 +51,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
     btnCardio.setOnClickListener(this);
     btnLower.setOnClickListener(this);
     btnUpper.setOnClickListener(this);
-
-
+    
     exerciseListView = trainerView.findViewById(R.id.listViewTrainer3);
     return trainerView;
   }

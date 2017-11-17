@@ -80,7 +80,7 @@ public class Day2 extends Fragment {
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
       year_x = year;
-      month_x = monthOfYear + 1;
+      month_x = monthOfYear + 1;  //+ 1 sets default to currentyear
       day_x = dayOfMonth;
       Toast.makeText(getActivity(),year_x + "/" + month_x + "/" + day_x, Toast.LENGTH_LONG).show();
 

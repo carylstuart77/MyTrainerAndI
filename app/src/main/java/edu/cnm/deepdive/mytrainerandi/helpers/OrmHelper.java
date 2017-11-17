@@ -184,32 +184,56 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     Exercise allExercise = new Exercise();
 
     allExercise.setExercisename("Clean Deadlift");
-    allExercise.setMuscle("hamstring");
-    allExercise.setCircuit("lower");
+    allExercise.setMuscle("Hamstring");
+    allExercise.setCircuit("Lower");
 
     getExerciseDao().create(allExercise);  //write row
 
     allExercise = new Exercise();
 
-    allExercise.setExercisename("Romanian Deadlift from Deficit");
-    allExercise.setMuscle("hamstring");
-    allExercise.setCircuit("lower");
+    allExercise.setExercisename("Romanian Deadlift");
+    allExercise.setMuscle("Hamstring");
+    allExercise.setCircuit("Lower");
 
     getExerciseDao().create(allExercise);  //write row
 
     allExercise = new Exercise();
 
-    allExercise.setExercisename("Kettlebell One-Legged Deadlift");
-    allExercise.setMuscle("hamstring");
-    allExercise.setCircuit("lower");
+    allExercise.setExercisename("Kettlebell Deadlift");
+    allExercise.setMuscle("Hamstring");
+    allExercise.setCircuit("Lower");
 
     getExerciseDao().create(allExercise);  //write row
 
     allExercise = new Exercise();
 
     allExercise.setExercisename("Lying Leg Curls");
-    allExercise.setMuscle("calves");
-    allExercise.setCircuit("lower");
+    allExercise.setMuscle("Calves");
+    allExercise.setCircuit("Lower");
+
+    getExerciseDao().create(allExercise);  //write row
+
+    allExercise = new Exercise();
+
+    allExercise.setExercisename("Chest Fly");
+    allExercise.setMuscle("Chest");
+    allExercise.setCircuit("Upper");
+
+    getExerciseDao().create(allExercise);  //write row
+
+    allExercise = new Exercise();
+
+    allExercise.setExercisename("Stepper 30 minutes");
+    allExercise.setMuscle("Heart");
+    allExercise.setCircuit("Cardio");
+
+    getExerciseDao().create(allExercise);  //write row
+
+    allExercise = new Exercise();
+
+    allExercise.setExercisename("Plank 1 minute");
+    allExercise.setMuscle("Abs");
+    allExercise.setCircuit("Core");
 
     getExerciseDao().create(allExercise);  //write row
   }

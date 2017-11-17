@@ -14,15 +14,17 @@
 
   <TextView
     android:id="@+id/trainer_circuit"
+    android:textStyle="bold"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_weight="0.06"
+    android:layout_weight="0.04"
     android:text="Circuit"
     android:textAlignment="viewStart"
     android:textSize="14sp"/>
 
   <TextView
     android:id="@+id/trainer_muscle"
+    android:textStyle="bold"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="0.06"
@@ -31,40 +33,36 @@
     android:textSize="14sp"/>
   <TextView
     android:id="@+id/trainer_exercise"
+    android:textStyle="bold"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_weight="0.07"
+    android:layout_weight="0.10"
     android:text="Exercise"
     android:textAlignment="viewStart"
     android:textSize="14sp"/>
   <EditText
     android:id="@+id/edit_trainersets"
-    android:layout_width="0dp"
-    android:layout_height="29dp"
-    android:layout_weight=".05"
-    android:text="Se"
-    android:textAlignment="textEnd"
-    android:textSize="10sp"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="36dp"
+    android:hint="Sets"
     android:inputType="numberDecimal"
-    />
+    android:textAlignment="textEnd"
+    android:textSize="14sp"/>
   <EditText
     android:id="@+id/edit_trainerreps"
-    android:layout_width="0dp"
-    android:layout_height="29dp"
-    android:layout_weight=".05"
-    android:text="Re"
-    android:textAlignment="textEnd"
-    android:textSize="10sp"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="36dp"
+    android:hint="Reps"
     android:inputType="numberDecimal"
-    />
-  <EditText
+    android:textAlignment="textEnd"
+    android:textSize="14sp"/>
+  <CheckBox
     android:id="@+id/edit_trainerlbs"
-    android:layout_width="0dp"
-    android:layout_height="28dp"
-    android:layout_weight="0.05"
-    android:hint="lbs"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:textAlignment="textEnd"
-    android:textSize="10sp"
-    android:inputType="numberDecimal"
+    android:textSize="12sp"
     />
 </LinearLayout>
