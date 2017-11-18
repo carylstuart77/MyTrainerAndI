@@ -27,10 +27,10 @@ public class ExerciseByDay {
   private String excercise;
 
   @DatabaseField(columnName = SETS_CONSTANT, canBeNull = false)
-  private String set;
+  private int sets;
 
   @DatabaseField(columnName = REPS_CONSTANT, canBeNull = false)
-  private String reps;
+  private int reps;
 
   @DatabaseField(columnName = DAYOFWEEK, canBeNull = false)
   private int dayofweek;
@@ -59,27 +59,27 @@ public class ExerciseByDay {
     this.excercise = excercise;
   }
 
-  public String getSet() {
-    return set;
-  }
-
-  public void setSet(String set) {
-    this.set = set;
-  }
-
-  public String getReps() {
-    return reps;
-  }
-
-  public void setReps(String reps) {
-    this.reps = reps;
-  }
-
   public int getDayofweek() {
     return dayofweek;
   }
 
   public void setDayofweek(int dayofweek) {
     this.dayofweek = dayofweek;
+  }
+
+  public int getSets() {
+    return sets;
+  }
+
+  public void setSets(int sets) {
+    this.sets = sets;
+  }
+
+  public int getReps() {
+    return reps;
+  }
+
+  public void setReps(int reps) {
+    this.reps = reps;
   }
 }

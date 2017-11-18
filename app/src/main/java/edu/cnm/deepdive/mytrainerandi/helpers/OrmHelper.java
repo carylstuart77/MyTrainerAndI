@@ -27,6 +27,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   private Dao<Goal, Integer> goalDao = null;
   private Dao<GoalLevel, Integer> goallevelDao = null;
   private Dao<ExerciseByDay, Integer> dayscheduleDao = null;
+  private Dao<ExerciseByDay, Integer> exerciseByDayDao = null;
 
 
   public OrmHelper(Context context) {
@@ -102,6 +103,14 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     }
     return fitnessHistoryDao;
   }
+
+  public synchronized Dao<ExerciseByDay, Integer> getExerciseByDayDao() throws SQLException {
+    if (exerciseByDayDao == null) {
+      exerciseByDayDao = getDao(ExerciseByDay.class);
+    }
+    return exerciseByDayDao;
+  }
+
 
   //------------------------------------------
   //Populate tables

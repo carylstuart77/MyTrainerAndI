@@ -9,9 +9,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import edu.cnm.deepdive.mytrainerandi.R;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Trainer3ListAdapter extends ArrayAdapter<Exercise> {
+
+
+  //hold onto list of exercises displayed and new set/reps.
+//  private List<View> listViews = new ArrayList<>();
+
 
   public Trainer3ListAdapter(Context context, int resource,
       List<Exercise> objects) {
@@ -36,6 +42,7 @@ public class Trainer3ListAdapter extends ArrayAdapter<Exercise> {
     tcircuit.setText(item.getCircuit());
     tmuscle.setText(item.getMuscle());
     texercise.setText(item.getExercisename());
+
 
     return view;
   }

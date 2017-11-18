@@ -9,10 +9,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 import edu.cnm.deepdive.mytrainerandi.adapters.Trainer3ListAdapter;
+import edu.cnm.deepdive.mytrainerandi.entity.Client;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
+import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 import java.sql.SQLException;
@@ -28,12 +34,22 @@ public class Trainer3 extends Fragment implements OnClickListener {
   private Button btnCardio;
   private Button btnAbs;
 
+
+  private CheckBox cbMon;
+  private CheckBox cbTue;
+  private CheckBox cbWed;
+  private CheckBox cbThur;
+  private CheckBox cbFri;
+  private CheckBox cbSat;
+  private CheckBox cbSun;
+  private RadioGroup radiogroup;
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
 //need parans for casting for this ORM interaction. Listen to recording.
-    helper = ((OrmInteraction)getActivity()).getHelper();
+    helper = ((OrmInteraction) getActivity()).getHelper();
 
     View trainerView = inflater.inflate(R.layout.trainer3, container, false);
 
@@ -48,7 +64,13 @@ public class Trainer3 extends Fragment implements OnClickListener {
     btnLower.setOnClickListener(this);
     btnUpper.setOnClickListener(this);
 
+    radiogroup = trainerView.findViewById(R.id.radiotrainergroup);
     exerciseListView = trainerView.findViewById(R.id.listViewTrainer3);
+
+    //Add Save button Listener, creating view object in memory.
+    Button savebutton = trainerView.findViewById(R.id.btnSaveTrainer);
+    savebutton.setOnClickListener(this);
+
     return trainerView;
   }
 
@@ -57,7 +79,6 @@ public class Trainer3 extends Fragment implements OnClickListener {
     super.onViewCreated(view, savedInstanceState);
     getActivity().setTitle(R.string.trainer_plan);
   }
-
 
   //Pop up with which button was picked using Toast.
   public void showTextNotification(String msgToDisplay) {
@@ -85,7 +106,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
       showTextNotification("Abs");
       refresh("abs");
     }
-    if (view.getId()== R.id.radiocardio) {
+    if (view.getId() == R.id.radiocardio) {
       showTextNotification("Cardio");
       refresh("cardio");
     }
@@ -97,6 +118,61 @@ public class Trainer3 extends Fragment implements OnClickListener {
       showTextNotification("Upper");
       refresh("upper");
     }
+
+    //Save Button OnClick add to database
+    //??Look at this
+    //First checking if save button was pressed; looping through exercises rows to determint if bos was checked.
+    if (view.getId() == R.id.btnSaveTrainer) {
+      for (int i = 0; i < exerciseListView.getCount(); i++) {
+        if (((CheckBox) exerciseListView.getChildAt(i).findViewById(R.id.edit_trainerpick))
+            .isChecked()) {
+          EditText mTrainerSets = exerciseListView.getChildAt(i)
+              .findViewById(R.id.edit_trainersets);
+          EditText mTrainerReps = exerciseListView.getChildAt(i)
+              .findViewById(R.id.edit_trainerreps);
+
+          String capturesets = mTrainerSets.getText().toString();
+          String capturereps = mTrainerReps.getText().toString();
+
+          try {
+
+            int sets = 0;
+            int reps = 0;
+
+            if (!capturesets.trim().isEmpty())
+              sets = Integer.parseInt(capturesets);
+            if (!capturereps.trim().isEmpty())
+              reps = Integer.parseInt(capturereps);
+
+            //Exercise is Trainers entity
+            ExerciseByDay newtrainerpick = new ExerciseByDay();
+
+            newtrainerpick.setSets(sets);
+            newtrainerpick.setReps(reps);
+            helper.getExerciseByDayDao().create(newtrainerpick);
+            //set day of week..??date
+
+            switch (radiogroup.getCheckedRadioButtonId()) {
+              case R.id.radioSun:
+                newtrainerpick.setDayofweek(0);
+                break;
+            }
+
+            //figure out a way to take out the day schedule.
+            //adapter already selected it shows up as selected.
+            //helper.getExerciseByDayDao().update(newtrainerpick);
+
+          } catch (SQLException e) {
+            e.printStackTrace();
+
+          }
+        }
+      }
+    }
   }
 }
+
+
+
+
 
