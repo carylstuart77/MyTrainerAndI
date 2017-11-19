@@ -29,13 +29,13 @@ Application needs (listed in priority order):
   3) Validate entries (Sets 1-5, Reps 1-25);
   4) Auto close keyboard.
   
- * Client Stats:
+* Client Stats:
   1) Enable a view of the clients Weight, BMI and Fat % over time. (New Fragment)
   2) Disable Client Name and Height, if client name exists in db. Throw 
 
 ### Stretch Goals
 * Client Stats:
-1) Graph Weight and Fat percentage.
+  1) Graph Weight and Fat percentage.
 
 ## Authors
 
