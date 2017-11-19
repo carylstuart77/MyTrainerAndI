@@ -13,7 +13,7 @@
     android:layout_marginTop="19dp"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
-    android:text="Add Client Stats"
+    android:text="Track Your Body"
     android:textAlignment="center"
     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
@@ -26,31 +26,31 @@
     android:layout_below="@+id/textTitle"
     android:layout_toEndOf="@+id/textView4"
     android:hint="First and Last"
-    android:textAlignment="viewStart"/>
+    android:textAlignment="textStart"/>
 
   <EditText
     android:id="@+id/editClientHeight"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
+    android:layout_alignEnd="@+id/btnViewClient"
     android:layout_below="@+id/editClientName"
-    android:layout_toEndOf="@+id/textClientWeight"
+    android:layout_toEndOf="@+id/textClientName1"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:hint="Inches"
     android:inputType="numberDecimal"
-    android:textAlignment="viewStart"/>
+    android:textAlignment="textStart"/>
 
   <EditText
     android:id="@+id/editClientWeight"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignStart="@+id/editClientName"
+    android:layout_alignEnd="@+id/editClientHeight"
     android:layout_below="@+id/editClientHeight"
+    android:layout_toEndOf="@+id/textClientHeight"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:hint="Pounds"
     android:inputType="numberDecimal"
-    />
+    android:textAlignment="textStart"/>
   <EditText
     android:id="@+id/editClientBMI"
     android:layout_width="wrap_content"
@@ -60,17 +60,18 @@
     android:layout_below="@+id/editClientWeight"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:hint="Body Mass Index"
-    android:inputType="numberDecimal"/>
+    android:inputType="numberDecimal"
+    />
   <EditText
     android:id="@+id/editClientFat"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignEnd="@+id/editClientBMI"
     android:layout_alignStart="@+id/editClientBMI"
     android:layout_below="@+id/editClientBMI"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:hint="Fat Percentage"
-    android:inputType="numberDecimal"/>
+    android:inputType="numberDecimal"
+    android:layout_alignEnd="@+id/editClientBMI"/>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -108,21 +109,18 @@
 
 
   <Button
-    android:id="@+id/buttonViewClient"
+    android:id="@+id/btnAddClient"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="View Data"
-    android:layout_marginEnd="39dp"
+    android:layout_marginEnd="42dp"
+    android:background="#102fd8"
+    android:text="SAVE"
+    android:textColor="@android:color/background_light"
+    android:textColorLink="@color/colorPrimary"
+    android:textSize="18sp"
     android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"/>
-  <Button
-    android:id="@+id/buttonAddClient"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Add Data"
-    android:layout_marginEnd="33dp"
-    android:layout_alignParentBottom="true"
-    android:layout_toStartOf="@+id/spinnerGoal"/>
+    android:layout_toStartOf="@+id/spinnerGoal"
+    android:layout_marginBottom="14dp"/>
   <TextView
     android:id="@+id/textClientName1"
     android:layout_width="wrap_content"
@@ -133,7 +131,6 @@
     android:layout_toStartOf="@+id/editClientName"
     android:gravity="left|center"
     android:text="Client Name:"
-
     android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
@@ -144,7 +141,7 @@
     android:layout_alignBottom="@+id/editClientHeight"
     android:layout_alignParentStart="true"
     android:layout_below="@+id/textClientName1"
-    android:layout_toStartOf="@+id/editClientHeight"
+    android:layout_toStartOf="@+id/editClientName"
     android:gravity="left|center"
     android:text="Client Height:"
     android:textAlignment="textEnd"
@@ -156,13 +153,14 @@
     android:layout_height="wrap_content"
     android:layout_alignBottom="@+id/editClientWeight"
     android:layout_alignParentStart="true"
+    android:layout_below="@+id/editClientHeight"
     android:layout_toStartOf="@+id/editClientWeight"
     android:gravity="left|center"
-    android:text="Client Weight"
+    android:text="Client Weight:"
     android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"
-    android:layout_below="@+id/editClientHeight"/>
+    android:layout_alignEnd="@+id/textClientHeight"/>
   <TextView
     android:id="@+id/textClientBMI"
     android:layout_width="wrap_content"
@@ -175,7 +173,8 @@
     android:text="Client BMI:"
     android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-    android:textSize="18sp"/>
+    android:textSize="18sp"
+    android:layout_alignEnd="@+id/textClientWeight"/>
   <TextView
     android:id="@+id/textClientFat"
     android:layout_width="wrap_content"
@@ -188,7 +187,20 @@
     android:textAlignment="textEnd"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"
-    android:layout_toStartOf="@+id/editClientBMI"/>
+    android:layout_toStartOf="@+id/editClientBMI"
+    android:layout_alignEnd="@+id/textClientBMI"/>
+  <Button
+    android:id="@+id/btnViewClient"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="57dp"
+    android:background="?attr/colorPrimary"
+    android:text="View"
+    android:textColor="@android:color/background_light"
+    android:textSize="18sp"
+    android:layout_alignBaseline="@+id/btnAddClient"
+    android:layout_alignBottom="@+id/btnAddClient"
+    android:layout_alignParentEnd="true"/>
 
 
 </RelativeLayout>

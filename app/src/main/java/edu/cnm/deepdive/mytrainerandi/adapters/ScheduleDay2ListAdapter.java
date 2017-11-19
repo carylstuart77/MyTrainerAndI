@@ -11,6 +11,8 @@ import edu.cnm.deepdive.mytrainerandi.R;
 import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import java.util.List;
 
+//An Adapter object acts as a bridge between an AdapterView and the underlying data for that view.
+
 public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
 
@@ -25,17 +27,19 @@ public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
     View view = inflater.inflate(R.layout.schedule_item, parent, false);
 
+//    A user interface element that displays text to the user.
     TextView smuscle = view.findViewById(R.id.schedule_muscle);
     TextView sexercise = view.findViewById(R.id.schedule_exercise);
-    TextView sreps = view.findViewById(R.id.edit_reps);
     TextView ssets = view.findViewById(R.id.edit_sets);
+    TextView sreps = view.findViewById(R.id.edit_reps);
     TextView lbs = view.findViewById(R.id.edit_lbs);
 
     ExerciseByDay item = getItem(position);
     smuscle.setText(item.getMuscle());
     sexercise.setText(item.getExercise());
-    sreps.setText(item.getReps());
-    ssets.setText(item.getSet());
+    ssets.setText(Integer.toString(item.getSets()));
+    sreps.setText(Integer.toString(item.getReps()));
+
     return view;
   }
 

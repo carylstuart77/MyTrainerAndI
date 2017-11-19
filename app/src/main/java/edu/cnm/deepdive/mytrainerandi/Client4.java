@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
@@ -53,12 +54,12 @@ public class Client4 extends Fragment implements Button.OnClickListener{
 
 
     //Add Client Data
-    Button addbutton = inflate.findViewById(R.id.buttonAddClient);
-    addbutton.setOnClickListener(this);
+    Button savebutton = inflate.findViewById(R.id.btnAddClient);
+    savebutton.setOnClickListener(this);
 
     //?ASk Chris how to display data from db.
    //View Button
-    Button viewbutton = inflate.findViewById(R.id.buttonViewClient);
+    Button viewbutton = inflate.findViewById(R.id.btnViewClient);
     viewbutton.setOnClickListener(this);
     return inflate;
   }
@@ -68,6 +69,10 @@ public class Client4 extends Fragment implements Button.OnClickListener{
     super.onViewCreated(view, savedInstanceState);
 
     getActivity().setTitle("Client Statistics");
+  }
+  //Pop up with which button was picked using Toast.
+  public void showTextNotification(String msgToDisplay) {
+    Toast.makeText(getActivity(), msgToDisplay, Toast.LENGTH_SHORT).show();
   }
 
   @Override
@@ -87,6 +92,10 @@ public class Client4 extends Fragment implements Button.OnClickListener{
       newfitnesshistory.setFat(Double.parseDouble(mClientFat.getText().toString()));
       //?Ask Chris about Spinner field
       helper.getFitnessHistoryDao().create(newfitnesshistory);
+
+      if (view.getId() == R.id.btnAddClient) {
+        showTextNotification("Saved");
+      }
 
     } catch (SQLException e) {
       e.printStackTrace();

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -35,13 +36,13 @@ public class Trainer3 extends Fragment implements OnClickListener {
   private Button btnAbs;
 
 
-  private CheckBox cbMon;
-  private CheckBox cbTue;
-  private CheckBox cbWed;
-  private CheckBox cbThur;
-  private CheckBox cbFri;
-  private CheckBox cbSat;
-  private CheckBox cbSun;
+  private RadioButton rdMon;
+  private RadioButton rdTue;
+  private RadioButton rdWed;
+  private RadioButton rdThur;
+  private RadioButton rdFri;
+  private RadioButton rdSat;
+  private RadioButton rdSun;
   private RadioGroup radiogroup;
 
   @Override
@@ -121,7 +122,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
 
     //Save Button OnClick add to database
     //??Look at this
-    //First checking if save button was pressed; looping through exercises rows to determint if bos was checked.
+    //First checking if save button was pressed; looping through exercises rows to determine if box was checked.
     if (view.getId() == R.id.btnSaveTrainer) {
       for (int i = 0; i < exerciseListView.getCount(); i++) {
         if (((CheckBox) exerciseListView.getChildAt(i).findViewById(R.id.edit_trainerpick))
@@ -156,9 +157,28 @@ public class Trainer3 extends Fragment implements OnClickListener {
               case R.id.radioSun:
                 newtrainerpick.setDayofweek(0);
                 break;
+              case R.id.radioMon:
+                newtrainerpick.setDayofweek(1);
+                break;
+              case R.id.radioTue:
+                newtrainerpick.setDayofweek(2);
+                break;
+              case R.id.radioWed:
+                newtrainerpick.setDayofweek(3);
+                break;
+              case R.id.radioThu:
+                newtrainerpick.setDayofweek(4);
+                break;
+              case R.id.radioFri:
+                newtrainerpick.setDayofweek(5);
+                break;
+              case R.id.radioSat:
+                newtrainerpick.setDayofweek(6);
+                break;
             }
 
             //figure out a way to take out the day schedule.
+
             //adapter already selected it shows up as selected.
             //helper.getExerciseByDayDao().update(newtrainerpick);
 

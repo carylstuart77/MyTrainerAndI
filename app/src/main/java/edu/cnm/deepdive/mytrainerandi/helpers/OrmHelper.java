@@ -56,7 +56,6 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   @Override
   public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion,
       int newVersion) {
-
   }
 
   //any references to Dao is released by setting to null at close
@@ -143,8 +142,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
     dayRow.setMuscle("Calves");
     dayRow.setExercise("Lifts");
-    dayRow.setSet("4");
-    dayRow.setReps("12");
+    dayRow.setSets(4);
+    dayRow.setReps(12);
     dayRow.setDayofweek(1);
 
     getDayscheduleDao().create(dayRow);  //write row
@@ -153,8 +152,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
     dayRow.setMuscle("Hamstrings");
     dayRow.setExercise("Bent Overs");
-    dayRow.setSet("4");
-    dayRow.setReps("12");
+    dayRow.setSets(4);
+    dayRow.setReps(12);
     dayRow.setDayofweek(1);
 
     getDayscheduleDao().create(dayRow);  //write row
@@ -163,8 +162,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
     dayRow.setMuscle("Quads");
     dayRow.setExercise("Lunges");
-    dayRow.setSet("4");
-    dayRow.setReps("12");
+    dayRow.setSets(4);
+    dayRow.setReps(12);
     dayRow.setDayofweek(1);
 
     getDayscheduleDao().create(dayRow);  //write row
@@ -172,8 +171,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     dayRow = new ExerciseByDay();
     dayRow.setMuscle("Chest");
     dayRow.setExercise("Flyes");
-    dayRow.setSet("4");
-    dayRow.setReps("12");
+    dayRow.setSets(4);
+    dayRow.setReps(12);
     dayRow.setDayofweek(2);
 
     getDayscheduleDao().create(dayRow);  //write row
@@ -181,9 +180,18 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     dayRow = new ExerciseByDay();
     dayRow.setMuscle("Shoulders");
     dayRow.setExercise("Shoulder Pushes");
-    dayRow.setSet("4");
-    dayRow.setReps("12");
+    dayRow.setSets(4);
+    dayRow.setReps(12);
     dayRow.setDayofweek(3);
+
+    getDayscheduleDao().create(dayRow);  //write row
+
+    dayRow = new ExerciseByDay();
+    dayRow.setMuscle("Shoulders");
+    dayRow.setExercise("Barbell Upright Rows");
+    dayRow.setSets(4);
+    dayRow.setReps(12);
+    dayRow.setDayofweek(4);
 
     getDayscheduleDao().create(dayRow);  //write row
 
@@ -241,7 +249,21 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     allExercise = new Exercise();
 
     allExercise.setExercisename("Plank 1 minute");
-    allExercise.setMuscle("Abs");
+    allExercise.setMuscle("abs");
+    allExercise.setCircuit("core");
+
+    getExerciseDao().create(allExercise);  //write row
+
+    allExercise = new Exercise();
+
+    allExercise.setExercisename("Plank 1 minute");
+    allExercise.setMuscle("abs");
+    allExercise.setCircuit("core");
+
+    getExerciseDao().create(allExercise);  //write row    allExercise = new Exercise();
+
+    allExercise.setExercisename("Situps");
+    allExercise.setMuscle("abs");
     allExercise.setCircuit("core");
 
     getExerciseDao().create(allExercise);  //write row
