@@ -15,7 +15,6 @@ import java.util.List;
 
 public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
-
   public ScheduleDay2ListAdapter(Context context, int resource,
       List<ExerciseByDay> objects) {
     super(context, resource, objects);
@@ -32,13 +31,14 @@ public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
     TextView sexercise = view.findViewById(R.id.schedule_exercise);
     TextView ssets = view.findViewById(R.id.edit_sets);
     TextView sreps = view.findViewById(R.id.edit_reps);
-    TextView lbs = view.findViewById(R.id.edit_lbs);
+    TextView slbs = view.findViewById(R.id.edit_lbs);
 
     ExerciseByDay item = getItem(position);
     smuscle.setText(item.getMuscle());
     sexercise.setText(item.getExercise());
     ssets.setText(Integer.toString(item.getSets()));
     sreps.setText(Integer.toString(item.getReps()));
+    slbs.setText(Integer.toString(item.getLbs()));
 
     return view;
   }

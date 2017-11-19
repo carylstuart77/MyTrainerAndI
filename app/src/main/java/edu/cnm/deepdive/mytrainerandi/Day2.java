@@ -70,7 +70,7 @@ public class Day2 extends Fragment {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    getActivity().setTitle("Day's Schedule");
+    getActivity().setTitle("Workout Schedule by Day");
   }
 
   private DatePickerDialog.OnDateSetListener dpickerListner

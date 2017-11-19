@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:paddingLeft="@dimen/activity_horizontal_margin"
   >
 
   <TextView
@@ -21,34 +22,34 @@
     android:id="@+id/editClientName"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="14dp"
-    android:layout_alignParentEnd="true"
-    android:layout_below="@+id/textTitle"
-    android:layout_toEndOf="@+id/textView4"
     android:hint="First and Last"
-    android:textAlignment="textStart"/>
+    android:textAlignment="textStart"
+    android:layout_marginTop="24dp"
+    android:layout_below="@+id/textTitle"
+    android:layout_alignEnd="@+id/btnViewClient"
+    android:layout_toEndOf="@+id/textClientHeight"/>
 
   <EditText
     android:id="@+id/editClientHeight"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignEnd="@+id/btnViewClient"
     android:layout_below="@+id/editClientName"
-    android:layout_toEndOf="@+id/textClientName1"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:hint="Inches"
     android:inputType="numberDecimal"
-    android:textAlignment="textStart"/>
+    android:textAlignment="textStart"
+    android:layout_toStartOf="@+id/btnViewClient"/>
 
   <EditText
     android:id="@+id/editClientWeight"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignEnd="@+id/editClientHeight"
+    android:layout_alignStart="@+id/editClientHeight"
     android:layout_below="@+id/editClientHeight"
     android:layout_toEndOf="@+id/textClientHeight"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:hint="Pounds"
+    android:hint="lbs"
     android:inputType="numberDecimal"
     android:textAlignment="textStart"/>
   <EditText
@@ -59,19 +60,18 @@
     android:layout_alignStart="@+id/editClientWeight"
     android:layout_below="@+id/editClientWeight"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:hint="Body Mass Index"
-    android:inputType="numberDecimal"
-    />
+    android:hint="BMI"
+    android:inputType="numberDecimal"/>
   <EditText
     android:id="@+id/editClientFat"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_alignEnd="@+id/editClientBMI"
     android:layout_alignStart="@+id/editClientBMI"
     android:layout_below="@+id/editClientBMI"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:hint="Fat Percentage"
-    android:inputType="numberDecimal"
-    android:layout_alignEnd="@+id/editClientBMI"/>
+    android:hint="%"
+    android:inputType="numberDecimal"/>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -105,33 +105,34 @@
     android:prompt="@string/goal_prompt"
     android:entries="@array/goal_arrays"
     android:layout_below="@+id/linearLayout"
+    android:layout_alignEnd="@+id/btnViewClient"
     android:layout_toEndOf="@+id/textView4"/>
 
 
   <Button
-    android:id="@+id/btnAddClient"
+    android:id="@+id/btnSaveClient"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
     android:layout_marginEnd="42dp"
-    android:background="#102fd8"
+    android:layout_alignParentBottom="true"
+    android:layout_toStartOf="@+id/spinnerGoal"
+    android:background="@drawable/smallpillbtn"
     android:text="SAVE"
     android:textColor="@android:color/background_light"
     android:textColorLink="@color/colorPrimary"
-    android:textSize="18sp"
-    android:layout_alignParentBottom="true"
-    android:layout_toStartOf="@+id/spinnerGoal"
-    android:layout_marginBottom="14dp"/>
+    android:textSize="18sp"/>
   <TextView
     android:id="@+id/textClientName1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_above="@+id/editClientHeight"
+    android:layout_alignEnd="@+id/btnSaveClient"
     android:layout_alignParentStart="true"
     android:layout_alignTop="@+id/editClientName"
-    android:layout_toStartOf="@+id/editClientName"
+    android:layout_toStartOf="@+id/spinnerGoal"
     android:gravity="left|center"
-    android:text="Client Name:"
-    android:textAlignment="textEnd"
+    android:text="Name:"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
   <TextView
@@ -141,10 +142,9 @@
     android:layout_alignBottom="@+id/editClientHeight"
     android:layout_alignParentStart="true"
     android:layout_below="@+id/textClientName1"
-    android:layout_toStartOf="@+id/editClientName"
+    android:layout_toStartOf="@+id/editClientHeight"
     android:gravity="left|center"
-    android:text="Client Height:"
-    android:textAlignment="textEnd"
+    android:text="Height:"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textSize="18sp"/>
   <TextView
@@ -154,13 +154,11 @@
     android:layout_alignBottom="@+id/editClientWeight"
     android:layout_alignParentStart="true"
     android:layout_below="@+id/editClientHeight"
-    android:layout_toStartOf="@+id/editClientWeight"
+    android:layout_toStartOf="@+id/editClientHeight"
     android:gravity="left|center"
-    android:text="Client Weight:"
-    android:textAlignment="textEnd"
+    android:text="Weight:"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-    android:textSize="18sp"
-    android:layout_alignEnd="@+id/textClientHeight"/>
+    android:textSize="18sp"/>
   <TextView
     android:id="@+id/textClientBMI"
     android:layout_width="wrap_content"
@@ -170,37 +168,34 @@
     android:layout_below="@+id/textClientWeight"
     android:layout_toStartOf="@+id/editClientWeight"
     android:gravity="left|center"
-    android:text="Client BMI:"
-    android:textAlignment="textEnd"
+    android:text="Body Mass Index:"
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-    android:textSize="18sp"
-    android:layout_alignEnd="@+id/textClientWeight"/>
+    android:textSize="18sp"/>
   <TextView
     android:id="@+id/textClientFat"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@+id/editClientFat"
+    android:layout_alignEnd="@+id/textClientBMI"
     android:layout_alignParentStart="true"
     android:layout_below="@+id/editClientBMI"
-    android:gravity="left|center"
-    android:text="Body Fat %:"
-    android:textAlignment="textEnd"
-    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-    android:textSize="18sp"
     android:layout_toStartOf="@+id/editClientBMI"
-    android:layout_alignEnd="@+id/textClientBMI"/>
+    android:gravity="left|center"
+    android:text="Body Fat:"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+    android:textSize="18sp"/>
   <Button
     android:id="@+id/btnViewClient"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="57dp"
-    android:background="?attr/colorPrimary"
+    android:layout_alignBaseline="@+id/btnSaveClient"
+    android:layout_alignBottom="@+id/btnSaveClient"
+    android:layout_alignParentEnd="true"
+    android:background="@drawable/smallpillbtn"
     android:text="View"
     android:textColor="@android:color/background_light"
-    android:textSize="18sp"
-    android:layout_alignBaseline="@+id/btnAddClient"
-    android:layout_alignBottom="@+id/btnAddClient"
-    android:layout_alignParentEnd="true"/>
+    android:textSize="18sp"/>
 
 
 </RelativeLayout>

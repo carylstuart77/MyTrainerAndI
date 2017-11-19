@@ -12,6 +12,7 @@ public class ExerciseByDay {
   public static final String SETS_CONSTANT = "SET";
   public static final String REPS_CONSTANT = "REPS";
   public static final String DAYOFWEEK = "DAY_OF_WEEK" ;
+  public static final String LBS_LIFTED = "LBS_LIFTED";
 
   @DatabaseField(columnName = "DAYSCHEDULE_ID", generatedId = true)
   private int id;
@@ -32,17 +33,20 @@ public class ExerciseByDay {
   @DatabaseField(columnName = REPS_CONSTANT, canBeNull = false)
   private int reps;
 
+  @DatabaseField(columnName = LBS_LIFTED, canBeNull = true)
+  private int lbs;
+
   @DatabaseField(columnName = DAYOFWEEK, canBeNull = false)
   private int dayofweek;
-
+//Random ID
   public int getId() {
     return id;
   }
-
+//TimeStamp
   public Timestamp getCreated() {
     return created;
   }
-
+//Muscle
   public String getMuscle() {
     return muscle;
   }
@@ -50,6 +54,8 @@ public class ExerciseByDay {
   public void setMuscle(String muscle) {
     this.muscle = muscle;
   }
+
+  //Exercise
 
   public String getExercise() {
     return excercise;
@@ -59,6 +65,7 @@ public class ExerciseByDay {
     this.excercise = excercise;
   }
 
+  //Day of week
   public int getDayofweek() {
     return dayofweek;
   }
@@ -67,6 +74,7 @@ public class ExerciseByDay {
     this.dayofweek = dayofweek;
   }
 
+  //Sets
   public int getSets() {
     return sets;
   }
@@ -75,11 +83,21 @@ public class ExerciseByDay {
     this.sets = sets;
   }
 
+  //Reps
   public int getReps() {
     return reps;
   }
 
   public void setReps(int reps) {
     this.reps = reps;
+  }
+
+  // Lifted Pounds LBS
+  public int getLbs() {
+    return lbs;
+  }
+
+  public void setLbs(int lbs) {
+    this.lbs = lbs;
   }
 }

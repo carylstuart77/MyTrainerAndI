@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Android SQLite" uuid="4b913e03-0194-46e1-a395-7f9d11dd863d">
+    <data-source source="LOCAL" name="Android SQLite" uuid="4df7460a-2859-4478-b497-95e562b8e60d">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>
@@ -14,16 +14,12 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="Android SQLite" uuid="9f64ee42-6429-4ce0-827f-f847aa755285">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-    </data-source>
-    <data-source source="LOCAL" name="Android SQLite" uuid="ce7ed89b-4b4a-449e-a0d8-fafd51727bf6">
+    <data-source source="LOCAL" name="Android SQLite" uuid="95576e14-3298-45e2-a19c-96721b20b129">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="Android SQLite" uuid="4df7460a-2859-4478-b497-95e562b8e60d">
+    <data-source source="LOCAL" name="Android SQLite" uuid="a196b572-2679-4a07-9811-d7ac085b170e">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>

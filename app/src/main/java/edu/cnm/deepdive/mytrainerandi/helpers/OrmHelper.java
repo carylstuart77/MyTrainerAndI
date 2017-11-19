@@ -142,8 +142,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
     dayRow.setMuscle("Calves");
     dayRow.setExercise("Lifts");
-    dayRow.setSets(4);
-    dayRow.setReps(12);
+    dayRow.setSets(2);
+    dayRow.setReps(2);
     dayRow.setDayofweek(1);
 
     getDayscheduleDao().create(dayRow);  //write row
