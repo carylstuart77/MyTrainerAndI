@@ -13,7 +13,7 @@ The trainer has the  With the convenience of selecting from a set of exercises r
 
 ### Action Items
 
-*Application needs (listed in priority order):
+Application needs (listed in priority order):
 * Insert data into database from Excel db source for exercise table.
 
 * Trainer Screen:
@@ -22,20 +22,20 @@ The trainer has the  With the convenience of selecting from a set of exercises r
   3) Enable Save Button to updated DB (.
   4) Delete entries in DB for that day and insert new entry for that day.
   
- *Day's Schedule:
+ * Day's Schedule:
   1) Add Save Button and enable it to update Day's Sets, Reps and lbs.
   2) When Sets and Reps fields are selected blank them out and accept new entries.
   3) Validate entries (Sets 1-5, Reps 1-25);
   4) Auto close keyboard.
   
-  *Client Stats:
+  * Client Stats:
   1) Enable a view of the clients Weight, BMI and Fat % over time. (New Fragment)
   2) Disable Client Name and Height, if client name exists in db. Throw 
   
 
 
 ### Stretch Goals
-*Client Stats:
+* Client Stats:
 1) Graph Weight and Fat percentage.
 
 
