@@ -5,12 +5,13 @@ on the clients phone, it provides the client with easy access to their plan and 
 
 ### Functionality
 
-With the convenience of selecting from a database of exercises for each body group, the trainer has the ability to point and click, in 
-order to build a customized exercise plan.  Also, he can adjust the sets and reps to 
+With the convenience of selecting from a database of exercises for each body group, the trainer has the ability to point and click in 
+order to build a customized exercise plan.  Also, he can adjust the sets and reps to fit the clients goal.  
 
-The trainer has the  With the convenience of selecting from a set of exercises running on the clients phone, they know their client can benefit from like their clients to perform on a weekly basis, it tracks their progress by capturing sets, reps and weight.    
-
-
+For the client, they have the ease of pulling up their plan for each day's workout and the ability to capture the last heaviest 
+weight they were able to complete.  Also, they can keep track of their weight, bmi and fat percentage.  As a stretch goal their 
+weight and body fat percentage can be displayed in graph form to visualize their progress.
+  
 ### Action Items
 
 Application needs (listed in priority order):
@@ -31,13 +32,10 @@ Application needs (listed in priority order):
   * Client Stats:
   1) Enable a view of the clients Weight, BMI and Fat % over time. (New Fragment)
   2) Disable Client Name and Height, if client name exists in db. Throw 
-  
-
 
 ### Stretch Goals
 * Client Stats:
 1) Graph Weight and Fat percentage.
-
 
 ## Authors
 
