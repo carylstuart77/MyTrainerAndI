@@ -1,7 +1,7 @@
 ## My Trainer And I 
 
 _MTAI_ was created as an Android tool to help health and fitness trainers deliver custom, individualized exercise programs for their clients.  This tool provides the trainer with a list of exercises to choose from with just a few clicks.  Since this tool runs
-on the clients phone, it provides the client with easy access to their plan and an ability to capture their progress.
+on the clients phone, it provides the client with easy access to their program and an ability to capture their progress.
 
 ### Functionality
 
@@ -20,8 +20,8 @@ Application needs (listed in priority order):
 * Trainer Screen:
   1) Validate Sets and Reps entries; If nothing entered, default to 4 Sets and 12 Reps.
   2) Validate Day of week is selected.
-  3) Enable Save Button to updated DB (.
-  4) Delete entries in DB for that day and insert new entry for that day.
+  3) Enable Save Button to updated DB.
+  4) Delete day record in DB and insert new record (or update record).
   
 * Day's Schedule:
   1) Add Save Button and enable it to update Day's Sets, Reps and lbs.
