@@ -87,7 +87,7 @@ public class Day2 extends Fragment implements OnClickListener {
       year_x = year;
       month_x = monthOfYear;  //+ 1 sets default to currentyear;Removed since year would jump around with it.
       day_x = dayOfMonth;
-      //Toast.makeText(getActivity(),year_x + "/" + month_x + "/" + day_x, Toast.LENGTH_LONG).show();
+      //Toast.makeText(getActivity(),year_x + "/" + month_x + "/" + day_x, Toast.LENGTH_LONG).show();/
 
       Calendar calendar = Calendar.getInstance();
       calendar.set(year, monthOfYear, dayOfMonth);
