@@ -6,6 +6,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import edu.cnm.deepdive.mytrainerandi.R;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
 import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
@@ -13,12 +14,16 @@ import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
 import edu.cnm.deepdive.mytrainerandi.entity.Goal;
 import edu.cnm.deepdive.mytrainerandi.entity.GoalHistory;
 import edu.cnm.deepdive.mytrainerandi.entity.GoalLevel;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
+import org.apache.commons.io.IOUtils;
 
 public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
   private static final String DATABASE_NAME = "mytrainerandi.db";
   private static final int DATABASE_VERSION = 1;
+  private final Context context;
 
   //params are object type; cannot use primitives
   private Dao<Client, Integer> clientDao = null;
@@ -32,6 +37,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
   public OrmHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    this.context = context;
   }
 
   //Client.class is a class object.
@@ -46,7 +52,20 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       TableUtils.createTable(connectionSource, GoalLevel.class);
       TableUtils.createTable(connectionSource, ExerciseByDay.class);
       TableUtils.createTable(connectionSource, GoalHistory.class);
-      populateDatabase();
+      //populateDatabase();
+
+      InputStream inputStream = context.getResources().openRawResource(R.raw.main_exercise);
+      String queries = "";
+      try {
+        queries = IOUtils.toString(inputStream);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      for (String query : queries.split(";")) {
+        database.execSQL(query);
+      }
+
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -111,163 +130,165 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   }
 
 
+
+
   //------------------------------------------
   //Populate tables
 
-  private void populateDatabase() throws SQLException {
-
-
-    Goal goalMM = new Goal();
-    Goal goalWL = new Goal();
-    Goal goalWG = new Goal();
-    Goal goalTM = new Goal();
-    Goal goalIH = new Goal();
-
-    goalMM.setName("Muscle Mass");
-    goalWL.setName("Weight Loss");
-    goalWG.setName("Weight Gain");
-    goalTM.setName("Tone Musle");
-    goalIH.setName("Injury Active Recovery");
-
-    getGoalDao().create(goalMM);
-    getGoalDao().create(goalWL);
-    getGoalDao().create(goalWG);
-    getGoalDao().create(goalTM);
-    getGoalDao().create(goalIH);
-
-    //------------------------------------------
-    //ExerciseByDay Table in entity folder.
-
-    ExerciseByDay dayRow = new ExerciseByDay();
-
-    dayRow.setMuscle("Calves");
-    dayRow.setExercise("Lifts");
-    dayRow.setSets(2);
-    dayRow.setReps(2);
-    dayRow.setDayofweek(1);
-
-    getDayscheduleDao().create(dayRow);  //write row
-
-    dayRow = new ExerciseByDay();
-
-    dayRow.setMuscle("Hamstrings");
-    dayRow.setExercise("Bent Overs");
-    dayRow.setSets(4);
-    dayRow.setReps(12);
-    dayRow.setDayofweek(1);
-
-    getDayscheduleDao().create(dayRow);  //write row
-
-    dayRow = new ExerciseByDay();
-
-    dayRow.setMuscle("Quads");
-    dayRow.setExercise("Lunges");
-    dayRow.setSets(4);
-    dayRow.setReps(12);
-    dayRow.setDayofweek(1);
-
-    getDayscheduleDao().create(dayRow);  //write row
-
-    dayRow = new ExerciseByDay();
-    dayRow.setMuscle("Chest");
-    dayRow.setExercise("Flyes");
-    dayRow.setSets(4);
-    dayRow.setReps(12);
-    dayRow.setDayofweek(2);
-
-    getDayscheduleDao().create(dayRow);  //write row
-
-    dayRow = new ExerciseByDay();
-    dayRow.setMuscle("Shoulders");
-    dayRow.setExercise("Shoulder Pushes");
-    dayRow.setSets(4);
-    dayRow.setReps(12);
-    dayRow.setDayofweek(3);
-
-    getDayscheduleDao().create(dayRow);  //write row
-
-    dayRow = new ExerciseByDay();
-    dayRow.setMuscle("Shoulders");
-    dayRow.setExercise("Barbell Upright Rows");
-    dayRow.setSets(4);
-    dayRow.setReps(12);
-    dayRow.setDayofweek(4);
-
-    getDayscheduleDao().create(dayRow);  //write row
-
-    //------------------------------------------
-    //Exercise Table in entity folder for ALL exercises.
+//  private void populateDatabase() throws SQLException {
 //
-    Exercise allExercise = new Exercise();
-
-    allExercise.setExercisename("Clean Deadlift");
-    allExercise.setMuscle("Hamstring");
-    allExercise.setCircuit("lower");
-
-    getExerciseDao().create(allExercise);  //write row
-
-    allExercise = new Exercise();
-
-    allExercise.setExercisename("Romanian Deadlift");
-    allExercise.setMuscle("Hamstring");
-    allExercise.setCircuit("lower");
-
-    getExerciseDao().create(allExercise);  //write row
-
-    allExercise = new Exercise();
-
-    allExercise.setExercisename("Kettlebell Deadlift");
-    allExercise.setMuscle("Hamstring");
-    allExercise.setCircuit("lower");
-
-    getExerciseDao().create(allExercise);  //write row
-
-    allExercise = new Exercise();
-
-    allExercise.setExercisename("Lying Leg Curls");
-    allExercise.setMuscle("Calves");
-    allExercise.setCircuit("lower");
-
-    getExerciseDao().create(allExercise);  //write row
-
-    allExercise = new Exercise();
-
-    allExercise.setExercisename("Chest Fly");
-    allExercise.setMuscle("Chest");
-    allExercise.setCircuit("upper");
-
-    getExerciseDao().create(allExercise);  //write row
-
-    allExercise = new Exercise();
-
-    allExercise.setExercisename("Stepper 30 minutes");
-    allExercise.setMuscle("Heart");
-    allExercise.setCircuit("cardio");
-
-    getExerciseDao().create(allExercise);  //write row
-
-    allExercise = new Exercise();
-
-    allExercise.setExercisename("Plank 1 minute");
-    allExercise.setMuscle("abs");
-    allExercise.setCircuit("core");
-
-    getExerciseDao().create(allExercise);  //write row
-
-    allExercise = new Exercise();
-
-    allExercise.setExercisename("Plank 1 minute");
-    allExercise.setMuscle("abs");
-    allExercise.setCircuit("core");
-
-    getExerciseDao().create(allExercise);  //write row    allExercise = new Exercise();
-
-    allExercise.setExercisename("Situps");
-    allExercise.setMuscle("abs");
-    allExercise.setCircuit("core");
-
-    getExerciseDao().create(allExercise);  //write row
-  }
+//
+//    Goal goalMM = new Goal();
+//    Goal goalWL = new Goal();
+//    Goal goalWG = new Goal();
+//    Goal goalTM = new Goal();
+//    Goal goalIH = new Goal();
+//
+//    goalMM.setName("Muscle Mass");
+//    goalWL.setName("Weight Loss");
+//    goalWG.setName("Weight Gain");
+//    goalTM.setName("Tone Musle");
+//    goalIH.setName("Injury Active Recovery");
+//
+//    getGoalDao().create(goalMM);
+//    getGoalDao().create(goalWL);
+//    getGoalDao().create(goalWG);
+//    getGoalDao().create(goalTM);
+//    getGoalDao().create(goalIH);
+//
+//    //------------------------------------------
+//    //ExerciseByDay Table in entity folder.
+//
+//    ExerciseByDay dayRow = new ExerciseByDay();
+//
+//    dayRow.setMuscle("Calves");
+//    dayRow.setExercise("Lifts");
+//    dayRow.setSets(2);
+//    dayRow.setReps(2);
+//    dayRow.setDayofweek(1);
+//
+//    getDayscheduleDao().create(dayRow);  //write row
+//
+//    dayRow = new ExerciseByDay();
+//
+//    dayRow.setMuscle("Hamstrings");
+//    dayRow.setExercise("Bent Overs");
+//    dayRow.setSets(4);
+//    dayRow.setReps(12);
+//    dayRow.setDayofweek(1);
+//
+//    getDayscheduleDao().create(dayRow);  //write row
+//
+//    dayRow = new ExerciseByDay();
+//
+//    dayRow.setMuscle("Quads");
+//    dayRow.setExercise("Lunges");
+//    dayRow.setSets(4);
+//    dayRow.setReps(12);
+//    dayRow.setDayofweek(1);
+//
+//    getDayscheduleDao().create(dayRow);  //write row
+//
+//    dayRow = new ExerciseByDay();
+//    dayRow.setMuscle("Chest");
+//    dayRow.setExercise("Flyes");
+//    dayRow.setSets(4);
+//    dayRow.setReps(12);
+//    dayRow.setDayofweek(2);
+//
+//    getDayscheduleDao().create(dayRow);  //write row
+//
+//    dayRow = new ExerciseByDay();
+//    dayRow.setMuscle("Shoulders");
+//    dayRow.setExercise("Shoulder Pushes");
+//    dayRow.setSets(4);
+//    dayRow.setReps(12);
+//    dayRow.setDayofweek(3);
+//
+//    getDayscheduleDao().create(dayRow);  //write row
+//
+//    dayRow = new ExerciseByDay();
+//    dayRow.setMuscle("Shoulders");
+//    dayRow.setExercise("Barbell Upright Rows");
+//    dayRow.setSets(4);
+//    dayRow.setReps(12);
+//    dayRow.setDayofweek(4);
+//
+//    getDayscheduleDao().create(dayRow);  //write row
+//
+//    //------------------------------------------
+//    //Exercise Table in entity folder for ALL exercises.
+////
+//    Exercise allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Clean Deadlift");
+//    allExercise.setMuscle("Hamstring");
+//    allExercise.setCircuit("lower");
+//
+//    getExerciseDao().create(allExercise);  //write row
+//
+//    allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Romanian Deadlift");
+//    allExercise.setMuscle("Hamstring");
+//    allExercise.setCircuit("lower");
+//
+//    getExerciseDao().create(allExercise);  //write row
+//
+//    allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Kettlebell Deadlift");
+//    allExercise.setMuscle("Hamstring");
+//    allExercise.setCircuit("lower");
+//
+//    getExerciseDao().create(allExercise);  //write row
+//
+//    allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Lying Leg Curls");
+//    allExercise.setMuscle("Calves");
+//    allExercise.setCircuit("lower");
+//
+//    getExerciseDao().create(allExercise);  //write row
+//
+//    allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Chest Fly");
+//    allExercise.setMuscle("Chest");
+//    allExercise.setCircuit("upper");
+//
+//    getExerciseDao().create(allExercise);  //write row
+//
+//    allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Stepper 30 minutes");
+//    allExercise.setMuscle("Heart");
+//    allExercise.setCircuit("cardio");
+//
+//    getExerciseDao().create(allExercise);  //write row
+//
+//    allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Plank 1 minute");
+//    allExercise.setMuscle("abs");
+//    allExercise.setCircuit("core");
+//
+//    getExerciseDao().create(allExercise);  //write row
+//
+//    allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Plank 1 minute");
+//    allExercise.setMuscle("abs");
+//    allExercise.setCircuit("core");
+//
+//    getExerciseDao().create(allExercise);  //write row    allExercise = new Exercise();
+//
+//    allExercise.setExercisename("Situps");
+//    allExercise.setMuscle("abs");
+//    allExercise.setCircuit("core");
+//
+//    getExerciseDao().create(allExercise);  //write row
+//  }
 
   public interface OrmInteraction {
     OrmHelper getHelper();

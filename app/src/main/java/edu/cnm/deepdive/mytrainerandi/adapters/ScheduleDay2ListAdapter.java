@@ -34,8 +34,9 @@ public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
     TextView slbs = view.findViewById(R.id.edit_lbs);
 
     ExerciseByDay item = getItem(position);
-    smuscle.setText(item.getMuscle());
-    sexercise.setText(item.getExercise());
+    smuscle.setText(item.getExercise().getMuscle());
+    //pulling from object no longer a string
+    sexercise.setText(item.getExercise().getExercisename());
     ssets.setText(Integer.toString(item.getSets()));
     sreps.setText(Integer.toString(item.getReps()));
     slbs.setText(Integer.toString(item.getLbs()));

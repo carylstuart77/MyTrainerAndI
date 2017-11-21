@@ -93,7 +93,7 @@
       android:layout_margin="8dp"
       android:background="@drawable/abs_wm"
       android:button="@drawable/add_steel_button_48x48"
-      android:text="Abs"
+      android:text="Core"
       android:textColor="@android:color/white"
       android:textSize="24sp"/>
 

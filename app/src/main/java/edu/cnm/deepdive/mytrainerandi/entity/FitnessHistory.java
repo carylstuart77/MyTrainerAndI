@@ -65,5 +65,7 @@ public class FitnessHistory {
   public void setFat(double fat) {
     this.fat = fat;
   }
+
+
 }
 

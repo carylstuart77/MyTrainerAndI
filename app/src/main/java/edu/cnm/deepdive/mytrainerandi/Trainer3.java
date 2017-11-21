@@ -104,8 +104,8 @@ public class Trainer3 extends Fragment implements OnClickListener {
   @Override
   public void onClick(View view) {
     if (view.getId() == R.id.radioabs) {
-      showTextNotification("Abs");
-      refresh("abs");
+      showTextNotification("Core");
+      refresh("core");
     }
     if (view.getId() == R.id.radiocardio) {
       showTextNotification("Cardio");
@@ -120,11 +120,11 @@ public class Trainer3 extends Fragment implements OnClickListener {
       refresh("upper");
     }
 
-    //Save Button OnClick add to database
-    //??Look at this
+
     //First checking if save button was pressed; looping through exercises rows to determine if box was checked.
+    //loop through list items
     if (view.getId() == R.id.btnSaveTrainer) {
-      for (int i = 0; i < exerciseListView.getCount(); i++) {
+      for (int i = 0; i < exerciseListView.getChildCount(); i++) {
         if (((CheckBox) exerciseListView.getChildAt(i).findViewById(R.id.edit_trainerpick))
             .isChecked()) {
           EditText mTrainerSets = exerciseListView.getChildAt(i)
@@ -150,7 +150,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
 
             newtrainerpick.setSets(sets);
             newtrainerpick.setReps(reps);
-            helper.getExerciseByDayDao().create(newtrainerpick);
+
             //set day of week..??date
 
             switch (radiogroup.getCheckedRadioButtonId()) {
@@ -175,9 +175,15 @@ public class Trainer3 extends Fragment implements OnClickListener {
               case R.id.radioSat:
                 newtrainerpick.setDayofweek(6);
                 break;
+
             }
 
-            //figure out a way to take out the day schedule.
+            Exercise item = (Exercise) exerciseListView.getAdapter().getItem(i);
+            newtrainerpick.setExercise(item);
+
+            helper.getExerciseByDayDao().create(newtrainerpick);
+
+            showTextNotification("SAVED IT!");
 
             //adapter already selected it shows up as selected.
             //helper.getExerciseByDayDao().update(newtrainerpick);

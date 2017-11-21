@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "DAYSCHEDULE")
 public class ExerciseByDay {
 
-  public static final String MUSCLE_CONSTANT = "MUSCLE";
   public static final String EXERCISE_CONSTANT = "EXERCISE";
   public static final String SETS_CONSTANT = "SET";
   public static final String REPS_CONSTANT = "REPS";
@@ -21,11 +20,9 @@ public class ExerciseByDay {
       format = "yyy-MM-dd HH:mm:ss", canBeNull = false, readOnly = true)
   private Timestamp created;
 
-  @DatabaseField(columnName = MUSCLE_CONSTANT, canBeNull = false)
-  private String muscle;
-
-  @DatabaseField(columnName = EXERCISE_CONSTANT, canBeNull = false)
-  private String excercise;
+//Find field in foreign table (exercise)
+  @DatabaseField(columnName = EXERCISE_CONSTANT, canBeNull = false, foreign = true, foreignAutoRefresh = true)
+  private Exercise exercise;
 
   @DatabaseField(columnName = SETS_CONSTANT, canBeNull = false)
   private int sets;
@@ -46,23 +43,14 @@ public class ExerciseByDay {
   public Timestamp getCreated() {
     return created;
   }
-//Muscle
-  public String getMuscle() {
-    return muscle;
-  }
-
-  public void setMuscle(String muscle) {
-    this.muscle = muscle;
-  }
 
   //Exercise
-
-  public String getExercise() {
-    return excercise;
+  public Exercise getExercise() {
+    return exercise;
   }
 
-  public void setExercise(String excercise) {
-    this.excercise = excercise;
+  public void setExercise(Exercise exercise) {
+    this.exercise = exercise;
   }
 
   //Day of week
