@@ -46,6 +46,14 @@ public class Trainer3 extends Fragment implements OnClickListener {
   private RadioButton rdSun;
   private RadioGroup radiogroup;
 
+  /**
+   * Inflate trainer3 view to display screen for use by trainer. Allows trainer to pick exercises for client.
+   * @param inflater
+   * @param container
+   * @param savedInstanceState
+   * @return
+   */
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {

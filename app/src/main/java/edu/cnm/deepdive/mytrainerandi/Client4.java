@@ -50,13 +50,6 @@ public class Client4 extends Fragment implements Button.OnClickListener {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View inflate = inflater.inflate(R.layout.client4, container, false);
-    //Refresh screen after client name and height is entered to make them unselectable.
-    /*Client4 fragment = new Client4();
-    FragmentTransaction ft = getFragmentManager().beginTransaction();
-    ft.replace(R.id.content_main, fragment);
-    ft.commit();*/
-
-
 
     mClientName = inflate.findViewById(R.id.editClientName);
     mClientHeight = inflate.findViewById(R.id.editClientHeight);
@@ -215,6 +208,12 @@ public class Client4 extends Fragment implements Button.OnClickListener {
             showTextNotification("SAVED IT!");
           }
 
+          //Refresh screen after client name and height is entered to make them unselectable.
+        Client4 fragment = new Client4();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.content_main, fragment);
+        ft.commit();
+
           break;
         } catch (SQLException e) {
           throw new RuntimeException(e);
@@ -222,11 +221,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
 
       case R.id.btnViewClient:
         Log.i("In Button View", "View Client");
-        //Refresh screen after client name and height is entered to make them unselectable.
-//        Client4 fragment = new Client4();
-//        android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-//        ft.replace(R.id.content_main, fragment);
-//        ft.commit();
+
 
         /**
          * Display fitness History in graph form.

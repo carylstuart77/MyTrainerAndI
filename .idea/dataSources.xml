@@ -1,44 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Android SQLite" uuid="caa0cb10-9db0-49df-a619-d3c72cf33486">
+    <data-source source="LOCAL" name="MyTrainer" uuid="5ad34ad2-113f-4add-aecd-ea94d5391fbc">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/sqlite-jdbc-3.16.1.jar</url>
-        </library>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/xerial-sqlite-license.txt</url>
-        </library>
-      </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="Android SQLite [2]" uuid="f89d1885-f767-4bd4-b120-854355d0bdd4">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/sqlite-jdbc-3.16.1.jar</url>
-        </library>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/xerial-sqlite-license.txt</url>
-        </library>
-      </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="Android SQLite" uuid="4a9301b8-b36e-4e11-bb32-cd127e6153c1">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\caryl\.IntelliJIdea2017.2\system\android\databases\EMULATOR_Nexus_5X_API_22\edu.cnm.deepdive.mytrainerandi\internal\mytrainerandi.db</jdbc-url>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/sqlite-jdbc-3.16.1.jar</url>
-        </library>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/xerial-sqlite-license.txt</url>
-        </library>
-      </libraries>
     </data-source>
   </component>
 </project>

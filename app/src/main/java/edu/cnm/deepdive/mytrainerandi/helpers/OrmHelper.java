@@ -139,11 +139,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       database.execSQL(query);
     }
 
-    Client client = new Client();
-    client.setName("Tucker Stuart");
-    client.setHeight(64);
+//    Client client = new Client();
+//    client.setName("Tucker Stuart");
+//    client.setHeight(64);
 
-    getClientDao().createIfNotExists(client);
+    //getClientDao().createIfNotExists(client);
 
 //
 //    Goal goalMM = new Goal();
