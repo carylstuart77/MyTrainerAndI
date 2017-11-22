@@ -15,9 +15,8 @@ public class FitnessHistory {
   @DatabaseField(columnName = CLIENT_ID, foreign = true, foreignAutoRefresh = true, index = true, canBeNull = false)
   private Client client;
 
-
   @DatabaseField(columnName = "CREATED", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-      format = "yyy-MM-dd HH:mm:ss", canBeNull = false, readOnly = true)
+      format = "yyy-MM-dd", canBeNull = false, readOnly = true)
   private Timestamp created;
 
   @DatabaseField(columnName = "WEIGHT", canBeNull = false)

@@ -80,30 +80,46 @@ public class GraphFragment extends Fragment {
     LineGraphSeries<DataPoint> seriesbmi = new LineGraphSeries<>(vargraphbmi);
     LineGraphSeries<DataPoint> seriesfat = new LineGraphSeries<>(vargraphfat);
 
+    //Graph Colors
     serieswt.setColor(Color.RED);
     seriesbmi.setColor(Color.BLUE);
     seriesfat.setColor(Color.GREEN);
 
+    serieswt.setDrawDataPoints(true);
+    seriesbmi.setDrawDataPoints(true);
+    seriesfat.setDrawDataPoints(true);
+
+    //Graph Line Thickness
+    serieswt.setThickness(8);
+    seriesbmi.setThickness(8);
+    seriesfat.setThickness(8);
+
+    //Graph Legend
     serieswt.setTitle("Weight");
     seriesbmi.setTitle("BMI");
     seriesfat.setTitle("Fat");
 
+    //X access date format
     DateFormat format = new SimpleDateFormat("M/d");
 
+    //
     GraphView view = ((GraphView) root.findViewById(R.id.fitness_history_graph));
     view.getGridLabelRenderer().setHumanRounding(false);
     view.getLegendRenderer().setVisible(true);
 
     view.getGridLabelRenderer()
         .setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity(), format));
-//cast xml to GraphView
+
+    //cast xml to GraphView
     view.addSeries(serieswt);
     SecondScale rightAxis = view.getSecondScale();
+    //rightAxis.setVerticalAxisTitleColor();
+
     rightAxis.setVerticalAxisTitle("BMI");
     rightAxis.setMinY(0);
     rightAxis.setMaxY(40);
     rightAxis.addSeries(seriesbmi);
-    // view.addSeries(seriesfat);
+    view.addSeries(seriesfat);
 
     return root;
   }

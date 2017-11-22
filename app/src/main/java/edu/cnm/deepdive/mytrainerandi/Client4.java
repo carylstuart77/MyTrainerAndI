@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -42,6 +43,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
   int fat_min = 15;
 
   public static final String CLIENT_ID_KEY = "client_id";
+  private Spinner mClientGoal;
 
   /**
    * This will update both Client and Fitness History Tables
@@ -66,14 +68,14 @@ public class Client4 extends Fragment implements Button.OnClickListener {
 
     //Use setError to inform user that each field is required.
     EditText firstName = (EditText) inflate.findViewById(R.id.editClientName);
-    //Alert if empty removed.
-    //  if( firstName.getText().toString().length() == 0 )
-    //      firstName.setError( "Name is required." );
+    //Alert if name field is empty.
+      if( firstName.getText().toString().length() != 0 )
+          firstName.setError( "Name is required." );
 
     EditText clientHeight = (EditText) inflate.findViewById(R.id.editClientHeight);
-    //Alert if empty removed.
-    // if (clientHeight.getText().toString().length() == 0)
-    //    clientHeight.setError("Height is required.");
+    //Alert if height field is empty.
+     if (clientHeight.getText().toString().length() != 0)
+        clientHeight.setError("Height is required.");
 
     EditText clientWeight = (EditText) inflate.findViewById(R.id.editClientWeight);
     if (clientWeight.getText().toString().length() == 0) {
@@ -98,7 +100,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
     }
 
     //?Ask Chris about spinner value.
-    // mClientGoal = inflate.findViewById(R.id.spinnerGoal);
+    mClientGoal = inflate.findViewById(R.id.spinnerGoal);
 //    Spinner spinner = (Spinner) inflate.findViewById(R.id.spinnerGoal);
 //    String size = spinner.getSelectedItem().toString(); // Small, Medium, Large
 //
@@ -140,6 +142,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
           newfitnesshistory.setWeight(Double.parseDouble(mClientWeight.getText().toString()));
           newfitnesshistory.setBmi(Double.parseDouble(mClientBMI.getText().toString()));
           newfitnesshistory.setFat(Double.parseDouble(mClientFat.getText().toString()));
+          newfitnesshistory.setGoal(mClientGoal.getSelectedItem().toString());
 
           //Validate Weight numbers
           if (newfitnesshistory.getWeight() > wt_max || newfitnesshistory.getWeight() < wt_min) {
@@ -238,6 +241,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
         ft.replace(R.id.content_main, fragmentgraph);
         ft.addToBackStack("back to client").commit();
         break;
+
     }
 
 

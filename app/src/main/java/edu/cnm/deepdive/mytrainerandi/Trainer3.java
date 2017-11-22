@@ -1,8 +1,11 @@
 package edu.cnm.deepdive.mytrainerandi;
 
 import static edu.cnm.deepdive.mytrainerandi.entity.Exercise.CIRCUIT_COLNAME;
+import static edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay.DAYOFWEEK;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import edu.cnm.deepdive.mytrainerandi.adapters.Trainer3ListAdapter;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
@@ -47,11 +51,8 @@ public class Trainer3 extends Fragment implements OnClickListener {
   private RadioGroup radiogroup;
 
   /**
-   * Inflate trainer3 view to display screen for use by trainer. Allows trainer to pick exercises for client.
-   * @param inflater
-   * @param container
-   * @param savedInstanceState
-   * @return
+   * Inflate trainer3 view to display screen for use by trainer. Allows trainer to pick exercises
+   * for client.
    */
 
   @Override
@@ -80,6 +81,9 @@ public class Trainer3 extends Fragment implements OnClickListener {
     //Add Save button Listener, creating view object in memory.
     Button savebutton = trainerView.findViewById(R.id.btnSaveTrainer);
     savebutton.setOnClickListener(this);
+
+    Button resetbutton = trainerView.findViewById(R.id.btnResetTrainer);
+    resetbutton.setOnClickListener(this);
 
     return trainerView;
   }
@@ -129,7 +133,6 @@ public class Trainer3 extends Fragment implements OnClickListener {
       refresh("upper");
     }
 
-
     //First checking if save button was pressed; looping through exercises rows to determine if box was checked.
     //loop through list items
     if (view.getId() == R.id.btnSaveTrainer) {
@@ -149,10 +152,12 @@ public class Trainer3 extends Fragment implements OnClickListener {
             int sets = 0;
             int reps = 0;
 
-            if (!capturesets.trim().isEmpty())
+            if (!capturesets.trim().isEmpty()) {
               sets = Integer.parseInt(capturesets);
-            if (!capturereps.trim().isEmpty())
+            }
+            if (!capturereps.trim().isEmpty()) {
               reps = Integer.parseInt(capturereps);
+            }
 
             //Exercise is Trainers entity
             ExerciseByDay newtrainerpick = new ExerciseByDay();
@@ -203,6 +208,68 @@ public class Trainer3 extends Fragment implements OnClickListener {
           }
         }
       }
+    }
+
+    if (view.getId() == R.id.btnResetTrainer) {
+
+      int dayofweek = 7;
+
+      switch (radiogroup.getCheckedRadioButtonId()) {
+        case R.id.radioSun:
+          dayofweek = 0;
+          break;
+        case R.id.radioMon:
+          dayofweek = 1;
+          break;
+        case R.id.radioTue:
+          dayofweek = 2;
+          break;
+        case R.id.radioWed:
+          dayofweek = 3;
+          break;
+        case R.id.radioThu:
+          dayofweek = 4;
+          break;
+        case R.id.radioFri:
+          dayofweek = 5;
+          break;
+        case R.id.radioSat:
+          dayofweek = 6;
+          break;
+
+      }
+
+      AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+      alertDialog.setTitle("Reset: ");
+      alertDialog.setMessage("Remove current day of workouts?");
+      // Alert dialog button
+      final int finalDayofweek = dayofweek;
+      alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
+          new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+              //delete elements from table in field by arg
+              DeleteBuilder<ExerciseByDay, Integer> deleteBuilder = null;
+              try {
+                deleteBuilder = helper.getDayscheduleDao().deleteBuilder();
+                deleteBuilder.where().eq(DAYOFWEEK, finalDayofweek);
+                deleteBuilder.delete();
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+              dialog.dismiss();// use dismiss to cancel alert dialog
+            }
+          });
+      alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+          new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+              //Left blank on purpose.
+            }
+          });
+      alertDialog.show();
+
+
     }
   }
 }

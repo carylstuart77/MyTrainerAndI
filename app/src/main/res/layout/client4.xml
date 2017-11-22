@@ -100,7 +100,7 @@
 
   <Spinner
     android:id="@+id/spinnerGoal"
-    android:layout_width="wrap_content"
+    android:layout_width="20dp"
     android:layout_height="wrap_content"
     android:prompt="@string/goal_prompt"
     android:entries="@array/goal_arrays"
@@ -110,15 +110,17 @@
 
   <Button
     android:id="@+id/btnSaveClient"
-    android:layout_width="100dp"
+    android:layout_width="130dp"
     android:layout_height="70dp"
-    android:layout_marginTop="47dp"
-    android:layout_below="@+id/textView4"
-    android:layout_toStartOf="@+id/spinnerGoal"
-    android:background="@drawable/save_pillbtn"
+    android:layout_marginBottom="32dp"
+    android:layout_marginStart="27dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentStart="true"
+    android:background="@drawable/blue_pill_btn"
+    android:text="SAVE"
     android:textColor="@android:color/background_light"
     android:textColorLink="@color/colorPrimary"
-    android:textSize="18sp"/>
+    android:textSize="32sp"/>
   <TextView
     android:id="@+id/textClientName1"
     android:layout_width="wrap_content"
@@ -182,17 +184,15 @@
     android:textSize="18sp"/>
   <Button
     android:id="@+id/btnViewClient"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="57dp"
-    android:layout_alignBaseline="@+id/btnSaveClient"
-
-    android:layout_alignParentEnd="true"
-    android:layout_below="@+id/linearLayout"
-    android:background="@drawable/smallpillbtn"
-    android:text="View"
+    android:layout_width="130dp"
+    android:layout_height="70dp"
+    android:layout_alignBottom="@+id/btnSaveClient"
+    android:layout_alignEnd="@+id/textTitle"
+    android:layout_alignTop="@+id/btnSaveClient"
+    android:background="@drawable/blue_pill_btn"
+    android:text="Graph"
     android:textColor="@android:color/background_light"
-    android:textSize="18sp"/>
+    android:textSize="32sp"/>
 
 
 </RelativeLayout>
