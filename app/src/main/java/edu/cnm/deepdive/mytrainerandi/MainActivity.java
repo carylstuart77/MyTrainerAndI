@@ -3,9 +3,9 @@ package edu.cnm.deepdive.mytrainerandi;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import android.app.Fragment;
-
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity
 
     //After nav bar selection is picked, replace content_main with choice and run new screen.
     if (fragment != null) {
-      android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+      FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
       ft.replace(R.id.content_main, fragment);
       ft.commit();
     }

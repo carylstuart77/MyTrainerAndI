@@ -3,8 +3,9 @@ package edu.cnm.deepdive.mytrainerandi;
 import static edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay.DAYOFWEEK;
 
 import android.app.DatePickerDialog;
-import android.app.Fragment;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class Day2 extends Fragment implements OnClickListener {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
+    Log.d("In Day2:", "In Day2: OnCreateView");
 
     //LayoutInflater is one of the Android System Services that is responsible
     // for taking your XML files that define a layout, and converting them into View objects.

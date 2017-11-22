@@ -52,19 +52,9 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       TableUtils.createTable(connectionSource, GoalLevel.class);
       TableUtils.createTable(connectionSource, ExerciseByDay.class);
       TableUtils.createTable(connectionSource, GoalHistory.class);
-      //populateDatabase();
+      populateDatabase(database);
 
-      InputStream inputStream = context.getResources().openRawResource(R.raw.main_exercise);
-      String queries = "";
-      try {
-        queries = IOUtils.toString(inputStream);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
 
-      for (String query : queries.split(";")) {
-        database.execSQL(query);
-      }
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -135,8 +125,26 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   //------------------------------------------
   //Populate tables
 
-//  private void populateDatabase() throws SQLException {
-//
+  private void populateDatabase(SQLiteDatabase database) throws SQLException {
+
+    InputStream inputStream = context.getResources().openRawResource(R.raw.main_exercise);
+    String queries = "";
+    try {
+      queries = IOUtils.toString(inputStream);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    for (String query : queries.split(";")) {
+      database.execSQL(query);
+    }
+
+    Client client = new Client();
+    client.setName("Tucker Stuart");
+    client.setHeight(64);
+
+    getClientDao().createIfNotExists(client);
+
 //
 //    Goal goalMM = new Goal();
 //    Goal goalWL = new Goal();
@@ -286,9 +294,9 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 //    allExercise.setExercisename("Situps");
 //    allExercise.setMuscle("abs");
 //    allExercise.setCircuit("core");
-//
-//    getExerciseDao().create(allExercise);  //write row
-//  }
+
+ //   getExerciseDao().create(allExercise);  //write row
+  }
 
   public interface OrmInteraction {
     OrmHelper getHelper();

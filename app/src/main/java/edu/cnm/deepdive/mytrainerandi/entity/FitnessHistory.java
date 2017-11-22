@@ -7,8 +7,14 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "FITNESS_HISTORY")
 public class FitnessHistory {
 
+  public static final String CLIENT_ID = "CLIENT_ID";
+
   @DatabaseField(columnName = "FITNESS_HISTORY_ID", generatedId = true)
   private int id;
+
+  @DatabaseField(columnName = CLIENT_ID, foreign = true, foreignAutoRefresh = true, index = true, canBeNull = false)
+  private Client client;
+
 
   @DatabaseField(columnName = "CREATED", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
       format = "yyy-MM-dd HH:mm:ss", canBeNull = false, readOnly = true)
@@ -66,6 +72,12 @@ public class FitnessHistory {
     this.fat = fat;
   }
 
+  public Client getClient() {
+    return client;
+  }
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }
 
