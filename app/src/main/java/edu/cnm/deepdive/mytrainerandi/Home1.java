@@ -19,6 +19,6 @@ public class Home1 extends Fragment {
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    getActivity().setTitle("Home");
+    getActivity().setTitle("My Trainer And I");
   }
 }

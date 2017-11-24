@@ -2,7 +2,6 @@ package edu.cnm.deepdive.mytrainerandi;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +19,15 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 
+/**
+ * Activity implementing navigation view on Android devices.  Data fields are implemented by ORM
+ * interaction sql queries.
+ *
+ * @version 1.0, 2017-11-24
+ * @author: Caryl Stuart
+ * @contributors: Nick Bennett and Chris Hughes
+ */
+
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, OrmInteraction {
 
@@ -32,14 +40,13 @@ public class MainActivity extends AppCompatActivity
   Spinner spinnerGoal;
 
   /**
-   * On Create: Called when the activity is starting.
-   * This is where most initialization should go:
+   * onCreate is called when the activity is starting. This is where most initialization will
+   * happen. Inflate the main navigation tool bar for main drawer selections.
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    //Inflate the activity UI using findViewById
     setContentView(R.layout.activity_main);
 
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -72,6 +79,11 @@ public class MainActivity extends AppCompatActivity
   }
 
   //creates an instance of the ormhelper
+
+  /**
+   * Creating an instance of the OrmHelper in preparation for database use. Synchronizing threads to
+   * block additional threads until the thread inside the block exits.
+   */
   public synchronized OrmHelper getHelper() {
     if (helper == null) {
       helper = OpenHelperManager.getHelper(this, OrmHelper.class);
@@ -79,7 +91,10 @@ public class MainActivity extends AppCompatActivity
     return helper;
   }
 
-  //Try to prevent memory leaks by setting helper to null when not in use.
+  /**
+   * Release helper is called to shutdown Open helper class. This prevents memory leaks by setting
+   * helper to null when not in use.
+   */
   public synchronized void releaseHelper() {
     if (helper != null) {
       OpenHelperManager.releaseHelper();
@@ -107,13 +122,13 @@ public class MainActivity extends AppCompatActivity
     return true;
   }
 
+  // Handle action bar item clicks here. The action bar will
+  // automatically handle clicks on the Home/Up button, so long
+  // as you specify a parent activity in AndroidManifest.xml.
+
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
     int id = item.getItemId();
-
     //noinspection SimplifiableIfStatement
     if (id == R.id.action_settings) {
       return true;
@@ -122,8 +137,12 @@ public class MainActivity extends AppCompatActivity
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * Main navigation selection bar which includes pages for: welcome, daily workouts, main trainer
+   * list of exercises to pick from and the client log with graphing. After nav bar selection is
+   * picked, replace content_main with the selection and run new screen fragment.
+   */
   private void displaySelectedScreen(int id) {
-    //FragmentManager fragment = getSupportFragmentManager();
 
     Fragment fragment = null;
     id = getIntent().getIntExtra("position", id);
@@ -143,7 +162,6 @@ public class MainActivity extends AppCompatActivity
         break;
     }
 
-    //After nav bar selection is picked, replace content_main with choice and run new screen.
     if (fragment != null) {
       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
       ft.replace(R.id.content_main, fragment);
@@ -161,7 +179,6 @@ public class MainActivity extends AppCompatActivity
     int id = item.getItemId();
 
     displaySelectedScreen(id);
-
 
     return true;
   }

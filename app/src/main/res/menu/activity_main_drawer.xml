@@ -5,19 +5,19 @@
     <item
       android:id="@+id/nav_home"
       android:icon="@drawable/ic_menu_camera"
-      android:title="Home"/>
+      android:title="Welcome to MyTrainerAndI!"/>
     <item
       android:id="@+id/nav_day"
       android:icon="@drawable/ic_menu_gallery"
-      android:title="Day Schedule"/>
+      android:title="Exercises by Day"/>
     <item
       android:id="@+id/nav_trainer"
       android:icon="@drawable/ic_menu_slideshow"
-      android:title="Trainer Plan"/>
+      android:title="Trainers Master List"/>
     <item
       android:id="@+id/nav_client"
       android:icon="@drawable/ic_menu_manage"
-      android:title="Client Stats"/>
+      android:title="Client Log"/>
   </group>
 
 

@@ -1,9 +1,7 @@
 package edu.cnm.deepdive.mytrainerandi;
 
 import static edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay.DAYOFWEEK;
-
 import android.app.DatePickerDialog;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,11 +21,19 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Exercises by Day fragment provides client with a list of exercises they should be performing by day.
+ * Once the user selects from the nav bar a screen displays providing the user the capability to pick
+ * a day of week from the calendar.
+ */
+
 public class Day2 extends Fragment implements OnClickListener {
 
   Button btn;
   int year_x, month_x, day_x;
   static final int DIALOG_ID = 0;
+
+  
   private View inflate;
   private OrmHelper helper;
   private ListView workoutListView;
