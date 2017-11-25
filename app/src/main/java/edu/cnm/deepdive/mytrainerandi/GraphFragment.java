@@ -21,32 +21,36 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment is called from Client4.java to display graphed data from FITNESS_HISTORY table. Table
+ * data consists of: Weight, BMI and Fat percentage for a single client ID.
  */
 public class GraphFragment extends Fragment {
 
+  /**
+   * Retrieves and saves ID of client
+   */
   private static final String CLIENT_ID_KEY = "client_id";
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
-    // Inflate the layout for this fragment
-    //
     View root = inflater.inflate(R.layout.fragment_graph, container, false);
     List<FitnessHistory> clienthistory = null;
     try {
       Bundle bundle = this.getArguments();
       if (bundle != null) {
 
-        //we know this fragment was created by and activity; implements ORM interaction interface; cast to FitnessHistory
-        //TYPE CASTING. java object typecasting one object reference can be type cast into another object reference.
+        // Java object typecasting one object reference can be type cast into another object reference.
         // The cast can be to its own class type or to one of its subclass or superclass types or interfaces.
+
+        /**
+         * Implement ORM interaction interface getFitnessHistoryDao.  Client ID is passed as an argument
+         * to pull history information for client using ID key.
+         */
         clienthistory = ((OrmInteraction) getActivity())
             .getHelper().getFitnessHistoryDao()
-            //get argument
             .queryForEq(CLIENT_ID, getArguments().getInt(CLIENT_ID_KEY));
       }
     } catch (SQLException e) {
@@ -102,7 +106,7 @@ public class GraphFragment extends Fragment {
     //X access date format
     DateFormat format = new SimpleDateFormat("M/d");
 
-    //
+    // Setup view for graph from fragment_graph.xml
     GraphView view = ((GraphView) root.findViewById(R.id.fitness_history_graph));
     view.getGridLabelRenderer().setHumanRounding(false);
     view.getLegendRenderer().setVisible(true);
@@ -111,6 +115,10 @@ public class GraphFragment extends Fragment {
         .setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity(), format));
 
     //cast xml to GraphView
+    /**
+     * Setup second scale to the right for BMI numbers.
+     * Setup second scale MinY to 0 and MaxY to 40.
+     */
     view.addSeries(serieswt);
     SecondScale rightAxis = view.getSecondScale();
     //rightAxis.setVerticalAxisTitleColor();
@@ -123,5 +131,4 @@ public class GraphFragment extends Fragment {
 
     return root;
   }
-
 }

@@ -4,8 +4,6 @@ package edu.cnm.deepdive.mytrainerandi.entity;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
 
 //Object Relational Mapping (ORM DB)
 

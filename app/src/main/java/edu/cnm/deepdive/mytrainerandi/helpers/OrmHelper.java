@@ -8,8 +8,8 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import edu.cnm.deepdive.mytrainerandi.R;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
-import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
+import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
 import edu.cnm.deepdive.mytrainerandi.entity.Goal;
 import edu.cnm.deepdive.mytrainerandi.entity.GoalHistory;
@@ -19,13 +19,23 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import org.apache.commons.io.IOUtils;
 
+
+/**
+ *  ORMHelper framework provides object relational mapping (ORM) between Java classes
+ *  and SQL databases.  The main helper will create a database called mytrainerandi
+ *  if it does not exist.  Also, it will create the MTAI tables needed for capturing
+ *  log data and uploading raw exercise data.
+ */
 public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
+  /**  Constant database name, version control and maintain context state. */
   private static final String DATABASE_NAME = "mytrainerandi.db";
   private static final int DATABASE_VERSION = 1;
   private final Context context;
 
-  //params are object type; cannot use primitives
+  /**
+   * Data Objects Daos: entity parameter types and their data types of Integer keys.
+   */
   private Dao<Client, Integer> clientDao = null;
   private Dao<FitnessHistory, Integer> fitnessHistoryDao = null;
   private Dao<Exercise, Integer> exerciseDao = null;
@@ -34,7 +44,10 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   private Dao<ExerciseByDay, Integer> dayscheduleDao = null;
   private Dao<ExerciseByDay, Integer> exerciseByDayDao = null;
 
-
+  /**
+   * Constructor used to pass to the super class the context for reading it in.
+   * @param context
+   */
   public OrmHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
     this.context = context;
@@ -44,7 +57,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   @Override
   public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
     try {
-      //Creates the tables of class; classes are entities; class fields are attributes.
+
+      /**
+       * Create tables: attribute fields are generated from entity classes.
+       * Call populateDatabase to manually initialise tables when needed.
+       */
       TableUtils.createTable(connectionSource, Client.class);
       TableUtils.createTable(connectionSource, Exercise.class);
       TableUtils.createTable(connectionSource, FitnessHistory.class);
@@ -55,26 +72,31 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       populateDatabase(database);
 
 
-
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
-  //this will handle an upgrade like adding a field.
+  //Version control upgrade is handled when table fields change.
   @Override
   public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion,
       int newVersion) {
   }
 
-  //any references to Dao is released by setting to null at close
+  //Any references to Dao is released by setting to null at close
   @Override
   public void close() {
     clientDao = null;
     super.close();
   }
 
-  //handle Dao; If there are more than one thread it will synchronize
+
+  /**
+   * Handle Client Dao block with synchronization to avoid race condition of more than one thread running at a time.
+   * Throw SQL exception if it occurs.
+   * @return
+   * @throws SQLException
+   */
   public synchronized Dao<Client, Integer> getClientDao() throws SQLException {
     if (clientDao == null) {
       clientDao = getDao(Client.class);
@@ -82,6 +104,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return clientDao;
   }
 
+  /**
+   * ExerciseByDay synchronization Doa handling to prevent race condition.
+   * @return
+   * @throws SQLException
+   */
   public synchronized Dao<ExerciseByDay, Integer> getDayscheduleDao() throws SQLException {
     if (dayscheduleDao == null) {
       dayscheduleDao = getDao(ExerciseByDay.class);
@@ -89,7 +116,12 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return dayscheduleDao;
   }
 
-  //handle Dao; If there are more than one thread it will synchronize
+
+  /**
+   * Goal synchronization Doa handling to prevent race condition.
+   * @return
+   * @throws SQLException
+   */
   public synchronized Dao<Goal, Integer> getGoalDao() throws SQLException {
     if (goalDao == null) {
       goalDao = getDao(Goal.class);
@@ -97,7 +129,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return goalDao;
   }
 
-  //handle Dao; If there are more than one thread it will synchronize
+  /**
+   * Execise synchronization Doa handling to prevent race condition.
+   * @return
+   * @throws SQLException
+   */
   public synchronized Dao<Exercise, Integer> getExerciseDao() throws SQLException {
     if (exerciseDao == null) {
       exerciseDao = getDao(Exercise.class);
@@ -105,6 +141,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return exerciseDao;
   }
 
+  /**
+   * FitnessHistory synchronization Doa handling to prevent race condition.
+   * @return
+   * @throws SQLException
+   */
   public synchronized Dao<FitnessHistory, Integer> getFitnessHistoryDao() throws SQLException {
     if (fitnessHistoryDao == null) {
       fitnessHistoryDao = getDao(FitnessHistory.class);
@@ -112,6 +153,11 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return fitnessHistoryDao;
   }
 
+  /**
+   * ExerciseByDay synchronization Doa handling to prevent race condition.
+   * @return
+   * @throws SQLException
+   */
   public synchronized Dao<ExerciseByDay, Integer> getExerciseByDayDao() throws SQLException {
     if (exerciseByDayDao == null) {
       exerciseByDayDao = getDao(ExerciseByDay.class);
@@ -120,10 +166,15 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   }
 
 
-
-
-  //------------------------------------------
-  //Populate tables
+  /**
+   * Database is populated from raw resource main_exercise as a master list of exercises to
+   * be used in Trainer3 selections.
+   *
+   * Sample code commented out.  Used for testing purposes.
+   *
+   * @param database
+   * @throws SQLException
+   */
 
   private void populateDatabase(SQLiteDatabase database) throws SQLException {
 
@@ -132,40 +183,42 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     try {
       queries = IOUtils.toString(inputStream);
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
 
     for (String query : queries.split(";")) {
       database.execSQL(query);
     }
 
+//    //?Ask Chris; why isnt regez a comma?
+//    InputStream inputStreamClient = context.getResources().openRawResource(R.raw.client_stats);
+//    try {
+//      queries = IOUtils.toString(inputStreamClient);
+//    } catch (IOException e) {
+//      throw new RuntimeException(e);
+//    }
+//    for (String query : queries.split(",")) {
+//      database.execSQL(query);
+//    }
+
+//    //---------Sample population of Client4s clientName and height.-KEEP ---------//
+//    //Currently populated from Client4 UI.
 //    Client client = new Client();
 //    client.setName("Tucker Stuart");
 //    client.setHeight(64);
+//    getClientDao().createIfNotExists(client);
 
-    //getClientDao().createIfNotExists(client);
-
-//
+//    //---------Sample population of Goals for spinner in client4-KEEP ---------//
+//    //Currently populated from strings.xml goal-arrays.
 //    Goal goalMM = new Goal();
-//    Goal goalWL = new Goal();
-//    Goal goalWG = new Goal();
-//    Goal goalTM = new Goal();
-//    Goal goalIH = new Goal();
 //
 //    goalMM.setName("Muscle Mass");
-//    goalWL.setName("Weight Loss");
-//    goalWG.setName("Weight Gain");
-//    goalTM.setName("Tone Musle");
-//    goalIH.setName("Injury Active Recovery");
 //
 //    getGoalDao().create(goalMM);
-//    getGoalDao().create(goalWL);
-//    getGoalDao().create(goalWG);
-//    getGoalDao().create(goalTM);
-//    getGoalDao().create(goalIH);
-//
-//    //------------------------------------------
-//    //ExerciseByDay Table in entity folder.
+
+//    //---------Sample population of ExerciseByDay Table-KEEP ---------//
+//    //ExerciseByDay Table for daily plan of exercises set by trainer.
+//    //Currently populating from trainer3 UI.
 //
 //    ExerciseByDay dayRow = new ExerciseByDay();
 //
@@ -187,46 +240,10 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 //
 //    getDayscheduleDao().create(dayRow);  //write row
 //
-//    dayRow = new ExerciseByDay();
+//    //---------Sample population of Exercise Table-KEEP ---------//
+//    //Trainers Exercise Table for master list of exercises.
+//    //Currently populating from raw main_exercise.sql
 //
-//    dayRow.setMuscle("Quads");
-//    dayRow.setExercise("Lunges");
-//    dayRow.setSets(4);
-//    dayRow.setReps(12);
-//    dayRow.setDayofweek(1);
-//
-//    getDayscheduleDao().create(dayRow);  //write row
-//
-//    dayRow = new ExerciseByDay();
-//    dayRow.setMuscle("Chest");
-//    dayRow.setExercise("Flyes");
-//    dayRow.setSets(4);
-//    dayRow.setReps(12);
-//    dayRow.setDayofweek(2);
-//
-//    getDayscheduleDao().create(dayRow);  //write row
-//
-//    dayRow = new ExerciseByDay();
-//    dayRow.setMuscle("Shoulders");
-//    dayRow.setExercise("Shoulder Pushes");
-//    dayRow.setSets(4);
-//    dayRow.setReps(12);
-//    dayRow.setDayofweek(3);
-//
-//    getDayscheduleDao().create(dayRow);  //write row
-//
-//    dayRow = new ExerciseByDay();
-//    dayRow.setMuscle("Shoulders");
-//    dayRow.setExercise("Barbell Upright Rows");
-//    dayRow.setSets(4);
-//    dayRow.setReps(12);
-//    dayRow.setDayofweek(4);
-//
-//    getDayscheduleDao().create(dayRow);  //write row
-//
-//    //------------------------------------------
-//    //Exercise Table in entity folder for ALL exercises.
-////
 //    Exercise allExercise = new Exercise();
 //
 //    allExercise.setExercisename("Clean Deadlift");
@@ -234,71 +251,14 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 //    allExercise.setCircuit("lower");
 //
 //    getExerciseDao().create(allExercise);  //write row
-//
-//    allExercise = new Exercise();
-//
-//    allExercise.setExercisename("Romanian Deadlift");
-//    allExercise.setMuscle("Hamstring");
-//    allExercise.setCircuit("lower");
-//
-//    getExerciseDao().create(allExercise);  //write row
-//
-//    allExercise = new Exercise();
-//
-//    allExercise.setExercisename("Kettlebell Deadlift");
-//    allExercise.setMuscle("Hamstring");
-//    allExercise.setCircuit("lower");
-//
-//    getExerciseDao().create(allExercise);  //write row
-//
-//    allExercise = new Exercise();
-//
-//    allExercise.setExercisename("Lying Leg Curls");
-//    allExercise.setMuscle("Calves");
-//    allExercise.setCircuit("lower");
-//
-//    getExerciseDao().create(allExercise);  //write row
-//
-//    allExercise = new Exercise();
-//
-//    allExercise.setExercisename("Chest Fly");
-//    allExercise.setMuscle("Chest");
-//    allExercise.setCircuit("upper");
-//
-//    getExerciseDao().create(allExercise);  //write row
-//
-//    allExercise = new Exercise();
-//
-//    allExercise.setExercisename("Stepper 30 minutes");
-//    allExercise.setMuscle("Heart");
-//    allExercise.setCircuit("cardio");
-//
-//    getExerciseDao().create(allExercise);  //write row
-//
-//    allExercise = new Exercise();
-//
-//    allExercise.setExercisename("Plank 1 minute");
-//    allExercise.setMuscle("abs");
-//    allExercise.setCircuit("core");
-//
-//    getExerciseDao().create(allExercise);  //write row
-//
-//    allExercise = new Exercise();
-//
-//    allExercise.setExercisename("Plank 1 minute");
-//    allExercise.setMuscle("abs");
-//    allExercise.setCircuit("core");
-//
-//    getExerciseDao().create(allExercise);  //write row    allExercise = new Exercise();
-//
-//    allExercise.setExercisename("Situps");
-//    allExercise.setMuscle("abs");
-//    allExercise.setCircuit("core");
 
- //   getExerciseDao().create(allExercise);  //write row
   }
 
+  /**
+   * Allows other class components to receive the getHelper method behavior.
+   */
   public interface OrmInteraction {
+
     OrmHelper getHelper();
 
   }

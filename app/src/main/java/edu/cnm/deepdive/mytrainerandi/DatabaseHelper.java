@@ -3,7 +3,6 @@ package edu.cnm.deepdive.mytrainerandi;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 // Helper to SQLite to open up and work with sql lite db.
@@ -26,35 +25,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
   private static final String SCRIPT_CREATE_DATABASE =
-               "CREATE TABLE " + DATABASE_TABLE + " ("
-                   + ID_COLUMN + " integer primary key autoincrement, "
-                   + NAME_COLUMN + " text NOT NULL,\n"
-                   + GOAL_COLUMN + " text NOT NULL,\n"
-                   + ENTRYDATE_COLUMN + " datetime NOT NULL,\n"
-                   + HEIGHT_COLUMN + " double NOT NULL,\n"
-                   + WEIGHT_COLUMN + " double NOT NULL,\n"
-                   + BMI_COLUMN + " double NOT NULL\n"
-                   + ");";
+      "CREATE TABLE " + DATABASE_TABLE + " ("
+          + ID_COLUMN + " integer primary key autoincrement, "
+          + NAME_COLUMN + " text NOT NULL,\n"
+          + GOAL_COLUMN + " text NOT NULL,\n"
+          + ENTRYDATE_COLUMN + " datetime NOT NULL,\n"
+          + HEIGHT_COLUMN + " double NOT NULL,\n"
+          + WEIGHT_COLUMN + " double NOT NULL,\n"
+          + BMI_COLUMN + " double NOT NULL\n"
+          + ");";
 
   //Constructor: what class you are in and where you will put it on computer disk
   public DatabaseHelper(Context context) {
-    super(context, DATABASE_NAME+".db, ", null, DATABASE_VERSION );
+    super(context, DATABASE_NAME + ".db, ", null, DATABASE_VERSION);
 
   }
+
   //execute sql script
   @Override
   public void onCreate(SQLiteDatabase sqLiteDatabase) {
     sqLiteDatabase.execSQL(SCRIPT_CREATE_DATABASE);
   }
-//??Ask Chris
+
+  //??Ask Chris
   @Override
   public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
   }
 
   //Will create a sql Insert statement; Only being inserted and not being deleted by hacker.
-  public  long insert
-    (SQLiteDatabase db, String _id, String name, String goal, String entrydate, String height, String weight, String bmi) {
+  public long insert
+  (SQLiteDatabase db, String _id, String name, String goal, String entrydate, String height,
+      String weight, String bmi) {
     ContentValues contentValues = new ContentValues();
 
     contentValues.put(ID_COLUMN, _id);

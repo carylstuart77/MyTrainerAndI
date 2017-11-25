@@ -236,29 +236,35 @@ public class Client4 extends Fragment implements Button.OnClickListener {
         } catch (SQLException e) {
           throw new RuntimeException(e);
         }
-
-      case R.id.btnViewClient:
-        //Log.i("In Button View", "View Client");   //Used to log to monitor for trouble shooting.
-        // ?Ask Chris about graph setup
-
         /**
          * Display fitness History in graph form.
          * Key-Value of bundle for type put.
          * Attaching argument bundle to graph fragment and begin graph fragment.
          */
-        //View Button--Add bundle of client id
-        GraphFragment fragmentgraph = new GraphFragment();
-        //create bundle object
-        Bundle bundle = new Bundle();
-        //type put method of bundle; add arguments to bundle: key-value
-        bundle.putInt(CLIENT_ID_KEY, mClient.getId());
+      case R.id.btnViewClient:
+        //Log.i("In Button View", "View Client");   //Used to log to monitor for trouble shooting.
+        //Log.isLoggable ("viewclient", + mClient.getId());
+        //?Ask chris
+        if (mClient.getId() != 0) {
+          //View Button--Add bundle of client id
+          GraphFragment fragmentgraph = new GraphFragment();
+          //create bundle object
+          Bundle bundle = new Bundle();
+          //type put method of bundle; add arguments to bundle: key-value
+          bundle.putInt(CLIENT_ID_KEY, mClient.getId());
 
-        //Attach arguments bundle to fragment
-        fragmentgraph.setArguments(bundle);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.content_main, fragmentgraph);
-        ft.addToBackStack("back to client").commit();  //use back arrow to go back to client4 from graph.
-        break;
+          //Attach arguments bundle to fragment
+          fragmentgraph.setArguments(bundle);
+          FragmentTransaction ft = getFragmentManager().beginTransaction();
+          ft.replace(R.id.content_main, fragmentgraph);
+          //use back arrow to go back to client4 from graph.
+          ft.addToBackStack("back to client")
+              .commit();
+          break;
+        } else {
+
+          showTextNotification("Please enter in client information.");
+        }
 
     }
   }
