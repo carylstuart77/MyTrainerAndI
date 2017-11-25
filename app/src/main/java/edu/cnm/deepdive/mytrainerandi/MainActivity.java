@@ -78,8 +78,6 @@ public class MainActivity extends AppCompatActivity
     super.onStop();
   }
 
-  //creates an instance of the ormhelper
-
   /**
    * Creating an instance of the OrmHelper in preparation for database use. Synchronizing threads to
    * block additional threads until the thread inside the block exits.
@@ -133,7 +131,6 @@ public class MainActivity extends AppCompatActivity
     if (id == R.id.action_settings) {
       return true;
     }
-
     return super.onOptionsItemSelected(item);
   }
 

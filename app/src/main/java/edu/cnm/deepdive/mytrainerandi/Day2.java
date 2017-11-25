@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.mytrainerandi;
 
 import static edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay.DAYOFWEEK;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,20 +23,26 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Exercises by Day fragment provides client with a list of exercises they should be performing by day.
- * Once the user selects from the nav bar a screen displays providing the user the capability to pick
- * a day of week from the calendar.
+ * This fragment displays the selected days exercises assigned by the Trainer.
+ *
+ * It is within this screen that the datepicker is used to select the days workout.
  */
 
 public class Day2 extends Fragment implements OnClickListener {
 
   Button btn;
   int year_x, month_x, day_x;
+
+  /**
+   * Constant value of DIALOG_ID
+   */
   static final int DIALOG_ID = 0;
 
-  
   private View inflate;
   private OrmHelper helper;
+  /**
+   * Saves the content of the bundle received from the workout list
+   */
   private ListView workoutListView;
 
   {
@@ -66,6 +73,10 @@ public class Day2 extends Fragment implements OnClickListener {
     return inflate;
   }
 
+  /**
+   * Run calendar dialog and call listener to determine the day of week after selection.
+   */
+
   public void showDialogOnButtonClick() {
     btn = (Button) inflate.findViewById(R.id.dateButton);
 
@@ -85,15 +96,20 @@ public class Day2 extends Fragment implements OnClickListener {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    getActivity().setTitle("Workout Schedule by Day");
+    getActivity().setTitle(R.string.motivation_message);
   }
+
+  /**
+   * Determine which day of the week was picked. Displays message reminding user which day they had
+   * picked.
+   */
 
   private DatePickerDialog.OnDateSetListener dpickerListner
       = new DatePickerDialog.OnDateSetListener() {
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
       year_x = year;
-      month_x = monthOfYear;  //+ 1 sets default to currentyear;Removed since year would jump around with it.
+      month_x = monthOfYear;
       day_x = dayOfMonth;
       //Toast.makeText(getActivity(),year_x + "/" + month_x + "/" + day_x, Toast.LENGTH_LONG).show();/
 
@@ -101,32 +117,57 @@ public class Day2 extends Fragment implements OnClickListener {
       calendar.set(year, monthOfYear, dayOfMonth);
       int dayofweek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 
-      Toast.makeText(getActivity(), "Day of week " + dayofweek, Toast.LENGTH_LONG).show();
+      if (dayofweek == 0) {
+        showTextNotification("Picked Sunday");
+      }
+      if (dayofweek == 1) {
+        showTextNotification("Picked Monday");
+      }
+      if (dayofweek == 2) {
+        showTextNotification("Picked Tuesday");
+      }
+      if (dayofweek == 3) {
+        showTextNotification("Picked Wednesday");
+      }
+      if (dayofweek == 4) {
+        showTextNotification("Picked Thursday");
+      }
+      if (dayofweek == 5) {
+        showTextNotification("Picked Friday");
+      }
+      if (dayofweek == 6) {
+        showTextNotification("Picked Saturday");
+      }
+      //Toast.makeText(getActivity(), "Day of week " + dayofweek, Toast.LENGTH_LONG).show();
 
       refresh(dayofweek);
-
     }
   };
 
-  //Pop up with which button was picked using Toast.
+
+  /**
+   * Message notifications called on by onClick method.
+   */
   public void showTextNotification(String msgToDisplay) {
     Toast.makeText(getActivity(), msgToDisplay, Toast.LENGTH_SHORT).show();
   }
 
-  //Day of week Sat 0 thru Fri 6
+  /**
+   * Database is queried for the day of week exercises and the rows are displayed in a list.
+   */
   private void refresh(int dayofweek) {
     List<ExerciseByDay> dayschedule = null;
     try {
       dayschedule = helper
           .getDayscheduleDao().queryForEq(DAYOFWEEK, dayofweek);
     } catch (SQLException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
 
-    // Adapter takes what is in DB and tells how it will display list of data.
-    //Display exercises.
-    ScheduleDay2ListAdapter workoutAdapter = new ScheduleDay2ListAdapter(getActivity(), R.layout.schedule_item, dayschedule);
-    //day2.xml list
+    // Adapter takes what is in DB and prepares data for display.
+    ScheduleDay2ListAdapter workoutAdapter = new ScheduleDay2ListAdapter(getActivity(),
+        R.layout.schedule_item, dayschedule);
+    //From day2.xml list
     workoutListView = (ListView) inflate.findViewById(R.id.listViewDay);
     //Display data in schedule_item rows
     workoutListView.setAdapter(workoutAdapter);
@@ -137,19 +178,26 @@ public class Day2 extends Fragment implements OnClickListener {
   public void onClick(View view) {
 
     Log.i("OnClick Save Button", "BEGIN in Save button!");
-    //Returns the number of children in the group.
+
+    /** Returns the number of children in the group in order to update reps, sets and lbs. */
     for (int i = 0; i < workoutListView.getChildCount(); i++) {
       ExerciseByDay workoutbyday = (ExerciseByDay) workoutListView.getAdapter().getItem(i);
       //getChildAt Returns the view at the specified position in the group.
-      workoutbyday.setReps(Integer.parseInt(((EditText)workoutListView.getChildAt(i).findViewById(R.id.edit_reps)).getText().toString()));
-      workoutbyday.setSets(Integer.parseInt(((EditText)workoutListView.getChildAt(i).findViewById(R.id.edit_sets)).getText().toString()));
-      workoutbyday.setLbs(Integer.parseInt(((EditText)workoutListView.getChildAt(i).findViewById(R.id.edit_lbs)).getText().toString()));
+      workoutbyday.setReps(Integer.parseInt(
+          ((EditText) workoutListView.getChildAt(i).findViewById(R.id.edit_reps)).getText()
+              .toString()));
+      workoutbyday.setSets(Integer.parseInt(
+          ((EditText) workoutListView.getChildAt(i).findViewById(R.id.edit_sets)).getText()
+              .toString()));
+      workoutbyday.setLbs(Integer.parseInt(
+          ((EditText) workoutListView.getChildAt(i).findViewById(R.id.edit_lbs)).getText()
+              .toString()));
 
       try {
         helper.getDayscheduleDao().update(workoutbyday);
         showTextNotification("SAVED IT!");
       } catch (SQLException e) {
-        e.printStackTrace();
+        throw new RuntimeException(e);
       }
 
     }

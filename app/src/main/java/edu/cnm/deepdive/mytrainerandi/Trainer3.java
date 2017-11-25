@@ -3,7 +3,6 @@ package edu.cnm.deepdive.mytrainerandi;
 import static edu.cnm.deepdive.mytrainerandi.entity.Exercise.CIRCUIT_COLNAME;
 import static edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay.DAYOFWEEK;
 
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -18,11 +17,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.Toast;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import edu.cnm.deepdive.mytrainerandi.adapters.Trainer3ListAdapter;
-import edu.cnm.deepdive.mytrainerandi.entity.Client;
 import edu.cnm.deepdive.mytrainerandi.entity.Exercise;
 import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
@@ -30,17 +27,33 @@ import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * This fragment provides the trainer with a list of all exercises available in the database.  These
+ * choices are categorized by groupings of upper, lower, cardio and core.  Once a group is selected
+ * each exercise is available for selection and can be assigned to a day.
+ */
+
 public class Trainer3 extends Fragment implements OnClickListener {
 
+  /**
+   * Stores the value of orm helper to be used by this fragments queries.
+   */
   private OrmHelper helper;
+  /**
+   * Stores the values exercise view.
+   */
   private ListView exerciseListView;
-
+  /**
+   * Button selection for each exercise circuit group.
+   */
   private Button btnLower;
   private Button btnUpper;
   private Button btnCardio;
-  private Button btnAbs;
+  private Button btnCore;
 
-
+  /**
+   * Monday through Sunday Radio Buttons to be displayed.
+   */
   private RadioButton rdMon;
   private RadioButton rdTue;
   private RadioButton rdWed;
@@ -48,29 +61,32 @@ public class Trainer3 extends Fragment implements OnClickListener {
   private RadioButton rdFri;
   private RadioButton rdSat;
   private RadioButton rdSun;
+  /**
+   * Group radio buttons so only one can be chosen at a time.
+   */
   private RadioGroup radiogroup;
 
   /**
    * Inflate trainer3 view to display screen for use by trainer. Allows trainer to pick exercises
-   * for client.
+   * for client by day of week.
    */
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
-//need parans for casting for this ORM interaction. Listen to recording.
+    //Cast activity to helper for interaction. Listen to recording with Chris.
     helper = ((OrmInteraction) getActivity()).getHelper();
 
     View trainerView = inflater.inflate(R.layout.trainer3, container, false);
 
     //Radio Button generates an Event Source-state change.
-    btnAbs = trainerView.findViewById(R.id.radioabs);
+    btnCore = trainerView.findViewById(R.id.radioabs);
     btnCardio = trainerView.findViewById(R.id.radiocardio);
     btnLower = trainerView.findViewById(R.id.radiolower);
     btnUpper = trainerView.findViewById(R.id.radioupper);
 
-    btnAbs.setOnClickListener(this);
+    btnCore.setOnClickListener(this);
     btnCardio.setOnClickListener(this);
     btnLower.setOnClickListener(this);
     btnUpper.setOnClickListener(this);
@@ -78,7 +94,10 @@ public class Trainer3 extends Fragment implements OnClickListener {
     radiogroup = trainerView.findViewById(R.id.radiotrainergroup);
     exerciseListView = trainerView.findViewById(R.id.listViewTrainer3);
 
-    //Add Save button Listener, creating view object in memory.
+    /**
+     * Save will allow selection to be saved to db.  Reset will remove exercises to be removed from db.
+     * Provide listeners for save and reset buttons to listen of an On click event.
+     */
     Button savebutton = trainerView.findViewById(R.id.btnSaveTrainer);
     savebutton.setOnClickListener(this);
 
@@ -94,18 +113,24 @@ public class Trainer3 extends Fragment implements OnClickListener {
     getActivity().setTitle(R.string.trainer_plan);
   }
 
-  //Pop up with which button was picked using Toast.
+  /**
+   * Message notifications called on by onClick method.
+   */
   public void showTextNotification(String msgToDisplay) {
     Toast.makeText(getActivity(), msgToDisplay, Toast.LENGTH_SHORT).show();
   }
 
+  /**
+   * Queries for circuit exercises and stores them in List<Exercise>. Throws runtime SQL exception
+   * upon catch condition.
+   */
   private void refresh(String circuit) {
     List<Exercise> allexercise = null;
     try {
       allexercise = helper
           .getExerciseDao().queryForEq(CIRCUIT_COLNAME, circuit);
     } catch (SQLException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
 
     //Display exercises.
@@ -133,8 +158,11 @@ public class Trainer3 extends Fragment implements OnClickListener {
       refresh("upper");
     }
 
-    //First checking if save button was pressed; looping through exercises rows to determine if box was checked.
-    //loop through list items
+    /**
+     * Checks if save button was selected then loops through rows to determine if checkbox was checked
+     * If sets and reps were entered: trim, parase and write them to the database.
+     * Throw runtime exception if SQL exception is caught.
+     */
     if (view.getId() == R.id.btnSaveTrainer) {
       for (int i = 0; i < exerciseListView.getChildCount(); i++) {
         if (((CheckBox) exerciseListView.getChildAt(i).findViewById(R.id.edit_trainerpick))
@@ -159,13 +187,12 @@ public class Trainer3 extends Fragment implements OnClickListener {
               reps = Integer.parseInt(capturereps);
             }
 
-            //Exercise is Trainers entity
             ExerciseByDay newtrainerpick = new ExerciseByDay();
 
             newtrainerpick.setSets(sets);
             newtrainerpick.setReps(reps);
 
-            //set day of week..??date
+            //Write the day of week that was picked through the radio buttons.
 
             switch (radiogroup.getCheckedRadioButtonId()) {
               case R.id.radioSun:
@@ -203,52 +230,71 @@ public class Trainer3 extends Fragment implements OnClickListener {
             //helper.getExerciseByDayDao().update(newtrainerpick);
 
           } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
 
           }
         }
       }
     }
 
+    /**
+     * The reset button provides the trainer with the option of removing previously day of week
+     * exercises.
+     */
+
     if (view.getId() == R.id.btnResetTrainer) {
 
       int dayofweek = 7;
+      String aday = null;
 
       switch (radiogroup.getCheckedRadioButtonId()) {
         case R.id.radioSun:
           dayofweek = 0;
+          aday = "Sunday";
           break;
         case R.id.radioMon:
           dayofweek = 1;
+          aday = "Monday";
           break;
         case R.id.radioTue:
           dayofweek = 2;
+          aday = "Tuesday";
           break;
         case R.id.radioWed:
           dayofweek = 3;
+          aday = "Wednesday";
           break;
         case R.id.radioThu:
           dayofweek = 4;
+          aday = "Thursday";
           break;
         case R.id.radioFri:
           dayofweek = 5;
+          aday = "Friday";
           break;
         case R.id.radioSat:
           dayofweek = 6;
+          aday = "Saturday";
           break;
 
       }
 
+      /**
+       * Alert trainer that resetting the day of week will remove those exercises and provides
+       * an option to continue or to cancel.
+       */
       AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
       alertDialog.setTitle("Reset: ");
-      alertDialog.setMessage("Remove current day of workouts?");
+      alertDialog.setMessage("Reset " + aday + " workouts?");
       // Alert dialog button
       final int finalDayofweek = dayofweek;
       alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES",
           new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-              //delete elements from table in field by arg
+              /** Deletes elements from table by argument.
+               * Throw runtime exception if SQL exception is caught.
+               */
               DeleteBuilder<ExerciseByDay, Integer> deleteBuilder = null;
               try {
                 deleteBuilder = helper.getDayscheduleDao().deleteBuilder();
@@ -268,8 +314,6 @@ public class Trainer3 extends Fragment implements OnClickListener {
             }
           });
       alertDialog.show();
-
-
     }
   }
 }

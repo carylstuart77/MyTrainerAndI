@@ -1,12 +1,10 @@
 package edu.cnm.deepdive.mytrainerandi;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +14,22 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import edu.cnm.deepdive.mytrainerandi.entity.Client;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
-import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.ResourceBundle;
 
+
+/**
+ * This fragment allows clients to capture their body statistics, such as height, weight, BMI and
+ * body fat.  Over time they can see their progress by selecting the graph view.
+ */
 public class Client4 extends Fragment implements Button.OnClickListener {
 
+  /**
+   * Text view fields
+   */
   private TextView mClientName;
   private TextView mClientHeight;
   private TextView mClientWeight;
@@ -35,19 +37,27 @@ public class Client4 extends Fragment implements Button.OnClickListener {
   private TextView mClientFat;
   private Client mClient;    //field of type client
 
+  /**
+   * Max and Min values to be checked upon entry.
+   */
   double wt_max = 300;
   double wt_min = 80;
-  double bmi_max = 33.0;
-  double bmi_min = 17.0;
+
+  double bmi_max = 35.0;
+  double bmi_min = 15.0;
+
   int fat_max = 35;
   int fat_min = 15;
 
+  /**
+   * Constant value id key
+   */
   public static final String CLIENT_ID_KEY = "client_id";
+  /**
+   * Spinner for client goal
+   */
   private Spinner mClientGoal;
 
-  /**
-   * This will update both Client and Fitness History Tables
-   */
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
@@ -63,19 +73,26 @@ public class Client4 extends Fragment implements Button.OnClickListener {
       Dao<Client, Integer> dao = ((OrmInteraction) getActivity()).getHelper().getClientDao();
       mClient = dao.queryForFirst(dao.queryBuilder().prepare());
     } catch (SQLException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
 
-    //Use setError to inform user that each field is required.
+    /**
+     * Check if user name and height has been entered.  If not allow input to db.
+     * If user exists then gray out client and height fields.
+     * Provide serError messages to insure field input.
+     */
+
     EditText firstName = (EditText) inflate.findViewById(R.id.editClientName);
     //Alert if name field is empty.
-      if( firstName.getText().toString().length() != 0 )
-          firstName.setError( "Name is required." );
+    if (firstName.getText().toString().length() != 0) {
+      firstName.setError("Name is required.");
+    }
 
     EditText clientHeight = (EditText) inflate.findViewById(R.id.editClientHeight);
     //Alert if height field is empty.
-     if (clientHeight.getText().toString().length() != 0)
-        clientHeight.setError("Height is required.");
+    if (clientHeight.getText().toString().length() != 0) {
+      clientHeight.setError("Height is required.");
+    }
 
     EditText clientWeight = (EditText) inflate.findViewById(R.id.editClientWeight);
     if (clientWeight.getText().toString().length() == 0) {
@@ -91,7 +108,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
     if (clientFat.getText().toString().length() == 0) {
       clientFat.setError("Fat percentage is required.");
     }
-
+    /** If client or height information exists, disable fields.*/
     if (mClient != null) {
       firstName.setText(mClient.getName());
       clientHeight.setText(Integer.toString(mClient.getHeight()));
@@ -99,21 +116,14 @@ public class Client4 extends Fragment implements Button.OnClickListener {
       clientHeight.setEnabled(false);
     }
 
-    //?Ask Chris about spinner value.
     mClientGoal = inflate.findViewById(R.id.spinnerGoal);
-//    Spinner spinner = (Spinner) inflate.findViewById(R.id.spinnerGoal);
-//    String size = spinner.getSelectedItem().toString(); // Small, Medium, Large
-//
-//    int spinner_pos = spinner.getSelectedItemPosition();
-//    String[] size_values = getResources().getStringArray(R.array.goal_arrays);
-//    String.valueOf(size_values[spinner_pos]); // 12, 16, 20
 
     //Save Client Data
     Button savebutton = inflate.findViewById(R.id.btnSaveClient);
     savebutton.setOnClickListener(this);
-
-    Button viewbutton = inflate.findViewById(R.id.btnViewClient);
-    viewbutton.setOnClickListener(this);
+    // Option to view client history by graph.
+    Button graphbutton = inflate.findViewById(R.id.btnViewClient);
+    graphbutton.setOnClickListener(this);
     return inflate;
   }
 
@@ -124,27 +134,31 @@ public class Client4 extends Fragment implements Button.OnClickListener {
     getActivity().setTitle("Client Statistics");
   }
 
-  //Pop up with which button was picked using Toast.
+  /**
+   * Message notifications called on by onClick method.
+   */
   public void showTextNotification(String msgToDisplay) {
     Toast.makeText(getActivity(), msgToDisplay, Toast.LENGTH_SHORT).show();
   }
 
+  /**
+   * Save will update both Client and Fitness History Tables.
+   */
   @Override
   public void onClick(View view) {
-    //add validation
-    //add data
+
     switch (view.getId()) {
       case R.id.btnSaveClient:
         try {
 
-          //FitnessHistory Table
+          //FitnessHistory Table updates
           FitnessHistory newfitnesshistory = new FitnessHistory();
           newfitnesshistory.setWeight(Double.parseDouble(mClientWeight.getText().toString()));
           newfitnesshistory.setBmi(Double.parseDouble(mClientBMI.getText().toString()));
           newfitnesshistory.setFat(Double.parseDouble(mClientFat.getText().toString()));
           newfitnesshistory.setGoal(mClientGoal.getSelectedItem().toString());
 
-          //Validate Weight numbers
+          //Validate Weight number range
           if (newfitnesshistory.getWeight() > wt_max || newfitnesshistory.getWeight() < wt_min) {
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             alertDialog.setTitle("Alert Weight: ");
@@ -161,11 +175,11 @@ public class Client4 extends Fragment implements Button.OnClickListener {
             return;
           }
 
-          // Validate BMI numbers
+          // Validate BMI number range
           if (newfitnesshistory.getBmi() > bmi_max || newfitnesshistory.getBmi() < bmi_min) {
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             alertDialog.setTitle("Alert BMI: ");
-            alertDialog.setMessage("Enter BMI Range: 17 and 33.");
+            alertDialog.setMessage("Enter BMI Range: 15 and 35.");
             // Alert dialog button
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
@@ -178,7 +192,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
             return;
           }
 
-          // Validate Fat Percentage
+          // Validate Fat Percentage range
           if (newfitnesshistory.getFat() > fat_max || newfitnesshistory.getFat() < fat_min) {
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             alertDialog.setTitle("Alert Fat: ");
@@ -202,7 +216,8 @@ public class Client4 extends Fragment implements Button.OnClickListener {
             ((OrmInteraction) getActivity()).getHelper().getClientDao().create(newclient);
             mClient = newclient;
           }
-          // Create in the database.
+
+          /** Create client information in fitness history to be used in graph.*/
           newfitnesshistory.setClient(mClient);
           ((OrmInteraction) getActivity()).getHelper().getFitnessHistoryDao()
               .create(newfitnesshistory);
@@ -212,10 +227,10 @@ public class Client4 extends Fragment implements Button.OnClickListener {
           }
 
           //Refresh screen after client name and height is entered to make them unselectable.
-        Client4 fragment = new Client4();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.content_main, fragment);
-        ft.commit();
+          Client4 fragment = new Client4();
+          FragmentTransaction ft = getFragmentManager().beginTransaction();
+          ft.replace(R.id.content_main, fragment);
+          ft.commit();
 
           break;
         } catch (SQLException e) {
@@ -223,28 +238,28 @@ public class Client4 extends Fragment implements Button.OnClickListener {
         }
 
       case R.id.btnViewClient:
-        Log.i("In Button View", "View Client");
-
+        //Log.i("In Button View", "View Client");   //Used to log to monitor for trouble shooting.
+        // ?Ask Chris about graph setup
 
         /**
          * Display fitness History in graph form.
+         * Key-Value of bundle for type put.
+         * Attaching argument bundle to graph fragment and begin graph fragment.
          */
         //View Button--Add bundle of client id
         GraphFragment fragmentgraph = new GraphFragment();
         //create bundle object
         Bundle bundle = new Bundle();
-        //type put method of bundle; add arguments to bundle. key-value
+        //type put method of bundle; add arguments to bundle: key-value
         bundle.putInt(CLIENT_ID_KEY, mClient.getId());
+
         //Attach arguments bundle to fragment
         fragmentgraph.setArguments(bundle);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.content_main, fragmentgraph);
-        ft.addToBackStack("back to client").commit();
+        ft.addToBackStack("back to client").commit();  //use back arrow to go back to client4 from graph.
         break;
 
     }
-
-
   }
-
 }
