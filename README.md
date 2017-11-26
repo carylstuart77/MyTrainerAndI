@@ -14,9 +14,9 @@ viewable by selecting the graph button available on the client screen, which wil
 bmi progress.
 
 ### Android OS version and hardware application testing
-Nexus 5X API 22 Emulator
-Nexus 5X API 22 Emulator Landscape view prevents listview from displaying on Trainer page.
-SAMSUNG Android SM-G900V v6.0.1
+* Nexus 5X API 22 Emulator
+* Nexus 5X API 22 Emulator Landscape view: prevents listview from displaying on Trainer page.
+* SAMSUNG Android SM-G900V v6.0.1
   
 ### Application State and Action Items
 
