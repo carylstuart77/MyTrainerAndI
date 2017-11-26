@@ -1,7 +1,7 @@
 ## My Trainer And I 
 
 _MTAI_ was created as an Android tool to help health and fitness trainers deliver custom, individualized exercise programs for their clients.  This tool provides the trainer with a list of exercises to choose from with just a few clicks.  Since this tool runs
-on the clients phone, it provides the client with easy access to their program and an ability to capture their progress.
+on the client's phone, it provides the client with easy access to their program and an ability to capture their progress.
 
 ### Functionality
 
@@ -20,27 +20,29 @@ bmi progress.
   
 ### Application State and Action Items
 
-MTAI is a viable Android application that runs sucesfully.  It does need some validation checks that cause it to accept
-selections where data is missing.  In some cases it causes the application to stop running.  Below is a list of those 
-components that need to be built in.
+MTAI is a viable Android application that runs successfully on the Nexus 5X API 22 Emulator .  It does need some validation 
+checks that cause it to accept selections where data is missing.  In some cases it causes the application to stop running.  
+Below is a list of those validation components that need to be built in.
 
 Application needs (listed in priority order):
 
 * Trainer View:
-  1) When scrolling list after checkbox is selected, check is lost.
-  2) After selection of checkbox, confirm a day of week radio button was selected before it can save.
-  3) When selecting cardio, the sets and reps need to be minutes and level.
+  1) When scrolling list after checkbox is selected, check is lost (functional).
+  2) After selection of checkbox, confirm a day of week radio button was selected before it can save (functional).
+  3) When selecting cardio, the sets and reps need to be minutes and level (cosmetic).
   
 * Client Stats View:
-  1) Validate entries when any of the fields are not filled out, but save is selected. Now it stops app.
-  2) Adjust graph to make it look better.  Add Left axis label. 
+  1) Validate entries when any of the fields are not filled out, but save is selected. Now it stops app (functional).
+  2) Add Left axis label (cosmetic).
+  3) Adjust graph to make graphed lines appear closer together, for a more intuitive display (cosmetic).  
+  
   
 * Day's Schedule View:
-  1) Provide range of sets and reps range validation(Sets 1-5, Reps 1-25);
+  1) Incorporate sets and reps validation range such as sets 1-5 and reps 1-25 (cosmetic). 
 
-### Stretch Goals/Cosmetic additions:
+### Stretch Goals:
 1) Home page could include a page that captures the users eye and draws interest.
-2) Provide link to how to perform exercise videos or description of proper form.
+2) Provide link on how to perform exercise through videos or description of proper form.
 
 ## Authors
 
