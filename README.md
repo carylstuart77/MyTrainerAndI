@@ -28,11 +28,13 @@ Application needs (listed in priority order):
 
 * Trainer View:
   1) When scrolling list after checkbox is selected, check is lost (functional).
-  2) After selection of checkbox, confirm a day of week radio button was selected before it can save (functional).
-  3) When selecting cardio, the sets and reps need to be minutes and level (cosmetic).
+  2) After selection of checkbox, confirm a day of week radio button was selected before it can be save (functional).
+  3) When selecting cardio, the sets and reps need to be level and minutes (cosmetic).
   
 * Client Stats View:
-  1) Validate entries when any of the fields are not filled out, but save is selected. Now it stops app (functional).
+  1) Validate entries when any of the fields are not filled out, but save is selected. 
+     Currently, it stops app with java.lang.NumberFormatException: Invalid double: "" in Client4 code (functional).
+     -Fixed with try-catch excpetion handling for NumberFormatException.
   2) Add Left axis label (cosmetic).
   3) Adjust graph to make graphed lines appear closer together, for a more intuitive display (cosmetic).  
   
