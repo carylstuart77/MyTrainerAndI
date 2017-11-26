@@ -1,41 +1,50 @@
 ## My Trainer And I 
 
 _MTAI_ was created as an Android tool to help health and fitness trainers deliver custom, individualized exercise programs for their clients.  This tool provides the trainer with a list of exercises to choose from with just a few clicks.  Since this tool runs
-on the clients phone, it provides the client with easy access to their program and an ability to capture their progress.
+on the client's phone, it provides the client with easy access to their program and an ability to capture their progress.
 
 ### Functionality
 
 With the convenience of selecting from a database of exercises for each body group, the trainer has the ability to point and click in 
 order to build a customized exercise plan.  Also, he can adjust the sets and reps to fit the clients goal.  
 
-For the client, they have the ease of pulling up their plan for each day's workout and the ability to capture the last heaviest 
-weight they were able to complete.  Also, they can keep track of their weight, bmi and fat percentage.  As a stretch goal their 
-weight and body fat percentage can be displayed in graph form to visualize their progress.
+For the client, they have the ease of pulling up their plan for each day of the week and the ability to capture the last heaviest 
+weight they were able to complete.  By logging their weight, bmi and fat percentage, their progress is easily 
+viewable by selecting the graph button available on the client screen, which will display their weight, body fat percentage and 
+bmi progress.
+
+### Android OS version and hardware application testing
+* Nexus 5X API 22 Emulator
+* Nexus 5X API 22 Emulator Landscape view: prevents listview from displaying on Trainer page.
+* SAMSUNG Android SM-G900V v6.0.1
   
-### Action Items
+### Application State and Action Items
+
+MTAI is a viable Android application that runs successfully on the Nexus 5X API 22 Emulator .  It does need some validation 
+checks that cause it to accept selections where data is missing.  In some cases it causes the application to stop running.  
+Below is a list of those validation components that need to be built in.
 
 Application needs (listed in priority order):
-* Insert data into database from Excel db source for exercise table.
 
-* Trainer Screen:
-  1) Validate Sets and Reps entries; If nothing entered, default to 4 Sets and 12 Reps.
-  2) Validate Day of week is selected.
-  3) Enable Save Button to updated DB.
-  4) Delete day record in DB and insert new record (or update record).
+* Trainer View:
+  1) When scrolling list after checkbox is selected, check is lost (functional).
+  2) After selection of checkbox, confirm a day of week radio button was selected before it can be save (functional).
+  3) When selecting cardio, the sets and reps need to be level and minutes (cosmetic).
   
-* Day's Schedule:
-  1) Add Save Button and enable it to update Day's Sets, Reps and lbs.
-  2) When Sets and Reps fields are selected blank them out and accept new entries.
-  3) Validate entries (Sets 1-5, Reps 1-25);
-  4) Auto close keyboard.
+* Client Stats View:
+  1) Validate entries when any of the fields are not filled out, but save is selected. 
+     Currently, it stops app with java.lang.NumberFormatException: Invalid double: "" in Client4 code (functional).
+     -Fixed with try-catch excpetion handling for NumberFormatException.
+  2) Add Left axis label (cosmetic).
+  3) Adjust graph to make graphed lines appear closer together, for a more intuitive display (cosmetic).  
   
-* Client Stats:
-  1) Enable a view of the clients Weight, BMI and Fat % over time. (New Fragment)
-  2) Disable Client Name and Height, if client name exists in db. Throw 
+  
+* Day's Schedule View:
+  1) Incorporate sets and reps validation range such as sets 1-5 and reps 1-25 (cosmetic). 
 
-### Stretch Goals
-* Client Stats:
-  1) Graph Weight and Fat percentage.
+### Stretch Goals:
+1) Home page could include a page that captures the users eye and draws interest.
+2) Provide link on how to perform exercise through videos or description of proper form.
 
 ## Authors
 
@@ -43,5 +52,6 @@ Application needs (listed in priority order):
 
 ## Acknowledgments
 
-* Nick and Chris**
-* Trainer Steven Sanchez ** 
+* Nick Bennett
+* Chris Hughes
+* Trainer Steven Sanchez 
