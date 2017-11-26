@@ -8,20 +8,21 @@ on the clients phone, it provides the client with easy access to their program a
 With the convenience of selecting from a database of exercises for each body group, the trainer has the ability to point and click in 
 order to build a customized exercise plan.  Also, he can adjust the sets and reps to fit the clients goal.  
 
-For the client, they have the ease of pulling up their plan for each day's workout and the ability to capture the last heaviest 
-weight they were able to complete.  Also, they can keep track of their weight, bmi and fat percentage.  As a stretch goal their 
-weight and body fat percentage can be displayed in graph form to visualize their progress.
+For the client, they have the ease of pulling up their plan for each day of the week and the ability to capture the last heaviest 
+weight they were able to complete.  By logging their weight, bmi and fat percentage, their progress is easily 
+viewable by selecting the graph button available on the client screen, which will display their weight, body fat percentage and 
+bmi progress.
 
 ### Android OS version and hardware application testing
 Nexus 5X API 22 Emulator
 Nexus 5X API 22 Emulator Landscape view prevents listview from displaying on Trainer page.
-SAMSUNG Android 
+SAMSUNG Android SM-G900V v6.0.1
   
 ### Application State and Action Items
 
 MTAI is a viable Android application that runs sucesfully.  It does need some validation checks that cause it to accept
-selections when not all the data has been selected.  In some cases it causes the application to stop running.  Below is
-a list of those components that need to be built int.
+selections where data is missing.  In some cases it causes the application to stop running.  Below is a list of those 
+components that need to be built in.
 
 Application needs (listed in priority order):
 
@@ -38,8 +39,8 @@ Application needs (listed in priority order):
   1) Provide range of sets and reps range validation(Sets 1-5, Reps 1-25);
 
 ### Stretch Goals/Cosmetic additions:
-1) On home page include a page that captures the users eye and draws interest.
-2) Provide link to how to videos.
+1) Home page could include a page that captures the users eye and draws interest.
+2) Provide link to how to perform exercise videos or description of proper form.
 
 ## Authors
 
