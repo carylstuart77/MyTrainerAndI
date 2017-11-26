@@ -107,6 +107,9 @@ public class GraphFragment extends Fragment {
     GraphView view = ((GraphView) root.findViewById(R.id.fitness_history_graph));
     view.getGridLabelRenderer().setHumanRounding(false);
     view.getLegendRenderer().setVisible(true);
+    view.setTitle("MTAI Client History Log");
+    view.setTitleTextSize(54);
+    view.setTitleColor(Color.BLACK);
 
     view.getGridLabelRenderer()
         .setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity(), format));

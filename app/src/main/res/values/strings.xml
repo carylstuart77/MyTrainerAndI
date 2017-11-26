@@ -7,7 +7,7 @@
   <string name="action_settings">Settings</string>
   <string name="goal_prompt">Choose Goal</string>
   <string name="trainer_plan">A Plan Just For You </string>
-  <string name="motivation_message">A training plan tailored for you.</string>
+  <string name="motivation_message"><font fgcolor="#FFFF0000">Tailored For You</font></string>
 
   <string-array name="goal_arrays">
     <item>Pick one - </item>

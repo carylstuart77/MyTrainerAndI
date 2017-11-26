@@ -155,7 +155,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
 
   /**
-   * Database table is EXERCISE is populated by raw resource main_exercise as a master list of
+   * Database table EXERCISE is populated by raw resource main_exercise as a master list of
    * exercises to be used in Trainer3 selections.
    *
    * Database table FITNESS_HISTORY is populated with client information for demonstration of
@@ -165,7 +165,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
    */
 
   private void populateDatabase(SQLiteDatabase database) throws SQLException {
-
+    // Trainers list of all exercises to be loaded to EXERCISE table.
     InputStream inputStream = context.getResources().openRawResource(R.raw.main_exercise);
     String queries = "";
     try {
@@ -178,6 +178,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       database.execSQL(query);
     }
 
+    // Client demo stats to be loaded to FITNESS_HISTORY table.
+    // TODO: To be commented out after demo.
     InputStream inputStreamClient = context.getResources().openRawResource(R.raw.client_stats);
     try {
       Log.i("Input client_Stats", "client Stats!!!");
@@ -189,12 +191,13 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       database.execSQL(query);
     }
 
-//    //---------Sample population of Client4s clientName and height.-KEEP ---------//
-//    //Currently populated from Client4 UI.
-//    Client client = new Client();
-//    client.setName("Tucker Stuart");
-//    client.setHeight(64);
-//    getClientDao().createIfNotExists(client);
+    //---------Sample population of Client4s clientName and height.-KEEP ---------//
+    //Currently populated from Client4 UI.
+    //TODO:  To be commented out after demo.
+    Client client = new Client();
+    client.setName("Caryl Stuart");
+    client.setHeight(64);
+    getClientDao().createIfNotExists(client);
 
 //    //---------Sample population of Goals for spinner in client4-KEEP ---------//
 //    //Currently populated from strings.xml goal-arrays.

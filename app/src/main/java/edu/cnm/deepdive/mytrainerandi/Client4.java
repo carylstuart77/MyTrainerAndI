@@ -153,20 +153,25 @@ public class Client4 extends Fragment implements Button.OnClickListener {
 
           //FitnessHistory Table updates
           FitnessHistory newfitnesshistory = new FitnessHistory();
-//?Ask Chris
-//          if (newfitnesshistory.getWeight() == Double.MIN_VALUE &&
-//              newfitnesshistory.getBmi() == Double.MIN_VALUE &&
-//              newfitnesshistory.getFat() == Double.MIN_VALUE) {
-            newfitnesshistory.setWeight(Double.parseDouble(mClientWeight.getText().toString()));
-            newfitnesshistory.setBmi(Double.parseDouble(mClientBMI.getText().toString()));
-            newfitnesshistory.setFat(Double.parseDouble(mClientFat.getText().toString()));
-            newfitnesshistory.setGoal(mClientGoal.getSelectedItem().toString());
-//          } else {
-//            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-//            alertDialog.setTitle("Missing Field Entry ");
-//            alertDialog.setMessage("Enter valid data.");
-//            return;
-//          }
+//?Ask Chris - added try catch looking for NumberFormatException
+            try {
+              newfitnesshistory.setWeight(Double.parseDouble(mClientWeight.getText().toString()));
+              newfitnesshistory.setBmi(Double.parseDouble(mClientBMI.getText().toString()));
+              newfitnesshistory.setFat(Double.parseDouble(mClientFat.getText().toString()));
+              newfitnesshistory.setGoal(mClientGoal.getSelectedItem().toString());
+            } catch(NumberFormatException e) {
+              AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+              alertDialog.setTitle("Missing Field Entry: ");
+              alertDialog.setMessage("Enter all valid data in order to SAVE.");
+              alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                      dialog.dismiss();// use dismiss to cancel alert dialog
+                    }
+                  });
+              alertDialog.show();
+              return;
+            }
 
           //Validate Weight number range
           if (newfitnesshistory.getWeight() > wt_max || newfitnesshistory.getWeight() < wt_min) {
@@ -256,7 +261,8 @@ public class Client4 extends Fragment implements Button.OnClickListener {
         //Log.isLoggable ("viewclient", + mClient.getId());
 
         //?Ask chris
-        if (mClient.getId() == 1) {
+        //Prevents failure due to CLIENT table is empty.
+        if (mClient.getId() >= 1) {
           //View Button--Add bundle of client id
           GraphFragment fragmentgraph = new GraphFragment();
           //create bundle object
