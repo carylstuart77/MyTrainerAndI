@@ -2,6 +2,7 @@ package edu.cnm.deepdive.mytrainerandi.helpers;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -21,14 +22,16 @@ import org.apache.commons.io.IOUtils;
 
 
 /**
- *  ORMHelper framework provides object relational mapping (ORM) between Java classes
- *  and SQL databases.  The main helper will create a database called mytrainerandi
- *  if it does not exist.  Also, it will create the MTAI tables needed for capturing
- *  log data and uploading raw exercise data.
+ * ORMHelper framework provides object relational mapping (ORM) between Java classes and SQL
+ * databases.  The main helper will create a database called mytrainerandi if it does not exist.
+ * Also, it will create the MTAI tables needed for capturing log data and uploading raw exercise
+ * data.
  */
 public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
-  /**  Constant database name, version control and maintain context state. */
+  /**
+   * Constant database name, version control and maintain context state.
+   */
   private static final String DATABASE_NAME = "mytrainerandi.db";
   private static final int DATABASE_VERSION = 1;
   private final Context context;
@@ -46,7 +49,6 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
   /**
    * Constructor used to pass to the super class the context for reading it in.
-   * @param context
    */
   public OrmHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -70,8 +72,6 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       TableUtils.createTable(connectionSource, ExerciseByDay.class);
       TableUtils.createTable(connectionSource, GoalHistory.class);
       populateDatabase(database);
-
-
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -92,10 +92,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
 
   /**
-   * Handle Client Dao block with synchronization to avoid race condition of more than one thread running at a time.
-   * Throw SQL exception if it occurs.
-   * @return
-   * @throws SQLException
+   * Handle Client Dao block with synchronization to avoid race condition of more than one thread
+   * running at a time. Throw SQL exception if it occurs.
    */
   public synchronized Dao<Client, Integer> getClientDao() throws SQLException {
     if (clientDao == null) {
@@ -106,8 +104,6 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
   /**
    * ExerciseByDay synchronization Doa handling to prevent race condition.
-   * @return
-   * @throws SQLException
    */
   public synchronized Dao<ExerciseByDay, Integer> getDayscheduleDao() throws SQLException {
     if (dayscheduleDao == null) {
@@ -119,8 +115,6 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
   /**
    * Goal synchronization Doa handling to prevent race condition.
-   * @return
-   * @throws SQLException
    */
   public synchronized Dao<Goal, Integer> getGoalDao() throws SQLException {
     if (goalDao == null) {
@@ -131,8 +125,6 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
   /**
    * Execise synchronization Doa handling to prevent race condition.
-   * @return
-   * @throws SQLException
    */
   public synchronized Dao<Exercise, Integer> getExerciseDao() throws SQLException {
     if (exerciseDao == null) {
@@ -143,8 +135,6 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
   /**
    * FitnessHistory synchronization Doa handling to prevent race condition.
-   * @return
-   * @throws SQLException
    */
   public synchronized Dao<FitnessHistory, Integer> getFitnessHistoryDao() throws SQLException {
     if (fitnessHistoryDao == null) {
@@ -155,8 +145,6 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
   /**
    * ExerciseByDay synchronization Doa handling to prevent race condition.
-   * @return
-   * @throws SQLException
    */
   public synchronized Dao<ExerciseByDay, Integer> getExerciseByDayDao() throws SQLException {
     if (exerciseByDayDao == null) {
@@ -167,13 +155,13 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
 
   /**
-   * Database is populated from raw resource main_exercise as a master list of exercises to
-   * be used in Trainer3 selections.
+   * Database table is EXERCISE is populated by raw resource main_exercise as a master list of
+   * exercises to be used in Trainer3 selections.
+   *
+   * Database table FITNESS_HISTORY is populated with client information for demonstration of
+   * graph.
    *
    * Sample code commented out.  Used for testing purposes.
-   *
-   * @param database
-   * @throws SQLException
    */
 
   private void populateDatabase(SQLiteDatabase database) throws SQLException {
@@ -190,16 +178,16 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       database.execSQL(query);
     }
 
-//    //?Ask Chris; why isnt regez a comma?
-//    InputStream inputStreamClient = context.getResources().openRawResource(R.raw.client_stats);
-//    try {
-//      queries = IOUtils.toString(inputStreamClient);
-//    } catch (IOException e) {
-//      throw new RuntimeException(e);
-//    }
-//    for (String query : queries.split(",")) {
-//      database.execSQL(query);
-//    }
+    InputStream inputStreamClient = context.getResources().openRawResource(R.raw.client_stats);
+    try {
+      Log.i("Input client_Stats", "client Stats!!!");
+      queries = IOUtils.toString(inputStreamClient);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    for (String query : queries.split(";")) {
+      database.execSQL(query);
+    }
 
 //    //---------Sample population of Client4s clientName and height.-KEEP ---------//
 //    //Currently populated from Client4 UI.

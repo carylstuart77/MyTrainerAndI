@@ -5,16 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 import edu.cnm.deepdive.mytrainerandi.R;
 import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import java.util.List;
 
-//An Adapter object acts as a bridge between an AdapterView and the underlying data for that view.
+/**
+ * Day 2 adapter to prepare view of rows for the days scheduled exercises. Adapter object acts as a
+ * bridge between an AdapterView and the underlying data for that view.
+ */
 
 public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
+  /**
+   * Convert the array of exercise for the day into scrollable view.
+   */
   public ScheduleDay2ListAdapter(Context context, int resource,
       List<ExerciseByDay> objects) {
     super(context, resource, objects);

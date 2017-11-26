@@ -4,6 +4,9 @@ package edu.cnm.deepdive.mytrainerandi.entity;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+/**
+ * Configure GOAL_HISTORY class to be persisted db table.
+ */
 @DatabaseTable(tableName = "GOAL_HISTORY")
 public class GoalHistory {
 
@@ -15,8 +18,7 @@ public class GoalHistory {
   public static final String HREPS_COLNAME = "HISTORY_REPS";
   public static final String HLBS_COLNAME = "HISTORY_LBS";
 
-  // ??Ask Chris: Capture date
-
+  /**  Create db fields for GOAL_HISTORY table.*/
   @DatabaseField(columnName = HEXNAME_COLNAME /*, canBeNull = false*/)
   private String hexname;
 
@@ -34,6 +36,8 @@ public class GoalHistory {
 
   @DatabaseField(columnName = HLBS_COLNAME /*, canBeNull = false*/)
   private String hlbs;
+
+  //** Getter and Setters for GOAL_HISTORY table fields. */
 
   public String getHexname() {
     return hexname;

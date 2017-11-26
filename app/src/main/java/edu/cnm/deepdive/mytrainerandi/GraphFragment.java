@@ -64,11 +64,8 @@ public class GraphFragment extends Fragment {
     DataPoint[] vargraphwt = new DataPoint[clienthistory.size()];
     DataPoint[] vargraphbmi = new DataPoint[clienthistory.size()];
     DataPoint[] vargraphfat = new DataPoint[clienthistory.size()];
-    //bmi, fat and wt
-    //get for wt
-    //get for bmi
-    //get for fat
-    //    int num_data_pts = 10;
+
+    //Loop through rows and pull weight, bmi and fat percentage.
     for (int i = 0; i < vargraphwt.length; i++) {
       FitnessHistory history = clienthistory.get(i);
       vargraphwt[i] = new DataPoint(history.getCreated(),
@@ -79,7 +76,7 @@ public class GraphFragment extends Fragment {
           history.getFat());
     }
 
-    //number of rows in fitness history. Should be same for BMI, FAT and Body Percentage.
+    //number of rows in fitness history. Will be the same for BMI, FAT and Body Percentage.
     LineGraphSeries<DataPoint> serieswt = new LineGraphSeries<>(vargraphwt);
     LineGraphSeries<DataPoint> seriesbmi = new LineGraphSeries<>(vargraphbmi);
     LineGraphSeries<DataPoint> seriesfat = new LineGraphSeries<>(vargraphfat);
@@ -114,20 +111,21 @@ public class GraphFragment extends Fragment {
     view.getGridLabelRenderer()
         .setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity(), format));
 
-    //cast xml to GraphView
+    // Add weight and fat
+    view.addSeries(serieswt);
+    view.addSeries(seriesfat);
+
     /**
      * Setup second scale to the right for BMI numbers.
-     * Setup second scale MinY to 0 and MaxY to 40.
+     * Second scale MinY to 0 and MaxY to 40.
      */
-    view.addSeries(serieswt);
     SecondScale rightAxis = view.getSecondScale();
-    //rightAxis.setVerticalAxisTitleColor();
 
     rightAxis.setVerticalAxisTitle("BMI");
+    rightAxis.setVerticalAxisTitleColor(Color.BLUE);
     rightAxis.setMinY(0);
     rightAxis.setMaxY(40);
     rightAxis.addSeries(seriesbmi);
-    view.addSeries(seriesfat);
 
     return root;
   }

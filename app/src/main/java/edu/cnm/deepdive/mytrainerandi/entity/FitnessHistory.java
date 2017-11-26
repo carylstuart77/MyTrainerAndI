@@ -4,9 +4,16 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.sql.Timestamp;
 
+/**
+ * Configure FITNESS_HISTORY class to be persisted db table.
+ */
 @DatabaseTable(tableName = "FITNESS_HISTORY")
 public class FitnessHistory {
 
+  /**
+   * The name field is configured as the primary key for the database table by using the generatedId
+   * = true annotation field.
+   */
   public static final String CLIENT_ID = "CLIENT_ID";
 
   @DatabaseField(columnName = "FITNESS_HISTORY_ID", generatedId = true)
@@ -16,9 +23,12 @@ public class FitnessHistory {
   private Client client;
 
   @DatabaseField(columnName = "CREATED", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-      format = "yyy-MM-dd", canBeNull = false, readOnly = true)
+      format = "yyyy-MM-dd", canBeNull = false, readOnly = true)
   private Timestamp created;
 
+  /**
+   * Create db fields for FITNESS_HISTORY table.
+   */
   @DatabaseField(columnName = "WEIGHT", canBeNull = false)
   private double weight;
 
@@ -30,6 +40,8 @@ public class FitnessHistory {
 
   @DatabaseField(columnName = "GOAL"/*, canBeNull = false*/)
   private String goal;
+
+  //** Getter and Setters for FITNESS_HISTORY table fields. */
 
   public int getId() {
     return id;

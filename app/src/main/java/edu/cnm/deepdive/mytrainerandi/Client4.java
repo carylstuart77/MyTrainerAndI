@@ -153,10 +153,20 @@ public class Client4 extends Fragment implements Button.OnClickListener {
 
           //FitnessHistory Table updates
           FitnessHistory newfitnesshistory = new FitnessHistory();
-          newfitnesshistory.setWeight(Double.parseDouble(mClientWeight.getText().toString()));
-          newfitnesshistory.setBmi(Double.parseDouble(mClientBMI.getText().toString()));
-          newfitnesshistory.setFat(Double.parseDouble(mClientFat.getText().toString()));
-          newfitnesshistory.setGoal(mClientGoal.getSelectedItem().toString());
+//?Ask Chris
+//          if (newfitnesshistory.getWeight() == Double.MIN_VALUE &&
+//              newfitnesshistory.getBmi() == Double.MIN_VALUE &&
+//              newfitnesshistory.getFat() == Double.MIN_VALUE) {
+            newfitnesshistory.setWeight(Double.parseDouble(mClientWeight.getText().toString()));
+            newfitnesshistory.setBmi(Double.parseDouble(mClientBMI.getText().toString()));
+            newfitnesshistory.setFat(Double.parseDouble(mClientFat.getText().toString()));
+            newfitnesshistory.setGoal(mClientGoal.getSelectedItem().toString());
+//          } else {
+//            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+//            alertDialog.setTitle("Missing Field Entry ");
+//            alertDialog.setMessage("Enter valid data.");
+//            return;
+//          }
 
           //Validate Weight number range
           if (newfitnesshistory.getWeight() > wt_max || newfitnesshistory.getWeight() < wt_min) {
@@ -244,8 +254,9 @@ public class Client4 extends Fragment implements Button.OnClickListener {
       case R.id.btnViewClient:
         //Log.i("In Button View", "View Client");   //Used to log to monitor for trouble shooting.
         //Log.isLoggable ("viewclient", + mClient.getId());
+
         //?Ask chris
-        if (mClient.getId() != 0) {
+        if (mClient.getId() == 1) {
           //View Button--Add bundle of client id
           GraphFragment fragmentgraph = new GraphFragment();
           //create bundle object

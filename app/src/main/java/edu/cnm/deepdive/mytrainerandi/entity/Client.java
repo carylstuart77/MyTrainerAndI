@@ -5,16 +5,23 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.sql.Timestamp;
 
-//Object Relational Mapping (ORM DB)
+/**
+ * Configure Client class to be persisted db table.
+ */
 
 @DatabaseTable(tableName = "CLIENT")
 public class Client {
 
+  /**
+   * The name field is configured as the primary key for the database table by using the
+   * generatedId = true annotation field.
+   */
   @DatabaseField(columnName = "CLIENT_ID", generatedId = true)
   private int id;
 
+  /**  Create db fields for Client table.*/
   @DatabaseField(columnName = "CREATED", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-      format = "yyy-MM-dd HH:mm:ss", canBeNull = false, readOnly = true)
+      format = "yyyy-MM-dd", canBeNull = false, readOnly = true)
   private Timestamp created;
 
   @DatabaseField(columnName = "NAME", canBeNull = false)
@@ -23,6 +30,7 @@ public class Client {
   @DatabaseField(columnName = "HEIGHT", canBeNull = false)
   private int height;
 
+  //** Getter and Setters for Client table fields. */
   public int getId() {
     return id;
   }

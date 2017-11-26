@@ -61,9 +61,8 @@ public class Trainer3 extends Fragment implements OnClickListener {
   private RadioButton rdFri;
   private RadioButton rdSat;
   private RadioButton rdSun;
-  /**
-   * Group radio buttons so only one can be chosen at a time.
-   */
+
+  /**Group radio buttons so only one can be chosen at a time.*/
   private RadioGroup radiogroup;
 
   /**

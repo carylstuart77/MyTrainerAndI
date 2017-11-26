@@ -4,14 +4,23 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.sql.Timestamp;
 
+
+/**
+ * Configure DAYSCHEDULE class to be persisted db table.
+ */
 @DatabaseTable(tableName = "DAYSCHEDULE")
 public class ExerciseByDay {
 
   public static final String EXERCISE_CONSTANT = "EXERCISE";
   public static final String SETS_CONSTANT = "SET";
   public static final String REPS_CONSTANT = "REPS";
-  public static final String DAYOFWEEK = "DAY_OF_WEEK" ;
+  public static final String DAYOFWEEK = "DAY_OF_WEEK";
   public static final String LBS_LIFTED = "LBS_LIFTED";
+
+  /**
+   * The name field is configured as the primary key for the database table by using the generatedId
+   * = true annotation field.
+   */
 
   @DatabaseField(columnName = "DAYSCHEDULE_ID", generatedId = true)
   private int id;
@@ -20,7 +29,10 @@ public class ExerciseByDay {
       format = "yyy-MM-dd HH:mm:ss", canBeNull = false, readOnly = true)
   private Timestamp created;
 
-//Find field in foreign table (exercise)
+  /**
+   * Create db fields for DAYSCHEDULE table.
+   */
+  //Find field in foreign table (exercise)
   @DatabaseField(columnName = EXERCISE_CONSTANT, canBeNull = false, foreign = true, foreignAutoRefresh = true)
   private Exercise exercise;
 
@@ -35,11 +47,15 @@ public class ExerciseByDay {
 
   @DatabaseField(columnName = DAYOFWEEK, canBeNull = false)
   private int dayofweek;
-//Random ID
+
+  //** Getter and Setters for DAYSCHEDULE table fields. */
+
+  //Random ID
   public int getId() {
     return id;
   }
-//TimeStamp
+
+  //TimeStamp
   public Timestamp getCreated() {
     return created;
   }
