@@ -26,16 +26,16 @@ components that need to be built in.
 
 Application needs (listed in priority order):
 
-* Trainer Screen:
+* Trainer View:
   1) When scrolling list after checkbox is selected, check is lost.
   2) After selection of checkbox, confirm a day of week radio button was selected before it can save.
   3) When selecting cardio, the sets and reps need to be minutes and level.
   
-* Client Stats:
+* Client Stats View:
   1) Validate entries when any of the fields are not filled out, but save is selected. Now it stops app.
   2) Adjust graph to make it look better.  Add Left axis label. 
   
-  * Day's Schedule:
+* Day's Schedule View:
   1) Provide range of sets and reps range validation(Sets 1-5, Reps 1-25);
 
 ### Stretch Goals/Cosmetic additions:
