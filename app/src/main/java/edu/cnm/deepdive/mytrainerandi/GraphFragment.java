@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.SecondScale;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
@@ -38,6 +37,8 @@ public class GraphFragment extends Fragment {
       Bundle savedInstanceState) {
 
     View root = inflater.inflate(R.layout.fragment_graph, container, false);
+
+    /** Used to pull collection of FitnessHistory by client.*/
     List<FitnessHistory> clienthistory = null;
     try {
       Bundle bundle = this.getArguments();
@@ -61,7 +62,7 @@ public class GraphFragment extends Fragment {
     double x, y;
     x = 0;
 
-    //Number of records.
+    /** vargraphwt, vargraphbmi and vargraphfat objects are used for size of records. */
     DataPoint[] vargraphwt = new DataPoint[clienthistory.size()];
     DataPoint[] vargraphbmi = new DataPoint[clienthistory.size()];
     DataPoint[] vargraphfat = new DataPoint[clienthistory.size()];
@@ -77,7 +78,7 @@ public class GraphFragment extends Fragment {
           history.getFat());
     }
 
-    //number of rows in fitness history. Will be the same for BMI, FAT and Body Percentage.
+    /** number of rows in fitness history. Will be the same for BMI, FAT and Body Percentage. */
     LineGraphSeries<DataPoint> serieswt = new LineGraphSeries<>(vargraphwt);
     LineGraphSeries<DataPoint> seriesbmi = new LineGraphSeries<>(vargraphbmi);
     LineGraphSeries<DataPoint> seriesfat = new LineGraphSeries<>(vargraphfat);

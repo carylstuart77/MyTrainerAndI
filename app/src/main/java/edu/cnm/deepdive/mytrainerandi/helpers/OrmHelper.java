@@ -103,7 +103,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   }
 
   /**
-   * ExerciseByDay synchronization Doa handling to prevent race condition.
+   * ExerciseByDayDao to get Dayschedule. Prevent race condition with synchronization. Returns
+   * data.
    */
   public synchronized Dao<ExerciseByDay, Integer> getDayscheduleDao() throws SQLException {
     if (dayscheduleDao == null) {
@@ -114,7 +115,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
 
 
   /**
-   * Goal synchronization Doa handling to prevent race condition.
+   * GoalDao to get Goal data. Prevent race condition with synchronization. Returns data.
    */
   public synchronized Dao<Goal, Integer> getGoalDao() throws SQLException {
     if (goalDao == null) {
@@ -124,7 +125,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   }
 
   /**
-   * Execise synchronization Doa handling to prevent race condition.
+   * ExerciseDao to get Exercise data. Prevent race condition with synchronization. Returns data.
    */
   public synchronized Dao<Exercise, Integer> getExerciseDao() throws SQLException {
     if (exerciseDao == null) {
@@ -134,7 +135,8 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   }
 
   /**
-   * FitnessHistory synchronization Doa handling to prevent race condition.
+   * FitnessHistoryDao to get FitnessHistory client data. Prevent race condition with
+   * synchronization. Returns data.
    */
   public synchronized Dao<FitnessHistory, Integer> getFitnessHistoryDao() throws SQLException {
     if (fitnessHistoryDao == null) {
@@ -143,8 +145,10 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     return fitnessHistoryDao;
   }
 
+
   /**
-   * ExerciseByDay synchronization Doa handling to prevent race condition.
+   * ExerciseByDayDao to get ExerciseByDay data. Prevent race condition with synchronization.
+   * Returns data.
    */
   public synchronized Dao<ExerciseByDay, Integer> getExerciseByDayDao() throws SQLException {
     if (exerciseByDayDao == null) {
@@ -165,8 +169,9 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
    */
 
   private void populateDatabase(SQLiteDatabase database) throws SQLException {
-    // Trainers list of all exercises to be loaded to EXERCISE table.
+    /** Input from raw data of Trainers list of all exercises to be loaded to EXERCISE table. */
     InputStream inputStream = context.getResources().openRawResource(R.raw.main_exercise);
+    /** rows delimited by semicolon. */
     String queries = "";
     try {
       queries = IOUtils.toString(inputStream);
@@ -178,7 +183,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
       database.execSQL(query);
     }
 
-    // Client demo stats to be loaded to FITNESS_HISTORY table.
+    /** Input from raw folder of client FITNESS_HISTORY for demonstration of graph. */
     // TODO: To be commented out after demo.
     InputStream inputStreamClient = context.getResources().openRawResource(R.raw.client_stats);
     try {
@@ -192,7 +197,7 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     }
 
     //---------Sample population of Client4s clientName and height.-KEEP ---------//
-    //Currently populated from Client4 UI.
+    /** Client setup for demonstration.*/
     //TODO:  To be commented out after demo.
     Client client = new Client();
     client.setName("Caryl Stuart");
@@ -251,6 +256,5 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
   public interface OrmInteraction {
 
     OrmHelper getHelper();
-
   }
 }

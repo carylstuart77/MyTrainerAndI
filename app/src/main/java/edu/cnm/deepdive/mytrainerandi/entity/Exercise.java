@@ -20,7 +20,7 @@ public class Exercise {
   @DatabaseField(columnName = "EXERCISE_ID", generatedId = true)
   private int id;
 
-  /**  Create db fields for EXERCISE table.*/
+  /**  Create db fields for EXERCISE table which includes circuit, muscle and exercise.*/
   @DatabaseField(columnName = CIRCUIT_COLNAME/*, canBeNull = false*/)
   private String circuit;
 
@@ -30,7 +30,7 @@ public class Exercise {
   @DatabaseField(columnName = EXERCISE_COLNAME/*, canBeNull = false*/)
   private String exercisename;
 
-  //** Getter and Setters for EXERCISE table fields. */
+  /** Getter and Setters for EXERCISE table fields which includes id, circuit, muscle and exercise.. */
   public int getId() {
     return id;
   }

@@ -31,7 +31,7 @@ public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
     View view = inflater.inflate(R.layout.schedule_item, parent, false);
 
-//    A user interface element that displays text to the user.
+    /**   Interface text elements for muscle, exercise, sets, reps and lbs. */
     TextView smuscle = view.findViewById(R.id.schedule_muscle);
     TextView sexercise = view.findViewById(R.id.schedule_exercise);
     TextView ssets = view.findViewById(R.id.edit_sets);
@@ -39,6 +39,7 @@ public class ScheduleDay2ListAdapter extends ArrayAdapter<ExerciseByDay> {
     TextView slbs = view.findViewById(R.id.edit_lbs);
 
     ExerciseByDay item = getItem(position);
+    /** sets and returns view with muscle exercise, sets, reps and lbs. */
     smuscle.setText(item.getExercise().getMuscle());
     //pulling from object no longer a string
     sexercise.setText(item.getExercise().getExercisename());

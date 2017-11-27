@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Main welcome screen for MTAI application.  Displays welcome message, image and
- * sets title.
+ * Main welcome screen for MyTrainerAndI application.  Displays welcome message, image and sets
+ * title.
  */
 
 public class Home1 extends Fragment {

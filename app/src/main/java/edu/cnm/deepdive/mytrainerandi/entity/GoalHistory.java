@@ -10,7 +10,9 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "GOAL_HISTORY")
 public class GoalHistory {
 
-//date, HExName, HSets, HReps, HWeight
+  /** Create constant values in order to capture value of muscle, exercisename, circuit,
+   * sets, reps and lbs. */
+
   public static final String HMUSCLE_COLNAME = "HISTORY_MUSCLE";
   public static final String HEXNAME_COLNAME = "HISTORY_EXERCISE_NAME";
   public static final String HCIRCUIT_COLNAME = "HISTORY_CIRCUIT";

@@ -30,7 +30,7 @@ public class Client {
   @DatabaseField(columnName = "HEIGHT", canBeNull = false)
   private int height;
 
-  //** Getter and Setters for Client table fields. */
+  //** Getter and Setters for Client table fields which includes: id, timestamp, name and height. */
   public int getId() {
     return id;
   }

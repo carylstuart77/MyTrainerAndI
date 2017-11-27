@@ -22,7 +22,7 @@ public class Goal {
   @DatabaseField(columnName = "NAME", canBeNull = false)
   private String name;
 
-  //** Getter and Setters for Client table fields. */
+  //** Getter and Setters for Goal table fields to be used from client4 goal selection. */
   public int getId() {
     return id;
   }

@@ -46,7 +46,7 @@ public class Day2 extends Fragment implements OnClickListener {
   private ListView workoutListView;
 
   {
-    //Setup for current year, month and day.
+    /** Setup Calendar cal for current year, month and day for use in selecting exercise day. */
     final Calendar cal = Calendar.getInstance();
     year_x = cal.get(Calendar.YEAR);
     month_x = cal.get(Calendar.MONTH);
@@ -58,14 +58,15 @@ public class Day2 extends Fragment implements OnClickListener {
       Bundle savedInstanceState) {
     Log.d("In Day2:", "In Day2: OnCreateView");
 
-    //LayoutInflater is one of the Android System Services that is responsible
-    // for taking your XML files that define a layout, and converting them into View objects.
+    /**LayoutInflater is one of the Android System Services that is responsible
+       for taking your XML files that define a layout, and converting them into View objects.
+       Day2 will display calendar, save button and list of exercises selected for that day. */
 
     inflate = inflater.inflate(R.layout.day2, container, false);
 
     showDialogOnButtonClick();
 
-    //Add Save button Listener, creating view object in memory.
+    /** Add Save button Listener, creating view object in memory in order to save sets and reps entered by client. */
     Button savebutton = inflate.findViewById(R.id.btnDay2Save);
     savebutton.setOnClickListener(this);
 
@@ -76,7 +77,6 @@ public class Day2 extends Fragment implements OnClickListener {
   /**
    * Run calendar dialog and call listener to determine the day of week after selection.
    */
-
   public void showDialogOnButtonClick() {
     btn = (Button) inflate.findViewById(R.id.dateButton);
 
@@ -115,6 +115,8 @@ public class Day2 extends Fragment implements OnClickListener {
 
       Calendar calendar = Calendar.getInstance();
       calendar.set(year, monthOfYear, dayOfMonth);
+
+      /**dayofweek is the day picked from calendar Sunday through Saturday */
       int dayofweek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 
       if (dayofweek == 0) {
@@ -146,7 +148,7 @@ public class Day2 extends Fragment implements OnClickListener {
 
 
   /**
-   * Message notifications called on by onClick method.
+   * Toast message notifications called on by onClicks.
    */
   public void showTextNotification(String msgToDisplay) {
     Toast.makeText(getActivity(), msgToDisplay, Toast.LENGTH_SHORT).show();
@@ -154,6 +156,7 @@ public class Day2 extends Fragment implements OnClickListener {
 
   /**
    * Database is queried for the day of week exercises and the rows are displayed in a list.
+   * dayschedule list of rows are pulled when equal to the dayofweek which was choosen.
    */
   private void refresh(int dayofweek) {
     List<ExerciseByDay> dayschedule = null;
@@ -164,10 +167,11 @@ public class Day2 extends Fragment implements OnClickListener {
       throw new RuntimeException(e);
     }
 
-    // Adapter takes what is in DB and prepares data for display.
+    /** Adapter takes what is in DB and prepares data for display. */
     ScheduleDay2ListAdapter workoutAdapter = new ScheduleDay2ListAdapter(getActivity(),
         R.layout.schedule_item, dayschedule);
     //From day2.xml list
+    /** workoutListView is the day2.xml list view to display rows*/
     workoutListView = (ListView) inflate.findViewById(R.id.listViewDay);
     //Display data in schedule_item rows
     workoutListView.setAdapter(workoutAdapter);
@@ -182,7 +186,7 @@ public class Day2 extends Fragment implements OnClickListener {
     /** Returns the number of children in the group in order to update reps, sets and lbs. */
     for (int i = 0; i < workoutListView.getChildCount(); i++) {
       ExerciseByDay workoutbyday = (ExerciseByDay) workoutListView.getAdapter().getItem(i);
-      //getChildAt Returns the view at the specified position in the group.
+      /** getChildAt Returns the view at the specified position in the group for reps, sets and lbs. */
       workoutbyday.setReps(Integer.parseInt(
           ((EditText) workoutListView.getChildAt(i).findViewById(R.id.edit_reps)).getText()
               .toString()));
@@ -194,6 +198,7 @@ public class Day2 extends Fragment implements OnClickListener {
               .toString()));
 
       try {
+        /** Call Dao to update changes to workout by day. */
         helper.getDayscheduleDao().update(workoutbyday);
         showTextNotification("SAVED IT!");
       } catch (SQLException e) {

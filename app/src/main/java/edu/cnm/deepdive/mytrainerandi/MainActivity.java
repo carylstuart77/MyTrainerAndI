@@ -20,8 +20,8 @@ import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 
 /**
- * Activity implementing navigation view on Android devices.  Data fields are implemented by ORM
- * interaction sql queries.
+ * MyTrainerAndI main activity implementing navigation view on Android devices.
+ * Provides Menu navigation to Day2, Trainer3 and Client4 fragments.
  *
  * @version 1.0, 2017-11-24
  * @author: Caryl Stuart
@@ -31,12 +31,11 @@ import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, OrmInteraction {
 
-  public DatabaseHelper dbHelper;
   private ListView databaseListView;
   private SQLiteDatabase sqLiteDatabase;
   private OrmHelper helper = null;
 
-  EditText editTextName;
+   /** Used for goal selection*/
   Spinner spinnerGoal;
 
   /**

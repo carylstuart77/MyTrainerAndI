@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "DAYSCHEDULE")
 public class ExerciseByDay {
 
+  /** Constant values of EXERCISE, SETS, REPS, DAYOFWEEK and LBS. */
   public static final String EXERCISE_CONSTANT = "EXERCISE";
   public static final String SETS_CONSTANT = "SET";
   public static final String REPS_CONSTANT = "REPS";
@@ -31,6 +32,8 @@ public class ExerciseByDay {
 
   /**
    * Create db fields for DAYSCHEDULE table.
+   * EXERCISE will be used as a foreign key.
+   * Fields: Sets, Reps, LBS and the day of week.
    */
   //Find field in foreign table (exercise)
   @DatabaseField(columnName = EXERCISE_CONSTANT, canBeNull = false, foreign = true, foreignAutoRefresh = true)
@@ -60,7 +63,9 @@ public class ExerciseByDay {
   public void setSelected(boolean selected) {
     this.selected = selected;
   }
-  //** Getter and Setters for DAYSCHEDULE table fields. */
+
+  /** Getter and Setters for DAYSCHEDULE table fields which consists of:
+   *  ID, timestamp, exercise, day of week, sets, reps and lbs. */
 
   //Random ID
   public int getId() {

@@ -44,7 +44,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
    */
   private ListView exerciseListView;
   /**
-   * Button selection for each exercise circuit group.
+   * Button selection for each exercise circuit group of Lower, Upper, Cardio and Core.
    */
   private Button btnLower;
   private Button btnUpper;
@@ -52,7 +52,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
   private Button btnCore;
 
   /**
-   * Monday through Sunday Radio Buttons to be displayed.
+   * Monday through Sunday Radio Buttons to be displayed in order for Trainer to select.
    */
   private RadioButton rdMon;
   private RadioButton rdTue;
@@ -80,6 +80,9 @@ public class Trainer3 extends Fragment implements OnClickListener {
     View trainerView = inflater.inflate(R.layout.trainer3, container, false);
 
     //Radio Button generates an Event Source-state change.
+    /** Exercises are grouped by circuit of Core, Cardio, Lower and Upper.
+     * Button event will determines which sub-group to display.
+     */
     btnCore = trainerView.findViewById(R.id.radioabs);
     btnCardio = trainerView.findViewById(R.id.radiocardio);
     btnLower = trainerView.findViewById(R.id.radiolower);
@@ -89,8 +92,10 @@ public class Trainer3 extends Fragment implements OnClickListener {
     btnCardio.setOnClickListener(this);
     btnLower.setOnClickListener(this);
     btnUpper.setOnClickListener(this);
-
+    /** Radio group provides the grouping of the radio button to only allow one button to be selected
+     * at a time.*/
     radiogroup = trainerView.findViewById(R.id.radiotrainergroup);
+    /** find the listview for the trainer list.*/
     exerciseListView = trainerView.findViewById(R.id.listViewTrainer3);
 
     /**
@@ -120,8 +125,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
   }
 
   /**
-   * Queries for circuit exercises and stores them in List<Exercise>. Throws runtime SQL exception
-   * upon catch condition.
+   * Queries for circuit exercises. Throws runtime SQL exception upon catch condition.
    */
   private void refresh(String circuit) {
     List<Exercise> allexercise = null;
@@ -132,7 +136,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
       throw new RuntimeException(e);
     }
 
-    //Display exercises.
+    /** Adapter present the circuit of exercises. */
     Trainer3ListAdapter trainer3Adapter = new Trainer3ListAdapter(getActivity(),
         R.layout.trainer3_listview, allexercise);
     exerciseListView.setAdapter(trainer3Adapter);
@@ -171,6 +175,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
           EditText mTrainerReps = exerciseListView.getChildAt(i)
               .findViewById(R.id.edit_trainerreps);
 
+          /** Used to capture sets and reps entered in by trainer. */
           String capturesets = mTrainerSets.getText().toString();
           String capturereps = mTrainerReps.getText().toString();
 
@@ -187,7 +192,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
             }
 
             ExerciseByDay newtrainerpick = new ExerciseByDay();
-
+            /** write out sets and reps */
             newtrainerpick.setSets(sets);
             newtrainerpick.setReps(reps);
 
@@ -220,6 +225,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
                 return;
             }
 
+            /** set item to the exercise that was selected */
             Exercise item = (Exercise) exerciseListView.getAdapter().getItem(i);
             newtrainerpick.setExercise(item);
 
@@ -245,6 +251,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
 
     if (view.getId() == R.id.btnResetTrainer) {
 
+      /** default dayofweek to invalid day of 7 so it does not default to 0. */
       int dayofweek = 7;
       String aday = null;
 
@@ -282,8 +289,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
 
       /**
        * Alert trainer that resetting the day of week will remove those exercises and provides
-       * an option to continue or to cancel.
-       */
+       * an option to continue or to cancel. */
       AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
       alertDialog.setTitle("Reset: ");
       alertDialog.setMessage("Reset " + aday + " workouts?");
@@ -293,7 +299,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
           new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-              /** Deletes elements from table by argument.
+              /** Deletes elements from table by day argument.
                * Throw runtime exception if SQL exception is caught.
                */
               DeleteBuilder<ExerciseByDay, Integer> deleteBuilder = null;

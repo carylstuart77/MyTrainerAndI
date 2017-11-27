@@ -17,7 +17,7 @@ public class ExerciseByDayHistory {
   private int id;
 
   /**
-   * Create db fields for Client table.
+   * Create db fields for Client table to hold the actual sets, reps, weight and date.
    */
 
   @DatabaseField(columnName = "ACTUAL_SETS", canBeNull = false)
@@ -32,7 +32,9 @@ public class ExerciseByDayHistory {
   @DatabaseField(columnName = "ACTUAL_DATE", canBeNull = false)
   private Date actualDate;
 
-  //** Getter and Setters for ExerciseByDayHistory table fields. */
+
+  /** Getter and Setters for ExerciseByDayHistory table fields which consists of:
+   *  ID, date, sets, reps and weight. */
 
   public int getId() {
     return id;

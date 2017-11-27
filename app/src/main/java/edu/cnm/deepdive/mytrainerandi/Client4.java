@@ -28,7 +28,7 @@ import java.sql.SQLException;
 public class Client4 extends Fragment implements Button.OnClickListener {
 
   /**
-   * Text view fields
+   * Text view fields to caputre input from user.
    */
   private TextView mClientName;
   private TextView mClientHeight;
@@ -38,7 +38,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
   private Client mClient;    //field of type client
 
   /**
-   * Max and Min values to be checked upon entry.
+   * Max and Min values to be checked upon entry: Weight, bmi and fat values.
    */
   double wt_max = 300;
   double wt_min = 80;
@@ -54,7 +54,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
    */
   public static final String CLIENT_ID_KEY = "client_id";
   /**
-   * Spinner for client goal
+   * Spinner for selection of client goal.
    */
   private Spinner mClientGoal;
 
@@ -70,6 +70,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
     mClientFat = inflate.findViewById(R.id.editClientFat);
 
     try {
+      /** Query for Client in order to pull fitness history for that client. */
       Dao<Client, Integer> dao = ((OrmInteraction) getActivity()).getHelper().getClientDao();
       mClient = dao.queryForFirst(dao.queryBuilder().prepare());
     } catch (SQLException e) {
@@ -118,10 +119,10 @@ public class Client4 extends Fragment implements Button.OnClickListener {
 
     mClientGoal = inflate.findViewById(R.id.spinnerGoal);
 
-    //Save Client Data
+    /** Listener for save button selection. */
     Button savebutton = inflate.findViewById(R.id.btnSaveClient);
     savebutton.setOnClickListener(this);
-    // Option to view client history by graph.
+    /** Listener for graph button selection. */
     Button graphbutton = inflate.findViewById(R.id.btnViewClient);
     graphbutton.setOnClickListener(this);
     return inflate;
@@ -135,7 +136,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
   }
 
   /**
-   * Message notifications called on by onClick method.
+   * Method called upon to display message.
    */
   public void showTextNotification(String msgToDisplay) {
     Toast.makeText(getActivity(), msgToDisplay, Toast.LENGTH_SHORT).show();
@@ -151,7 +152,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
       case R.id.btnSaveClient:
         try {
 
-          //FitnessHistory Table updates
+          /** FitnessHistory Table updates to Weight, BMI, Fat and Gaol fields. */
           FitnessHistory newfitnesshistory = new FitnessHistory();
 
             try {
@@ -173,7 +174,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
               return;
             }
 
-          //Validate Weight number range
+          /** Validate Weight number range.  If outside of min and max alert user.*/
           if (newfitnesshistory.getWeight() > wt_max || newfitnesshistory.getWeight() < wt_min) {
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             alertDialog.setTitle("Alert Weight: ");
@@ -190,7 +191,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
             return;
           }
 
-          // Validate BMI number range
+          /** Validate BMI number range.  If outside of min and max alert user. */
           if (newfitnesshistory.getBmi() > bmi_max || newfitnesshistory.getBmi() < bmi_min) {
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             alertDialog.setTitle("Alert BMI: ");
@@ -207,7 +208,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
             return;
           }
 
-          // Validate Fat Percentage range
+          /** Validate Fat number range.  If outside of min and max alert user. */
           if (newfitnesshistory.getFat() > fat_max || newfitnesshistory.getFat() < fat_min) {
             AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
             alertDialog.setTitle("Alert Fat: ");
@@ -232,7 +233,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
             mClient = newclient;
           }
 
-          /** Create client information in fitness history to be used in graph.*/
+          /** Create client information in fitness history which will be used in graph.*/
           newfitnesshistory.setClient(mClient);
           ((OrmInteraction) getActivity()).getHelper().getFitnessHistoryDao()
               .create(newfitnesshistory);
@@ -241,7 +242,8 @@ public class Client4 extends Fragment implements Button.OnClickListener {
             showTextNotification("SAVED IT!");
           }
 
-          //Refresh screen after client name and height is entered to make them unselectable.
+          /** Refresh/replace screen after client name and height is entered to make them unselectable.
+           * There should only be one client in client table. */
           Client4 fragment = new Client4();
           FragmentTransaction ft = getFragmentManager().beginTransaction();
           ft.replace(R.id.content_main, fragment);
@@ -252,6 +254,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
           throw new RuntimeException(e);
         }
         /**
+         * This is the GRAPH button selection which is named btnViewClient.
          * Display fitness History in graph form.
          * Key-Value of bundle for type put.
          * Attaching argument bundle to graph fragment and begin graph fragment.
@@ -269,11 +272,11 @@ public class Client4 extends Fragment implements Button.OnClickListener {
           //type put method of bundle; add arguments to bundle: key-value
           bundle.putInt(CLIENT_ID_KEY, mClient.getId());
 
-          //Attach arguments bundle to fragment
+          /** Attach arguments bundle to fragment in order to graph. */
           fragmentgraph.setArguments(bundle);
           FragmentTransaction ft = getFragmentManager().beginTransaction();
           ft.replace(R.id.content_main, fragmentgraph);
-          //use back arrow to go back to client4 from graph.
+          /** Use back arrow to go back to client4 from graph. */
           ft.addToBackStack("back to client")
               .commit();
           break;

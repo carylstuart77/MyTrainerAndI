@@ -10,12 +10,12 @@ import java.sql.Timestamp;
 @DatabaseTable(tableName = "FITNESS_HISTORY")
 public class FitnessHistory {
 
+  /**client id is final in order to link with client history. */
+  public static final String CLIENT_ID = "CLIENT_ID";
   /**
    * The name field is configured as the primary key for the database table by using the generatedId
    * = true annotation field.
    */
-  public static final String CLIENT_ID = "CLIENT_ID";
-
   @DatabaseField(columnName = "FITNESS_HISTORY_ID", generatedId = true)
   private int id;
 
@@ -27,7 +27,7 @@ public class FitnessHistory {
   private Timestamp created;
 
   /**
-   * Create db fields for FITNESS_HISTORY table.
+   * Create db fields for FITNESS_HISTORY table which consists of weight, bmi, fat and goal.
    */
   @DatabaseField(columnName = "WEIGHT", canBeNull = false)
   private double weight;
@@ -41,7 +41,7 @@ public class FitnessHistory {
   @DatabaseField(columnName = "GOAL"/*, canBeNull = false*/)
   private String goal;
 
-  //** Getter and Setters for FITNESS_HISTORY table fields. */
+  //** Getter and Setters for FITNESS_HISTORY table fields to be used by client4 fragment. */
 
   public int getId() {
     return id;

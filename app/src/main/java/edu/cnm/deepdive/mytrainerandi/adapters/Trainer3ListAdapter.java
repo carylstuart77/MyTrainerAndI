@@ -21,7 +21,6 @@ public class Trainer3ListAdapter extends ArrayAdapter<Exercise> {
    * Convert the array of the master list of exercise into scrollable view for selection by
    * trainer.
    */
-
   public Trainer3ListAdapter(Context context, int resource,
       List<Exercise> objects) {
     super(context, resource, objects);
@@ -33,12 +32,13 @@ public class Trainer3ListAdapter extends ArrayAdapter<Exercise> {
 
     View view = inflater.inflate(R.layout.trainer3_listview, parent, false);
 
+    /**   Interface text elements for circuit, muscle and exercise. */
     TextView tcircuit = view.findViewById(R.id.trainer_circuit);
     TextView tmuscle = view.findViewById(R.id.trainer_muscle);
     TextView texercise = view.findViewById(R.id.trainer_exercise);
 
     Exercise item = getItem(position);
-
+    /** sets and returns view with circuit, muscle and exercisename. */
     tcircuit.setText(item.getCircuit());
     tmuscle.setText(item.getMuscle());
     texercise.setText(item.getExercisename());
