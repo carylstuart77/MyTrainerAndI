@@ -47,7 +47,7 @@ Application needs (listed in priority order):
 2) Provide link on how to perform exercise through videos or description of proper form.
 
 ## Javadocs
-[Javadocs link](/docs)
+[Javadocs link](https://carylstuart77.github.io/MyTrainerAndI/docs)
 
 ## Authors
 
