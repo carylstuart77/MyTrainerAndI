@@ -28,7 +28,7 @@ Application needs (listed in priority order):
 
 * Trainer View:
   1) When scrolling list after checkbox is selected, check is lost (functional).
-  2) After selection of checkbox, confirm a day of week radio button was selected before it can be save (functional).
+  2) After selection of checkbox, confirm a day of week radio button was selected before it can be saved (functional).
   3) When selecting cardio, the sets and reps need to be level and minutes (cosmetic).
   
 * Client Stats View:
