@@ -153,7 +153,7 @@ public class Client4 extends Fragment implements Button.OnClickListener {
 
           //FitnessHistory Table updates
           FitnessHistory newfitnesshistory = new FitnessHistory();
-//?Ask Chris - added try catch looking for NumberFormatException
+
             try {
               newfitnesshistory.setWeight(Double.parseDouble(mClientWeight.getText().toString()));
               newfitnesshistory.setBmi(Double.parseDouble(mClientBMI.getText().toString()));
@@ -260,7 +260,6 @@ public class Client4 extends Fragment implements Button.OnClickListener {
         //Log.i("In Button View", "View Client");   //Used to log to monitor for trouble shooting.
         //Log.isLoggable ("viewclient", + mClient.getId());
 
-        //?Ask chris
         //Prevents failure due to CLIENT table is empty.
         if (mClient.getId() >= 1) {
           //View Button--Add bundle of client id

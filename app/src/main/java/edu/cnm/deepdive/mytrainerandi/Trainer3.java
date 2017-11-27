@@ -215,7 +215,9 @@ public class Trainer3 extends Fragment implements OnClickListener {
               case R.id.radioSat:
                 newtrainerpick.setDayofweek(6);
                 break;
-
+              default:
+                showTextNotification("Select Day.");
+                return;
             }
 
             Exercise item = (Exercise) exerciseListView.getAdapter().getItem(i);

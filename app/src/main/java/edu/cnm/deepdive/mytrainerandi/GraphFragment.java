@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.SecondScale;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import edu.cnm.deepdive.mytrainerandi.entity.FitnessHistory;
@@ -109,6 +110,10 @@ public class GraphFragment extends Fragment {
     view.getLegendRenderer().setVisible(true);
     view.setTitle("MTAI Client History Log");
     view.setTitleTextSize(54);
+//    StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(view);
+//    staticLabelsFormatter.setHorizontalLabels(new String[] {"old", "middle", "new"});
+//    staticLabelsFormatter.setVerticalLabels(new String[] {"low", "middle", "high"});
+//    view.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
     view.setTitleColor(Color.BLACK);
 
     view.getGridLabelRenderer()
