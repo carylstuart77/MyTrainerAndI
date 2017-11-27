@@ -48,6 +48,18 @@ public class ExerciseByDay {
   @DatabaseField(columnName = DAYOFWEEK, canBeNull = false)
   private int dayofweek;
 
+  /**
+   * Used to store selected exercises.
+   */
+  private boolean selected;
+
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
+  }
   //** Getter and Setters for DAYSCHEDULE table fields. */
 
   //Random ID
