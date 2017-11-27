@@ -46,6 +46,9 @@ Application needs (listed in priority order):
 1) Home page could include a page that captures the users eye and draws interest.
 2) Provide link on how to perform exercise through videos or description of proper form.
 
+## Javadocs
+[Javadocs link](/docs)
+
 ## Authors
 
 * Caryl Stuart** - *Initial Developer* 
