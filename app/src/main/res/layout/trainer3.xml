@@ -30,8 +30,6 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
 
-
-
     <Button
       android:id="@+id/radiolower"
       android:layout_width="166dp"

@@ -2,6 +2,7 @@ package edu.cnm.deepdive.mytrainerandi;
 
 import static edu.cnm.deepdive.mytrainerandi.entity.Exercise.CIRCUIT_COLNAME;
 import static edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay.DAYOFWEEK;
+import static edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay.EXERCISE_CONSTANT;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import edu.cnm.deepdive.mytrainerandi.adapters.Trainer3ListAdapter;
@@ -25,6 +27,7 @@ import edu.cnm.deepdive.mytrainerandi.entity.ExerciseByDay;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper;
 import edu.cnm.deepdive.mytrainerandi.helpers.OrmHelper.OrmInteraction;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +36,7 @@ import java.util.List;
  * each exercise is available for selection and can be assigned to a day.
  */
 
-public class Trainer3 extends Fragment implements OnClickListener {
+public class Trainer3 extends Fragment implements OnClickListener, OnCheckedChangeListener {
 
   /**
    * Stores the value of orm helper to be used by this fragments queries.
@@ -62,8 +65,11 @@ public class Trainer3 extends Fragment implements OnClickListener {
   private RadioButton rdSat;
   private RadioButton rdSun;
 
+  private List<ExerciseByDay> allexercisebyday;
+
   /**Group radio buttons so only one can be chosen at a time.*/
   private RadioGroup radiogroup;
+  private String circuit = "";
 
   /**
    * Inflate trainer3 view to display screen for use by trainer. Allows trainer to pick exercises
@@ -91,6 +97,7 @@ public class Trainer3 extends Fragment implements OnClickListener {
     btnUpper.setOnClickListener(this);
 
     radiogroup = trainerView.findViewById(R.id.radiotrainergroup);
+    radiogroup.setOnCheckedChangeListener(this);
     exerciseListView = trainerView.findViewById(R.id.listViewTrainer3);
 
     /**
@@ -124,18 +131,53 @@ public class Trainer3 extends Fragment implements OnClickListener {
    * upon catch condition.
    */
   private void refresh(String circuit) {
+    this.circuit = circuit;
     List<Exercise> allexercise = null;
+    allexercisebyday = new ArrayList<>();
+
+    int selectedday = selectedday();
     try {
       allexercise = helper
           .getExerciseDao().queryForEq(CIRCUIT_COLNAME, circuit);
+
+      for (int i = 0; i < allexercise.size(); i++) {
+            ExerciseByDay exerciseByDay = helper.getDayscheduleDao().queryBuilder().where()
+               .eq(EXERCISE_CONSTANT,allexercise.get(i).getId()).and().eq(DAYOFWEEK, selectedday).queryForFirst();
+            if (exerciseByDay == null) {
+              exerciseByDay = new ExerciseByDay();
+              exerciseByDay.setExercise(allexercise.get(i));
+              exerciseByDay.setDayofweek(selectedday);
+            }
+            allexercisebyday.add(exerciseByDay);
+      }
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
 
     //Display exercises.
     Trainer3ListAdapter trainer3Adapter = new Trainer3ListAdapter(getActivity(),
-        R.layout.trainer3_listview, allexercise);
+        R.layout.trainer3_listview, allexercisebyday);
     exerciseListView.setAdapter(trainer3Adapter);
+  }
+  private int selectedday() {
+    switch (radiogroup.getCheckedRadioButtonId()) {
+      case R.id.radioSun:
+        return 0;
+      case R.id.radioMon:
+        return 1;
+      case R.id.radioTue:
+        return 2;
+      case R.id.radioWed:
+        return 3;
+      case R.id.radioThu:
+        return 4;
+      case R.id.radioFri:
+        return 5;
+      case R.id.radioSat:
+        return 6;
+      default:
+        throw new RuntimeException("No day was selected.");
+    }
   }
 
   @Override
@@ -163,67 +205,14 @@ public class Trainer3 extends Fragment implements OnClickListener {
      * Throw runtime exception if SQL exception is caught.
      */
     if (view.getId() == R.id.btnSaveTrainer) {
-      for (int i = 0; i < exerciseListView.getChildCount(); i++) {
-        if (((CheckBox) exerciseListView.getChildAt(i).findViewById(R.id.edit_trainerpick))
-            .isChecked()) {
-          EditText mTrainerSets = exerciseListView.getChildAt(i)
-              .findViewById(R.id.edit_trainersets);
-          EditText mTrainerReps = exerciseListView.getChildAt(i)
-              .findViewById(R.id.edit_trainerreps);
 
-          String capturesets = mTrainerSets.getText().toString();
-          String capturereps = mTrainerReps.getText().toString();
+      for (int i = 0; i < allexercisebyday.size(); i++) {
+        if (allexercisebyday.get(i).isSelected()){
 
           try {
-
-            int sets = 0;
-            int reps = 0;
-
-            if (!capturesets.trim().isEmpty()) {
-              sets = Integer.parseInt(capturesets);
-            }
-            if (!capturereps.trim().isEmpty()) {
-              reps = Integer.parseInt(capturereps);
-            }
-
-            ExerciseByDay newtrainerpick = new ExerciseByDay();
-
-            newtrainerpick.setSets(sets);
-            newtrainerpick.setReps(reps);
-
             //Write the day of week that was picked through the radio buttons.
 
-            switch (radiogroup.getCheckedRadioButtonId()) {
-              case R.id.radioSun:
-                newtrainerpick.setDayofweek(0);
-                break;
-              case R.id.radioMon:
-                newtrainerpick.setDayofweek(1);
-                break;
-              case R.id.radioTue:
-                newtrainerpick.setDayofweek(2);
-                break;
-              case R.id.radioWed:
-                newtrainerpick.setDayofweek(3);
-                break;
-              case R.id.radioThu:
-                newtrainerpick.setDayofweek(4);
-                break;
-              case R.id.radioFri:
-                newtrainerpick.setDayofweek(5);
-                break;
-              case R.id.radioSat:
-                newtrainerpick.setDayofweek(6);
-                break;
-              default:
-                showTextNotification("Select Day.");
-                return;
-            }
-
-            Exercise item = (Exercise) exerciseListView.getAdapter().getItem(i);
-            newtrainerpick.setExercise(item);
-
-            helper.getExerciseByDayDao().create(newtrainerpick);
+            helper.getExerciseByDayDao().createOrUpdate(allexercisebyday.get(i));
 
             showTextNotification("SAVED IT!");
 
@@ -316,6 +305,11 @@ public class Trainer3 extends Fragment implements OnClickListener {
           });
       alertDialog.show();
     }
+  }
+
+  @Override
+  public void onCheckedChanged(RadioGroup radioGroup, int i) {
+    refresh(circuit);
   }
 }
 

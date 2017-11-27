@@ -51,6 +51,7 @@ public class ExerciseByDay {
   /**
    * Used to store selected exercises.
    */
+  @DatabaseField (columnName = "SELECTED")
   private boolean selected;
 
   public boolean isSelected() {
