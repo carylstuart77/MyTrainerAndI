@@ -16,7 +16,7 @@ bmi progress.
 ### Android OS version and hardware application testing
 * Nexus 5X API 22 Emulator
 * Nexus 5X API 22 Emulator Landscape view: prevents listview from displaying on Trainer page.
-* SAMSUNG Android SM-G900V v6.0.1
+* SAMSUNG Android SM-G900V v6.0.1-Trainer page prevents display due to not enough memory on my phone.
   
 ### Application State and Action Items
 
@@ -33,18 +33,18 @@ Application needs (listed in priority order):
   
 * Client Stats View:
   1) Add Left axis label (cosmetic).
-  2) Adjust graph to make graphed lines appear closer together, for a more intuitive display (cosmetic).   
+  2) Adjust graph to make graphed lines appear closer, for a more intuitive display (cosmetic).   
   
 * Day's Schedule View:
   1) Incorporate sets and reps validation range such as sets 1-5 and reps 1-25 (cosmetic). 
   
-  * Navigation Bar/top settings:
-  1)  Remove settings option.  Does not perform any funtion (function/cosmetic).
+  * Navigation/Top Bar:
+  1)  Remove settings option.  Does not perform any function (function/cosmetic).
 
 ### Stretch Goals:
 1) Provide Trainer with the capability to unselect previous days exercise selections.  
    Currently, it resets and removes all exercerises by day.
-2) Home page could include a page that captures the users eye and draws interest.
+2) Home page could include a page that captures the users eye and draws interest.  
 3) Provide link on how to perform exercise through videos or description of proper form.
 
 ## Javadocs
@@ -52,7 +52,7 @@ Application needs (listed in priority order):
 
 ## Authors
 
-* Caryl Stuart** - *Initial Developer* 
+* Caryl Stuart
 
 ## Acknowledgments
 
