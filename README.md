@@ -32,22 +32,19 @@ Application needs (listed in priority order):
   3) When selecting cardio, the sets and reps need to be level and minutes (cosmetic).
   
 * Client Stats View:
-  1) Validate entries when any of the fields are not filled out, but save is selected. 
-     Currently, it stops app with java.lang.NumberFormatException: Invalid double: "" in Client4 code (functional).
-     -Fixed with try-catch excpetion handling for NumberFormatException.
-  2) Add Left axis label (cosmetic).
-  3) Adjust graph to make graphed lines appear closer together, for a more intuitive display (cosmetic).  
-  
+  1) Add Left axis label (cosmetic).
+  2) Adjust graph to make graphed lines appear closer together, for a more intuitive display (cosmetic).   
   
 * Day's Schedule View:
   1) Incorporate sets and reps validation range such as sets 1-5 and reps 1-25 (cosmetic). 
 
 ### Stretch Goals:
-1) Home page could include a page that captures the users eye and draws interest.
-2) Provide link on how to perform exercise through videos or description of proper form.
+1) Provide Trainer with the capability to unselected previous days exercise selections.
+2) Home page could include a page that captures the users eye and draws interest.
+3) Provide link on how to perform exercise through videos or description of proper form.
 
 ## Javadocs
-[Javadocs link](https://carylstuart77.github.io/MyTrainerAndI/docs)
+[Javadocs link](docs)
 
 ## Authors
 
