@@ -159,7 +159,9 @@ public class Trainer3 extends Fragment implements OnClickListener, OnCheckedChan
         R.layout.trainer3_listview, allexercisebyday);
     exerciseListView.setAdapter(trainer3Adapter);
   }
+
   private int selectedday() {
+
     switch (radiogroup.getCheckedRadioButtonId()) {
       case R.id.radioSun:
         return 0;
@@ -176,7 +178,9 @@ public class Trainer3 extends Fragment implements OnClickListener, OnCheckedChan
       case R.id.radioSat:
         return 6;
       default:
-        throw new RuntimeException("No day was selected.");
+        showTextNotification("Select Day.");
+        return 7;
+        //throw new RuntimeException("No day was selected.");
     }
   }
 

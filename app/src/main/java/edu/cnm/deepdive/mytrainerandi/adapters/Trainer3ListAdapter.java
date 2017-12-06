@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class Trainer3ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
+  LayoutInflater inflater = LayoutInflater.from(getContext());
+
   /**
    * Convert the array of the master list of exercise into scrollable view for selection by
    * trainer.
@@ -35,10 +37,11 @@ public class Trainer3ListAdapter extends ArrayAdapter<ExerciseByDay> {
   }
 
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
-    LayoutInflater inflater = LayoutInflater.from(getContext());
+  public View getView(int position, View view, ViewGroup parent) {
 
-    View view = inflater.inflate(R.layout.trainer3_listview, parent, false);
+    if (view == null) {
+      view = inflater.inflate(R.layout.trainer3_listview, parent, false);
+    }
 
     TextView tcircuit = view.findViewById(R.id.trainer_circuit);
     TextView tmuscle = view.findViewById(R.id.trainer_muscle);
@@ -71,7 +74,9 @@ public class Trainer3ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
       @Override
       public void afterTextChanged(Editable editable) {
-        item.setSets(Integer.parseInt(editable.toString()));
+        if (!editable.toString().equals("")) {
+          item.setSets(Integer.parseInt(editable.toString()));
+        }
       }
     });
     ereps.addTextChangedListener(new TextWatcher() {
@@ -87,14 +92,20 @@ public class Trainer3ListAdapter extends ArrayAdapter<ExerciseByDay> {
 
       @Override
       public void afterTextChanged(Editable editable) {
-        item.setReps(Integer.parseInt(editable.toString()));
+        if (!editable.toString().equals("")) {
+          item.setReps(Integer.parseInt(editable.toString()));
+        }
       }
     });
 
     if (item.isSelected()) {
-      cbox.setSelected(true);
+      cbox.setChecked(true);
       ereps.setText("" + item.getReps());
       esets.setText("" + item.getSets());
+    }else {
+      cbox.setChecked(false);
+      ereps.setText("");
+      esets.setText("");
     }
 
     tcircuit.setText(item.getExercise().getCircuit());

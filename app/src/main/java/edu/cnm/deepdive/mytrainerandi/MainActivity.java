@@ -141,6 +141,10 @@ public class MainActivity extends AppCompatActivity
    */
   private void displaySelectedScreen(int id) {
 
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    drawer.closeDrawer(GravityCompat.START, false);
+
+
     Fragment fragment = null;
     id = getIntent().getIntExtra("position", id);
 
@@ -165,8 +169,7 @@ public class MainActivity extends AppCompatActivity
       ft.commit();
     }
 
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    drawer.closeDrawer(GravityCompat.START);
+
   }
 
   @SuppressWarnings("StatementWithEmptyBody")

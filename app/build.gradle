@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.3"
     defaultConfig {
         applicationId "edu.cnm.deepdive.mytrainerandi"
         minSdkVersion 19
@@ -31,5 +31,9 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'com.jjoe64:graphview:4.2.1'
     compile 'com.android.support:support-v4:26.+'
+    compile 'com.google.android.gms:play-services-auth:11.6.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     testCompile 'junit:junit:4.12'
+
 }
+apply plugin: 'com.google.gms.google-services'

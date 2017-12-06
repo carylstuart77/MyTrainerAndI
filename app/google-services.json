@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "588092019041",
+    "project_id": "mytrainerandi"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588092019041:android:a3d416966dc1124b",
+        "android_client_info": {
+          "package_name": "edu.cnm.deepdive.mytrainerand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588092019041-9c6ka9mv8euj0o65evr8lb9dvgi6ioc8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.cnm.deepdive.mytrainerand",
+            "certificate_hash": "41619b41535b87f1f34d8a3990bfd4c5a8cac733"
+          }
+        },
+        {
+          "client_id": "588092019041-qonk47bgfhb462h8ibs0s2qqms6l0tvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQfIxqpp5lJwqk6hiNELUL_IOv19t4-2g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

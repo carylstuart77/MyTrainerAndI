@@ -199,6 +199,13 @@ public class OrmHelper extends OrmLiteSqliteOpenHelper {
     client.setHeight(64);
     getClientDao().createIfNotExists(client);
 
+    try {
+      inputStreamClient.close();
+      inputStream.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
 //    //---------Sample population of Goals for spinner in client4-KEEP ---------//
 //    //Currently populated from strings.xml goal-arrays.
 //    Goal goalMM = new Goal();
